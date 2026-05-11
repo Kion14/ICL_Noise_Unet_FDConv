@@ -261,7 +261,7 @@ class LightningModel(pl.LightningModule):
 
 # X, Y, V = reading_camus_data()
 
-data = read_histopathology_data('/home/kion/AA Scriptie/CellBinDB', image_size=192) #192
+data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192) #192
 X, V, Y = split_training_data(data)
 small_X = X[:8]
 small_V = X[:8]
