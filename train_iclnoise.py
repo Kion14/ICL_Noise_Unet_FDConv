@@ -261,11 +261,20 @@ class LightningModel(pl.LightningModule):
 
 # X, Y, V = reading_camus_data()
 
-data = read_histopathology_data('/home/kion/AA Scriptie/CellBinDB', image_size=96) #192
+data = read_histopathology_data('/home/kion/AA Scriptie/CellBinDB', image_size=192) #192
 X, V, Y = split_training_data(data)
+small_X = X[:8]
+small_V = X[:8]
+small_Y = X[:8]
+
+X = small_X
+V = small_V
+Y = small_Y
 
 X_init = X.copy()
 # X = augment_data(X, context=False, target_size=(192, 192))
+
+
 
 # =============================================================================
 # Define dataset and dataloaders
@@ -523,15 +532,26 @@ if __name__ == "__main__":
         mode='min'
     )
 
+    ###################################################################### NIUEW
     # Initialize trainer
+    # trainer = pl.Trainer(
+    #     max_epochs=30,
+    #     callbacks=[checkpoint_callback, early_stop_callback],
+    #     logger=logger,
+    #     accelerator='gpu' if torch.cuda.is_available() else 'cpu',
+    #     devices=2,
+    #     strategy="ddp_find_unused_parameters_true"
+    # )
+
     trainer = pl.Trainer(
-        max_epochs=30,
-        callbacks=[checkpoint_callback, early_stop_callback],
-        logger=logger,
-        accelerator='gpu' if torch.cuda.is_available() else 'cpu',
-        devices=2,
-        strategy="ddp_find_unused_parameters_true"
+        max_epochs=50,
+        accelerator="gpu",
+        devices=1,
+        log_every_n_steps=1,
+        enable_checkpointing=False
     )
+
+    ######################################################################
 
     # # Log dataset sizes
     logging.info(f"Training started with {len(data_module.train_dataset)} training samples")
