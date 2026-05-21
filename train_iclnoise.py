@@ -263,13 +263,13 @@ class LightningModel(pl.LightningModule):
 
 data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192) #192
 X, V, Y = split_training_data(data)
-small_X = X[:8]
-small_V = X[:8]
-small_Y = X[:8]
+# small_X = X[:8]
+# small_V = X[:8]
+# small_Y = X[:8]
 
-X = small_X
-V = small_V
-Y = small_Y
+# X = small_X
+# V = small_V
+# Y = small_Y
 
 X_init = X.copy()
 # X = augment_data(X, context=False, target_size=(192, 192))
@@ -481,7 +481,7 @@ class UltrasoundDataModule(LightningDataModule):
 # =============================================================================
 
 # Prepare the data module
-data_module = UltrasoundDataModule(X, X_init, V, Y, batch_size=1,num_workers=8)
+data_module = UltrasoundDataModule(X, X_init, V, Y, batch_size=4,num_workers=8)
 
 
 if __name__ == "__main__":
@@ -491,7 +491,7 @@ if __name__ == "__main__":
         X_init,
         V,
         Y,
-        batch_size=1,
+        batch_size=4,
         num_workers=8
     )
 
@@ -544,10 +544,10 @@ if __name__ == "__main__":
     # )
 
     trainer = pl.Trainer(
-        max_epochs=200,
+        max_epochs=100,
         accelerator="gpu",
         devices=1,
-        log_every_n_steps=1,
+        log_every_n_steps=10,
         enable_checkpointing=False
     )
 
