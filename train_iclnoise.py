@@ -36,7 +36,7 @@ from scipy.ndimage import distance_transform_edt as distance_transform
 from glob import glob
 import csv
 import pandas as pd
-from dataloaders import reading_training_data_fetal, reading_camus_data, reading_data, reading_data_tg3k, get_data_jnu,get_frame_labels, read_and_split_busi_data, read_and_split_busbra_data, read_data_jnu,split_training_data, read_histopathology_data
+from dataloaders import reading_training_data_fetal, reading_camus_data, reading_data, reading_data_tg3k, get_data_jnu,get_frame_labels, read_and_split_busi_data, read_and_split_busbra_data, read_data_jnu,split_training_data, read_histopathology_data, split_leave_one_stain_out
 
 
 
@@ -263,16 +263,24 @@ class LightningModel(pl.LightningModule):
 
 data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192) #192
 X, V, Y = split_training_data(data)
-# small_X = X[:8]
-# small_V = X[:8]
-# small_Y = X[:8]
-
-# X = small_X
-# V = small_V
-# Y = small_Y
 
 X_init = X.copy()
 # X = augment_data(X, context=False, target_size=(192, 192))
+
+
+#################### LEAVE ONE OUT
+
+# data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
+
+# X, V, Y = split_leave_one_stain_out(
+#     data,
+#     test_stain="DAPI"
+# )
+
+# X_init = X.copy()
+
+
+
 
 
 
