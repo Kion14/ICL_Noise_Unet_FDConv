@@ -10,6 +10,8 @@ import csv
 import pandas as pd
 import json
 from PIL import Image
+import random
+from collections import Counter
 
 
 
@@ -168,14 +170,41 @@ def read_and_split_busi_data(
     Y = read_and_resize(Y)
     return X, V, Y
 
-def split_training_data(image_pairs):
-    length = len(image_pairs)
-    length_train = int(length * 0.70)
-    length_val = int((length * 0.20))
+# def split_training_data(image_pairs):
+#     length = len(image_pairs)
+#     length_train = int(length * 0.70)
+#     length_val = int((length * 0.20))
 
-    X = image_pairs[:length_train]
-    V = image_pairs[length_train:length_train + length_val]
-    Y = image_pairs[length_train + length_val:]
+#     X = image_pairs[:length_train]
+#     V = image_pairs[length_train:length_train + length_val]
+#     Y = image_pairs[length_train + length_val:]
+
+#     return X, V, Y
+
+
+def split_training_data(image_pairs, train_ratio=0.70, val_ratio=0.20, seed=42, print_stats=True):
+    data = image_pairs.copy()
+
+    # Random shuffle zodat stains door elkaar zitten
+    random.seed(seed)
+    random.shuffle(data)
+
+    length = len(data)
+    length_train = int(length * train_ratio)
+    length_val = int(length * val_ratio)
+
+    X = data[:length_train]
+    V = data[length_train:length_train + length_val]
+    Y = data[length_train + length_val:]
+
+    if print_stats:
+        def stain_counts(split):
+            return Counter([item[2] for item in split])
+
+        print("Total samples:", length)
+        print("Train samples:", len(X), stain_counts(X))
+        print("Val samples:", len(V), stain_counts(V))
+        print("Test samples:", len(Y), stain_counts(Y))
 
     return X, V, Y
 
