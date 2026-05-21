@@ -81,6 +81,7 @@ class LightningModel(pl.LightningModule):
         
         # Loss function
         self.criterion = SoftDiceLoss()
+        self.bce_loss = nn.BCEWithLogitsLoss()
 
     def forward(self, target_in, context_in, context_out=None):
         sc = ShapeChecker()
@@ -100,7 +101,8 @@ class LightningModel(pl.LightningModule):
         # loss = self.criterion(pred_masks,target_masks.squeeze(1))
 
         pred_masks = self(target_images, context_images, context_masks)
-        loss = self.criterion(pred_masks, target_masks)
+        # loss = self.criterion(pred_masks, target_masks)
+        loss = self.dice_loss(pred_masks, target_masks) + self.bce_loss(pred_masks, target_masks)
 
         #############################################################################################
 
@@ -119,7 +121,8 @@ class LightningModel(pl.LightningModule):
         # loss = self.criterion(pred_masks, target_masks.squeeze(1))
 
         pred_masks = self(target_images, context_images, context_mask)
-        loss = self.criterion(pred_masks, target_masks)
+        # loss = self.criterion(pred_masks, target_masks)
+        loss = self.dice_loss(pred_masks, target_masks) + self.bce_loss(pred_masks, target_masks)
 
 
         ##################################################################################################
@@ -150,7 +153,8 @@ class LightningModel(pl.LightningModule):
             context_mask
         )
 
-        loss = self.criterion(pred_masks, target_masks)
+        # loss = self.criterion(pred_masks, target_masks)
+        loss = self.dice_loss(pred_masks, target_masks) + self.bce_loss(pred_masks, target_masks)
 
         ####################################################################################
 
@@ -217,7 +221,7 @@ class LightningModel(pl.LightningModule):
         
         pred = torch.sigmoid(pred_logits)
         
-        preds = pred > 0.5
+        preds = pred > 0.4
         targets = target > 0.5
         smooth = 1e-6  # Smoothing factor to avoid division by zero
         
