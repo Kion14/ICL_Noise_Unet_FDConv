@@ -135,7 +135,8 @@ class LightningModel(pl.LightningModule):
 
 
     def test_step(self, batch, batch_idx):
-        target_images, target_masks, context_images,context_mask = batch
+        target_images, target_masks, context_images,context_mask, stains = batch
+        f.write(f"Batch {batch_idx} Stain: {stains[0]} Dice: ...")
 
         ############################################################################### NIUEW
         # Forward pass
@@ -177,17 +178,26 @@ class LightningModel(pl.LightningModule):
             f.write(f" Batch {batch_idx} "
                     f"Dice: {metrics['dice']:.4f}, IoU: {metrics['iou']:.4f}\n")
         # plot side by side
-        fig, axes = plt.subplots(1,3, figsize=(12,4))
+        fig, axes = plt.subplots(1,4, figsize=(16,4))
         axes[0].imshow(img_np, cmap="gray")
         axes[0].set_title("Input Image")
         axes[1].imshow(gt_np, cmap="gray")
         axes[1].set_title("GT Mask")
         axes[2].imshow(pred_np, cmap="gray")
         axes[2].set_title("Predicted Mask")
+        axes[3].imshow(img_np)
+        axes[3].imshow(pred_np, alpha=0.4, cmap="jet")
+        axes[3].set_title("Prediction Overlay")
         for ax in axes: ax.axis("off")
 
         # save
-        save_path = os.path.join(self.save_dir, f"sample_{self.current_epoch}_{batch_idx}.png")
+        # save_path = os.path.join(self.save_dir, f"sample_{self.current_epoch}_{batch_idx}.png")
+
+
+        save_path = os.path.join(
+            self.save_dir,
+            f"test_batch_{batch_idx}_dice_{metrics['dice']:.3f}_iou_{metrics['iou']:.3f}.png"
+        )
         plt.savefig(save_path, bbox_inches="tight")
         plt.close(fig)
 
@@ -390,7 +400,7 @@ class EvalDataset(Dataset):
     
     def __getitem__(self, idx):
         # target_img, target_mask = self.target_data[idx]
-        target_img, target_mask, *_ = self.target_data[idx]
+        target_img, target_mask, stain = self.target_data[idx]
 
         ################################################################################################ NIEUW
         # target_img = torch.tensor(np.ascontiguousarray(target_img), dtype=torch.float32)  # [H, W]
@@ -414,7 +424,10 @@ class EvalDataset(Dataset):
                 dtype=torch.float32
             ).permute(2, 0, 1)
             #############################################################################
-            distances.append(torch.norm(target_img - ctx_tensor).item())
+            # distances.append(torch.norm(target_img - ctx_tensor).item())
+            same_stain_context = [
+                item for item in self.context_dataset if item[2] == stain
+            ]
         
         sorted_indices = np.argsort(distances)[:self.context_size]
 
@@ -454,7 +467,8 @@ class EvalDataset(Dataset):
             target_img,
             target_mask,
             context_imgs_tensor,
-            context_masks_tensor
+            context_masks_tensor,
+            stain
         )
             
         ######################################################################################
@@ -471,10 +485,10 @@ class UltrasoundDataModule(LightningDataModule):
         self.num_workers=num_workers
     def setup(self, stage=None):
         # Training set
-        self.train_dataset = TrainDataset(self.X_train, self.X_init,context_size=1) # allemaal 16
+        self.train_dataset = TrainDataset(self.X_train, self.X_init,context_size=16) # allemaal 16
         # Validation/Test sets
-        self.val_dataset = EvalDataset(self.X_val, self.X_init, context_size=1)
-        self.test_dataset = EvalDataset(self.X_test, self.X_init, context_size=1)
+        self.val_dataset = EvalDataset(self.X_val, self.X_init, context_size=16)
+        self.test_dataset = EvalDataset(self.X_test, self.X_init, context_size=16)
         
     def train_dataloader(self):
         return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True,num_workers=self.num_workers)
@@ -551,12 +565,21 @@ if __name__ == "__main__":
     #     strategy="ddp_find_unused_parameters_true"
     # )
 
+    # trainer = pl.Trainer(
+    #     max_epochs=100,
+    #     accelerator="gpu",
+    #     devices=1,
+    #     log_every_n_steps=10,
+    #     enable_checkpointing=False
+    # )
+
     trainer = pl.Trainer(
-        max_epochs=100,
+        max_epochs=150,
+        callbacks=[checkpoint_callback, early_stop_callback],
+        logger=logger,
         accelerator="gpu",
         devices=1,
-        log_every_n_steps=10,
-        enable_checkpointing=False
+        log_every_n_steps=10
     )
 
     ######################################################################
