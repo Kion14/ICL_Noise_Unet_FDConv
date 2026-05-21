@@ -196,12 +196,12 @@ class LightningModel(pl.LightningModule):
 
     def configure_optimizers(self):
         optimizer = optim.AdamW(self.parameters(), 
-                              lr=1e-5,
+                              lr=1e-4,
                               weight_decay=1e-7)
         return optimizer
 
     def _calculate_metrics(self, pred_logits, target, save_dir="outputs", batch_idx=0):
-        target = target.squeeze(1).squeeze(1)
+        target = target.squeeze(1)
         pred_logits = pred_logits.squeeze(1)
         
         pred = torch.sigmoid(pred_logits)
@@ -544,7 +544,7 @@ if __name__ == "__main__":
     # )
 
     trainer = pl.Trainer(
-        max_epochs=50,
+        max_epochs=200,
         accelerator="gpu",
         devices=1,
         log_every_n_steps=1,
