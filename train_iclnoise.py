@@ -136,7 +136,6 @@ class LightningModel(pl.LightningModule):
 
     def test_step(self, batch, batch_idx):
         target_images, target_masks, context_images,context_mask, stains = batch
-        f.write(f"Batch {batch_idx} Stain: {stains[0]} Dice: ...")
 
         ############################################################################### NIUEW
         # Forward pass
@@ -175,8 +174,10 @@ class LightningModel(pl.LightningModule):
 
 # Append Dice and IoU for each sample
         with open(metrics_path, "a") as f:
-            f.write(f" Batch {batch_idx} "
-                    f"Dice: {metrics['dice']:.4f}, IoU: {metrics['iou']:.4f}\n")
+            f.write(
+                f"Batch {batch_idx} Stain: {stains[0]} "
+                f"Dice: {metrics['dice']:.4f}, IoU: {metrics['iou']:.4f}\n"
+            )
         # plot side by side
         fig, axes = plt.subplots(1,4, figsize=(16,4))
         axes[0].imshow(img_np, cmap="gray")
@@ -414,26 +415,59 @@ class EvalDataset(Dataset):
         #############################################################################################
    
         # --- Find k closest context samples based on L2 distance ---
-        distances = []
-        for context_img, context_mask, *_ in self.context_dataset:
+        # distances = []
+        # for context_img, context_mask, *_ in self.context_dataset:
 
-            ######################################################################################### NIUEW
-            # ctx_tensor = torch.tensor(np.ascontiguousarray(context_img), dtype=torch.float32)
+        #     ######################################################################################### NIUEW
+        #     # ctx_tensor = torch.tensor(np.ascontiguousarray(context_img), dtype=torch.float32)
+        #     ctx_tensor = torch.tensor(
+        #         np.ascontiguousarray(context_img),
+        #         dtype=torch.float32
+        #     ).permute(2, 0, 1)
+        #     #############################################################################
+        #     # distances.append(torch.norm(target_img - ctx_tensor).item())
+        #     same_stain_context = [
+        #         item for item in self.context_dataset if item[2] == stain
+        #     ]
+        
+        # sorted_indices = np.argsort(distances)[:self.context_size]
+
+        # # Select the top-k most similar context samples
+        # context_imgs = []
+        # context_masks = []
+
+
+
+        # --- Find k closest context samples, preferably from same stain ---
+        same_stain_context = [
+            item for item in self.context_dataset if item[2] == stain
+        ]
+
+        # Fallback: als er geen context samples met dezelfde stain zijn
+        candidate_context = same_stain_context if len(same_stain_context) > 0 else self.context_dataset
+
+        distances = []
+        for context_img, context_mask, *_ in candidate_context:
             ctx_tensor = torch.tensor(
                 np.ascontiguousarray(context_img),
                 dtype=torch.float32
             ).permute(2, 0, 1)
-            #############################################################################
-            # distances.append(torch.norm(target_img - ctx_tensor).item())
-            same_stain_context = [
-                item for item in self.context_dataset if item[2] == stain
-            ]
-        
+
+            distances.append(torch.norm(target_img - ctx_tensor).item())
+
         sorted_indices = np.argsort(distances)[:self.context_size]
 
-        # Select the top-k most similar context samples
         context_imgs = []
         context_masks = []
+        for i in sorted_indices:
+            ctx_img, ctx_mask, *_ = candidate_context[i]
+            context_imgs.append(np.ascontiguousarray(ctx_img))
+            context_masks.append(np.ascontiguousarray(ctx_mask))
+
+
+
+
+
         for i in sorted_indices:
             ctx_img, ctx_mask, *_ = self.context_dataset[i]
             context_imgs.append(np.ascontiguousarray(ctx_img))
