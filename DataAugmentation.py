@@ -62,6 +62,50 @@ def random_intensity_augmentation(image, p=0.8):
     image = np.power(image, gamma)
 
     return np.clip(image, 0, 1).astype(np.float32)
+
+def random_color_augmentation(image, p=0.5):
+    """
+    Color/stain augmentation:
+    - saturation jitter
+    - hue shift
+    - channel dropout
+    - channel shuffle
+
+    image expected in [0, 1], shape [H, W, 3]
+    """
+    if random.random() > p:
+        return image
+
+    image = image.astype(np.float32)
+
+    # saturation + hue via HSV
+    img_uint8 = (np.clip(image, 0, 1) * 255).astype(np.uint8)
+    hsv = cv2.cvtColor(img_uint8, cv2.COLOR_RGB2HSV).astype(np.float32)
+
+    # saturation jitter
+    sat_factor = random.uniform(0.6, 1.5)
+    hsv[:, :, 1] *= sat_factor
+
+    # hue shift
+    hue_shift = random.uniform(-10, 10)
+    hsv[:, :, 0] = (hsv[:, :, 0] + hue_shift) % 180
+
+    hsv[:, :, 1] = np.clip(hsv[:, :, 1], 0, 255)
+    hsv[:, :, 2] = np.clip(hsv[:, :, 2], 0, 255)
+
+    image = cv2.cvtColor(hsv.astype(np.uint8), cv2.COLOR_HSV2RGB).astype(np.float32) / 255.0
+
+    # channel dropout
+    if random.random() < 0.25:
+        ch = random.randint(0, 2)
+        image[:, :, ch] = 0.0
+
+    # channel shuffle
+    if random.random() < 0.25:
+        order = np.random.permutation(3)
+        image = image[:, :, order]
+
+    return np.clip(image, 0, 1).astype(np.float32)
 ###################################################################
 
 
