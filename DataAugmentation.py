@@ -106,6 +106,28 @@ def random_color_augmentation(image, p=0.5):
         image = image[:, :, order]
 
     return np.clip(image, 0, 1).astype(np.float32)
+
+def random_grayscale(image, p=0.3):
+    """
+    Random grayscale augmentation.
+    Converts RGB -> grayscale -> back to RGB.
+    """
+    if random.random() > p:
+        return image
+
+    image = image.astype(np.float32)
+
+    gray = cv2.cvtColor(
+        (image * 255).astype(np.uint8),
+        cv2.COLOR_RGB2GRAY
+    )
+
+    gray = gray.astype(np.float32) / 255.0
+
+    # back to 3 channels
+    gray_rgb = np.stack([gray, gray, gray], axis=-1)
+
+    return np.clip(gray_rgb, 0, 1).astype(np.float32)
 ###################################################################
 
 

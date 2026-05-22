@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from DataAugmentation import augment_data
-from DataAugmentation import random_intensity_augmentation, random_color_augmentation
+from DataAugmentation import random_intensity_augmentation, random_color_augmentation, random_grayscale
 import cv2
 import os
 import pytorch_lightning as pl
@@ -43,7 +43,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "augment_B_1.0_DAPI_samecontext_ctx16"
+EXPERIMENT_NAME = "augment_C_1.0_DAPI_samecontext_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -380,6 +380,7 @@ class TrainDataset(Dataset):
             target_img, target_mask, *_ = self.data[idx]
             target_img = random_intensity_augmentation(target_img)
             target_img = random_color_augmentation(target_img)
+            target_img = random_grayscale(target_img)
 
 
             # img = torch.tensor(np.ascontiguousarray(img), dtype=torch.float32, device="cpu").unsqueeze(0)
@@ -393,6 +394,7 @@ class TrainDataset(Dataset):
             target_img, target_mask, *_ = self.data[idx]
             target_img = random_intensity_augmentation(target_img)
             target_img = random_color_augmentation(target_img)
+            target_img = random_grayscale(target_img)
 
 
             # target_img = torch.tensor(np.ascontiguousarray(target_img), dtype=torch.float32, device="cpu").unsqueeze(0)  # [1, C, H, W]
@@ -423,6 +425,7 @@ class TrainDataset(Dataset):
                 c_img, c_mask, *_ = self.data[context_idx]
                 c_img = random_intensity_augmentation(c_img)
                 c_img = random_color_augmentation(c_img)
+                c_img = random_grayscale(c_img)
 
 
                 #################################################################### NIUEW
