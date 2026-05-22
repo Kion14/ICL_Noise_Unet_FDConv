@@ -279,10 +279,10 @@ class LightningModel(pl.LightningModule):
 
 
 ###############
-# data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192) #192
-# X, V, Y = split_training_data(data)
+data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192) #192
+X, V, Y = split_training_data(data)
 
-# X_init = X.copy()
+X_init = X.copy()
 ##############
 
 
@@ -301,14 +301,14 @@ class LightningModel(pl.LightningModule):
 # X_init = X.copy()
 
 
-data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
+# data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
 
-X, V, Y = split_single_stain(
-    data,
-    stain_name="mIF"
-)
+# X, V, Y = split_single_stain(
+#     data,
+#     stain_name="mIF"
+# )
 
-X_init = X.copy()
+# X_init = X.copy()
 
 
 
@@ -355,7 +355,17 @@ class TrainDataset(Dataset):
 
             # Get context samples (different from target and sequential)
             # We'll take the next 'context_size' samples after the target
-            context_indices = range(idx + 1, idx + 1 + self.context_size)
+
+            # context_indices = range(idx + 1, idx + 1 + self.context_size)
+
+            # Random context size tussen 1 en max context_size
+            k = random.randint(1, self.context_size)
+
+            # Random context samples kiezen
+            available_indices = list(range(len(self.data)))
+            available_indices.remove(idx)
+
+            context_indices = random.sample(available_indices, k)
 
             context_imgs = []
             context_masks = []
@@ -375,6 +385,12 @@ class TrainDataset(Dataset):
                 context_imgs.append(c_img)
                 context_masks.append(c_mask)
             # Stack context samples along the sequence dimension
+            # Pad naar vaste lengte
+            while len(context_imgs) < self.context_size:
+                context_imgs.append(torch.zeros_like(context_imgs[0]))
+                context_masks.append(torch.zeros_like(context_masks[0]))
+
+
             context_img = torch.stack(context_imgs, dim=0)  # [4, 1, C, H, W]
             context_mask = torch.stack(context_masks, dim=0)  # [4, 1, C, H, W]            
             

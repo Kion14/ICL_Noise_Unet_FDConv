@@ -300,9 +300,9 @@ def read_histopathology_data(root, image_size=192):
     for stain_folder in os.listdir(root):
 
             # tijdelijk mIF overslaan
-        # if stain_folder == "mIF":
-        #     print("Skipping mIF for baseline debugging", flush=True)
-        #     continue
+        if stain_folder == "mIF":
+            print("Skipping mIF for baseline debugging", flush=True)
+            continue
 
         stain_path = os.path.join(root, stain_folder)
 
