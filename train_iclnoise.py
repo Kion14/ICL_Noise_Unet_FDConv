@@ -2,6 +2,7 @@ from models.NoiseContext import ContextNoiseUNet
 
 import torch
 from torch import nn, optim
+import torch.nn as nn
 from matplotlib import pyplot as plt
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
@@ -80,7 +81,7 @@ class LightningModel(pl.LightningModule):
        
         
         # Loss function
-        self.criterion = SoftDiceLoss()
+        self.dice_loss = SoftDiceLoss()
         self.bce_loss = nn.BCEWithLogitsLoss()
 
     def forward(self, target_in, context_in, context_out=None):
