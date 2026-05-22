@@ -222,7 +222,7 @@ class LightningModel(pl.LightningModule):
         
         pred = torch.sigmoid(pred_logits)
         
-        preds = pred > 0.4
+        preds = pred > 0.5
         targets = target > 0.5
         smooth = 1e-6  # Smoothing factor to avoid division by zero
         

@@ -340,14 +340,15 @@ def read_histopathology_data(root, image_size=192):
             img = np.array(img_pil, dtype=np.float32) / 255.0
             mask_raw = np.array(mask_pil, dtype=np.float32)
 
+            # Skip blank/corrupted images
+            if img.max() < 0.01 or img.std() < 0.01:
+                print(f"Skipping blank image: {image_path}", flush=True)
+                continue
+
             if stain_folder == "mIF":
                 mask = (mask_raw < 128).astype(np.float32)
             else:
                 mask = (mask_raw > 0).astype(np.float32)
-
-            if img.max() < 0.01 or img.std() < 0.01:
-                print(f"Skipping blank image: {image_path}")
-                continue
 
             data.append((img, mask, stain_folder))
 
