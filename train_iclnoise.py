@@ -702,7 +702,7 @@ if __name__ == "__main__":
         mode='min',
         save_top_k=1,
         # filename='best-{epoch}-{val_loss:2f}-',
-        filename=f'{EXPERIMENT_NAME}-{{epoch}}-{{val_loss:.4f}}'
+        filename=f'{EXPERIMENT_NAME}-{{epoch}}-{{val_loss:.4f}}',
         every_n_epochs=1
     )
 
