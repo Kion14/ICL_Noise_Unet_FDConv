@@ -300,9 +300,9 @@ def read_histopathology_data(root, image_size=192):
     for stain_folder in os.listdir(root):
 
             # tijdelijk mIF overslaan
-        if stain_folder == "mIF":
-            print("Skipping mIF for baseline debugging", flush=True)
-            continue
+        # if stain_folder == "mIF":
+        #     print("Skipping mIF for baseline debugging", flush=True)
+        #     continue
 
         stain_path = os.path.join(root, stain_folder)
 
@@ -355,6 +355,33 @@ def read_histopathology_data(root, image_size=192):
     print("Loaded histopathology samples:", len(data))
 
     return data
+
+
+def split_single_stain(image_pairs, stain_name="mIF", train_ratio=0.70, val_ratio=0.20, seed=42, print_stats=True):
+    import random
+    from collections import Counter
+
+    data = [item for item in image_pairs if item[2] == stain_name]
+
+    random.seed(seed)
+    random.shuffle(data)
+
+    n = len(data)
+    n_train = int(n * train_ratio)
+    n_val = int(n * val_ratio)
+
+    X = data[:n_train]
+    V = data[n_train:n_train + n_val]
+    Y = data[n_train + n_val:]
+
+    if print_stats:
+        print(f"Single-stain split: {stain_name}")
+        print("Total:", n)
+        print("Train:", len(X), Counter([item[2] for item in X]))
+        print("Val:", len(V), Counter([item[2] for item in V]))
+        print("Test:", len(Y), Counter([item[2] for item in Y]))
+
+    return X, V, Y
 ########################################################################################################
 
 # =============================================================================

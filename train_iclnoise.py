@@ -38,7 +38,7 @@ from glob import glob
 import csv
 import pandas as pd
 from dataloaders import reading_training_data_fetal, reading_camus_data, reading_data, reading_data_tg3k, get_data_jnu,get_frame_labels, read_and_split_busi_data, read_and_split_busbra_data, read_data_jnu,split_training_data, read_histopathology_data, split_leave_one_stain_out
-
+from dataloaders import split_single_stain
 
 
 
@@ -277,10 +277,15 @@ class LightningModel(pl.LightningModule):
 
 # X, Y, V = reading_camus_data()
 
-data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192) #192
-X, V, Y = split_training_data(data)
 
-X_init = X.copy()
+###############
+# data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192) #192
+# X, V, Y = split_training_data(data)
+
+# X_init = X.copy()
+##############
+
+
 # X = augment_data(X, context=False, target_size=(192, 192))
 
 
@@ -296,7 +301,14 @@ X_init = X.copy()
 # X_init = X.copy()
 
 
+data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
 
+X, V, Y = split_single_stain(
+    data,
+    stain_name="mIF"
+)
+
+X_init = X.copy()
 
 
 
