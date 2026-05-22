@@ -6,7 +6,8 @@ import torch.nn as nn
 from matplotlib import pyplot as plt
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
-from DataAugmentation import augment_data, random_intensity_augmentation
+from DataAugmentation import augment_data
+# from DataAugmentation import random_intensity_augmentation
 import cv2
 import os
 import pytorch_lightning as pl
@@ -42,7 +43,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "leaveout_10×Genomics_HE_samecontext_ctx16"
+EXPERIMENT_NAME = "leaveout_ssDNA_samecontext_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -320,7 +321,7 @@ X_init = X.copy()
 
 data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
 
-heldout_stain = "10×Genomics_HE"
+heldout_stain = "ssDNA"  # 10×Genomics_HE /DAPI,  nog doen
 
 X, V, Y = split_leave_one_stain_out(
     data,
