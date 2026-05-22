@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from DataAugmentation import augment_data
-# from DataAugmentation import random_intensity_augmentation
+from DataAugmentation import random_intensity_augmentation
 import cv2
 import os
 import pytorch_lightning as pl
@@ -43,7 +43,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "leaveout_10×Genomics_DAPI_samecontext_ctx16"
+EXPERIMENT_NAME = "augment_A_leaveDAPI_samecontext_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -321,7 +321,7 @@ X_init = X.copy()
 
 data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
 
-heldout_stain = "10×Genomics_DAPI"  #  /DAPI,  nog doen
+heldout_stain = "DAPI"  #10×Genomics_DAPI  /DAPI,  nog doen
 
 X, V, Y = split_leave_one_stain_out(
     data,
@@ -371,7 +371,7 @@ class TrainDataset(Dataset):
             # img, mask = self.data[idx]
 
             target_img, target_mask, *_ = self.data[idx]
-            # target_img = random_intensity_augmentation(target_img)
+            target_img = random_intensity_augmentation(target_img)
 
 
             # img = torch.tensor(np.ascontiguousarray(img), dtype=torch.float32, device="cpu").unsqueeze(0)
@@ -383,7 +383,7 @@ class TrainDataset(Dataset):
             # target_img, target_mask = self.data[idx]
 
             target_img, target_mask, *_ = self.data[idx]
-            # target_img = random_intensity_augmentation(target_img)
+            target_img = random_intensity_augmentation(target_img)
 
 
             # target_img = torch.tensor(np.ascontiguousarray(target_img), dtype=torch.float32, device="cpu").unsqueeze(0)  # [1, C, H, W]
@@ -412,7 +412,7 @@ class TrainDataset(Dataset):
 
 
                 c_img, c_mask, *_ = self.data[context_idx]
-                # c_img = random_intensity_augmentation(c_img)
+                c_img = random_intensity_augmentation(c_img)
 
 
                 #################################################################### NIUEW
