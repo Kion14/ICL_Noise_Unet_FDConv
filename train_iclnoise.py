@@ -43,7 +43,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "augment_A_leave10xgenomics_DAPI_samecontext_ctx16"
+EXPERIMENT_NAME = "augment_A_1.0_DAPI_samecontext_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -168,14 +168,21 @@ class LightningModel(pl.LightningModule):
         # Log everything
         self.log_dict({f"test_{k}": v for k, v in metrics.items()})
         self.log("test_loss", loss)
-        img = target_images[0,0].detach().cpu()     # shape [C,H,W] or [H,W]
+
+        # img = target_images[0,0].detach().cpu()     # shape [C,H,W] or [H,W]
+        img = target_images[0].detach().cpu()
+        img_np = img.permute(1, 2, 0).numpy()
+
+
         gt_mask = target_masks[0,0].detach().cpu()
-        pred_mask = pred_masks[0,0].detach().cpu()  # convert logits to [0,1]
+        # pred_mask = pred_masks[0,0].detach().cpu()  # convert logits to [0,1]
+        pred_mask = torch.sigmoid(pred_masks[0, 0]).detach().cpu()
 
         # convert to numpy
         img_np = img.permute(1,2,0).numpy() if img.ndim==3 else img.numpy()
         gt_np = gt_mask.squeeze().numpy()
-        pred_np = (pred_mask > 0.5).squeeze().numpy().astype(float)  # binarize
+        # pred_np = (pred_mask > 0.5).squeeze().numpy().astype(float)  # binarize
+        pred_np = (pred_mask > 0.5).squeeze().numpy().astype(float)
         # Rotate all images 90° clockwise
        
         # metrics_path = os.path.join(self.save_dir, "test_metrics.txt")
@@ -321,7 +328,7 @@ X_init = X.copy()
 
 data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
 
-heldout_stain = "10×Genomics_DAPI"  #  /DAPI,  nog doen
+heldout_stain = "DAPI"  #  /DAPI,  nog doen
 
 X, V, Y = split_leave_one_stain_out(
     data,
@@ -535,15 +542,6 @@ class EvalDataset(Dataset):
         context_masks = []
         for i in sorted_indices:
             ctx_img, ctx_mask, *_ = candidate_context[i]
-            context_imgs.append(np.ascontiguousarray(ctx_img))
-            context_masks.append(np.ascontiguousarray(ctx_mask))
-
-
-
-
-
-        for i in sorted_indices:
-            ctx_img, ctx_mask, *_ = self.context_dataset[i]
             context_imgs.append(np.ascontiguousarray(ctx_img))
             context_masks.append(np.ascontiguousarray(ctx_mask))
 
