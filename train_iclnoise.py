@@ -39,6 +39,7 @@ import csv
 import pandas as pd
 from dataloaders import reading_training_data_fetal, reading_camus_data, reading_data, reading_data_tg3k, get_data_jnu,get_frame_labels, read_and_split_busi_data, read_and_split_busbra_data, read_data_jnu,split_training_data, read_histopathology_data, split_leave_one_stain_out
 from dataloaders import split_single_stain
+from dataloaders import split_leave_one_stain_out
 
 
 
@@ -301,6 +302,21 @@ X_init = X.copy()
 # X_init = X.copy()
 
 
+
+data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
+
+heldout_stain = "DAPI"
+
+X, V, Y = split_leave_one_stain_out(
+    data,
+    test_stain=heldout_stain
+)
+
+train_context = X.copy()
+test_context = Y.copy()
+
+
+
 # data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
 
 # X, V, Y = split_single_stain(
@@ -542,20 +558,54 @@ class EvalDataset(Dataset):
 
 
 class UltrasoundDataModule(LightningDataModule):
-    def __init__(self, X_train, X_init, X_val, X_test, batch_size=4,num_workers=0):
+    # def __init__(self, X_train, X_init, X_val, X_test, batch_size=4,num_workers=0):
+    #     super().__init__()
+    #     self.X_train = X_train
+    #     self.X_init = X_init
+    #     self.X_val = X_val
+    #     self.X_test = X_test
+    #     self.batch_size = batch_size
+    #     self.num_workers=num_workers
+
+
+    def __init__(self, X_train, train_context, X_val, X_test, test_context, batch_size=4, num_workers=0):
         super().__init__()
         self.X_train = X_train
-        self.X_init = X_init
+        self.train_context = train_context
         self.X_val = X_val
         self.X_test = X_test
+        self.test_context = test_context
         self.batch_size = batch_size
-        self.num_workers=num_workers
+        self.num_workers = num_workers
+
+
+
+
+
     def setup(self, stage=None):
-        # Training set
-        self.train_dataset = TrainDataset(self.X_train, self.X_init,context_size=16) # allemaal 16
-        # Validation/Test sets
-        self.val_dataset = EvalDataset(self.X_val, self.X_init, context_size=16)
-        self.test_dataset = EvalDataset(self.X_test, self.X_init, context_size=16)
+        # # Training set
+        # self.train_dataset = TrainDataset(self.X_train, self.X_init,context_size=16) # allemaal 16
+        # # Validation/Test sets
+        # self.val_dataset = EvalDataset(self.X_val, self.X_init, context_size=16)
+        # self.test_dataset = EvalDataset(self.X_test, self.X_init, context_size=16)
+
+        self.train_dataset = TrainDataset(
+            self.X_train,
+            self.train_context,
+            context_size=16
+        )
+
+        self.val_dataset = EvalDataset(
+            self.X_val,
+            self.train_context,
+            context_size=16
+        )
+
+        self.test_dataset = EvalDataset(
+            self.X_test,
+            self.test_context,
+            context_size=16
+        )
         
     def train_dataloader(self):
         return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True,num_workers=self.num_workers)
@@ -570,16 +620,36 @@ class UltrasoundDataModule(LightningDataModule):
 # =============================================================================
 
 # Prepare the data module
-data_module = UltrasoundDataModule(X, X_init, V, Y, batch_size=4,num_workers=8)
+# data_module = UltrasoundDataModule(X, X_init, V, Y, batch_size=4,num_workers=8)
+
+data_module = UltrasoundDataModule(
+    X,
+    train_context,
+    V,
+    Y,
+    test_context,
+    batch_size=4,
+    num_workers=8
+)
 
 
 if __name__ == "__main__":
 
+    # data_module = UltrasoundDataModule(
+    #     X,
+    #     X_init,
+    #     V,
+    #     Y,
+    #     batch_size=4,
+    #     num_workers=8
+    # )
+
     data_module = UltrasoundDataModule(
         X,
-        X_init,
+        train_context,
         V,
         Y,
+        test_context,
         batch_size=4,
         num_workers=8
     )
