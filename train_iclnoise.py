@@ -6,7 +6,7 @@ import torch.nn as nn
 from matplotlib import pyplot as plt
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
-from DataAugmentation import augment_data
+from DataAugmentation import augment_data, random_intensity_augmentation
 import cv2
 import os
 import pytorch_lightning as pl
@@ -42,7 +42,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "leaveout_HE_samecontext_ctx16"
+EXPERIMENT_NAME = "leaveout_ssDNA_samecontext_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -320,7 +320,7 @@ X_init = X.copy()
 
 data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
 
-heldout_stain = "HE"
+heldout_stain = "ssDNA"
 
 X, V, Y = split_leave_one_stain_out(
     data,
@@ -368,7 +368,10 @@ class TrainDataset(Dataset):
         if self.return_context_only:
             # When used as context dataset, only return img and mask
             # img, mask = self.data[idx]
+
             target_img, target_mask, *_ = self.data[idx]
+            # target_img = random_intensity_augmentation(target_img)
+
 
             # img = torch.tensor(np.ascontiguousarray(img), dtype=torch.float32, device="cpu").unsqueeze(0)
             # mask = torch.tensor(np.ascontiguousarray(mask), dtype=torch.float32, device="cpu").unsqueeze(0)
@@ -379,6 +382,9 @@ class TrainDataset(Dataset):
             # target_img, target_mask = self.data[idx]
 
             target_img, target_mask, *_ = self.data[idx]
+            # target_img = random_intensity_augmentation(target_img)
+
+
             # target_img = torch.tensor(np.ascontiguousarray(target_img), dtype=torch.float32, device="cpu").unsqueeze(0)  # [1, C, H, W]
             # target_mask = torch.tensor(np.ascontiguousarray(target_mask), dtype=torch.float32, device="cpu").unsqueeze(0)  # [1, C, H, W]
 
@@ -402,7 +408,10 @@ class TrainDataset(Dataset):
             context_masks = []
             for context_idx in context_indices:
                 # c_img, c_mask = self.data[context_idx]
+
+
                 c_img, c_mask, *_ = self.data[context_idx]
+                # c_img = random_intensity_augmentation(c_img)
 
 
                 #################################################################### NIUEW

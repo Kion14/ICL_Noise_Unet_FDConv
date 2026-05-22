@@ -40,6 +40,32 @@ def add_gaussian_noise(image, mean=0, std=0.01):
 def adjust_brightness_contrast(image, alpha=1.2, beta=0.2):
     return np.clip(alpha * image + beta, 0, 1)
 
+################################################################### NIUEW
+# def random_intensity_augmentation(image, p=0.8):
+#     """
+#     Brightness + contrast + gamma augmentation.
+#     image expected in [0, 1], shape [H, W, C]
+#     """
+#     if random.random() > p:
+#         return image
+
+#     image = image.astype(np.float32)
+
+#     # brightness/contrast
+#     alpha = random.uniform(0.75, 1.35)  # contrast
+#     beta = random.uniform(-0.15, 0.15)  # brightness
+#     image = alpha * image + beta
+#     image = np.clip(image, 0, 1)
+
+#     # gamma
+#     gamma = random.uniform(0.7, 1.5)
+#     image = np.power(image, gamma)
+
+#     return np.clip(image, 0, 1).astype(np.float32)
+###################################################################
+
+
+
 def augment_data(image_data, context = False, target_size=(512, 512), max_rotations=50, max_zoom=1.4, max_elastic=True):
     augmented_data = []
     if context is False:
