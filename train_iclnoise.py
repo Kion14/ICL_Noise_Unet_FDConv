@@ -42,7 +42,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-
+EXPERIMENT_NAME = "leaveout_DAPI_samecontext_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -69,7 +69,8 @@ class LightningModel(pl.LightningModule):
         super().__init__()
         self.save_hyperparameters(hparams)
         self.best_dice = 0.0
-        self.save_dir="exp_1"
+        # self.save_dir="exp_1"
+        self.save_dir = f"results/{EXPERIMENT_NAME}"
         os.makedirs(self.save_dir, exist_ok=True)
         self.net=ContextNoiseUNet()
         #self.net = MultiverSegNet(encoder_blocks=[64, 64, 64, 64])
@@ -176,7 +177,11 @@ class LightningModel(pl.LightningModule):
         pred_np = (pred_mask > 0.5).squeeze().numpy().astype(float)  # binarize
         # Rotate all images 90° clockwise
        
-        metrics_path = os.path.join(self.save_dir, "test_metrics.txt")
+        # metrics_path = os.path.join(self.save_dir, "test_metrics.txt")
+        metrics_path = os.path.join(
+            self.save_dir,
+            f"{EXPERIMENT_NAME}_metrics.txt"
+        )
 
 # Append Dice and IoU for each sample
         with open(metrics_path, "a") as f:
@@ -201,10 +206,20 @@ class LightningModel(pl.LightningModule):
         # save_path = os.path.join(self.save_dir, f"sample_{self.current_epoch}_{batch_idx}.png")
 
 
+        # save_path = os.path.join(
+        #     self.save_dir,
+        #     f"test_batch_{batch_idx}_dice_{metrics['dice']:.3f}_iou_{metrics['iou']:.3f}.png"
+        # )
+
+
         save_path = os.path.join(
             self.save_dir,
-            f"test_batch_{batch_idx}_dice_{metrics['dice']:.3f}_iou_{metrics['iou']:.3f}.png"
+            f"{EXPERIMENT_NAME}_batch_{batch_idx}_stain_{stains[0]}_dice_{metrics['dice']:.3f}.png"
         )
+
+
+
+
         plt.savefig(save_path, bbox_inches="tight")
         plt.close(fig)
 
@@ -667,7 +682,12 @@ if __name__ == "__main__":
         ]
     )
 
-    logger = TensorBoardLogger("iclnoise", name="model_logs")
+    # logger = TensorBoardLogger("iclnoise", name="model_logs")
+
+    logger = TensorBoardLogger(
+        "iclnoise",
+        name=EXPERIMENT_NAME
+    )
 
     # Initialize your model
     hparams = {
@@ -681,7 +701,8 @@ if __name__ == "__main__":
         monitor='val_loss',
         mode='min',
         save_top_k=1,
-        filename='best-{epoch}-{val_loss:2f}-',
+        # filename='best-{epoch}-{val_loss:2f}-',
+        filename=f'{EXPERIMENT_NAME}-{{epoch}}-{{val_loss:.4f}}'
         every_n_epochs=1
     )
 
