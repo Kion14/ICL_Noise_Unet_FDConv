@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "augment_A_Niuew_10×Genomics_HE_samecontext_ctx16"
+EXPERIMENT_NAME = "augment_A_Niuew_10×Genomics_DAPI_samecontext_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -329,7 +329,7 @@ X_init = X.copy()
 
 data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
 
-heldout_stain = "10×Genomics_HE"  #  /DAPI,  nog doen
+heldout_stain = "10×Genomics_DAPI"  #  /DAPI,  nog doen
 
 X, V, Y = split_leave_one_stain_out(
     data,
