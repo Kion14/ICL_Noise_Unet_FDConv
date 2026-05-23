@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "augment_A_3.0_p=0.5_DAPI_samecontext_ctx16"
+EXPERIMENT_NAME = "augment_A_4.0_t=0.4_DAPI_samecontext_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -247,7 +247,7 @@ class LightningModel(pl.LightningModule):
         
         pred = torch.sigmoid(pred_logits)
         
-        preds = pred > 0.5
+        preds = pred > 0.4  ##################################################################################### threshhold
         targets = target > 0.5
         smooth = 1e-6  # Smoothing factor to avoid division by zero
         
