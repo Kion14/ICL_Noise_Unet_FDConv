@@ -72,16 +72,16 @@ def random_intensity_augmentation(image, p=0.5):
     image = image.astype(np.float32)
 
     # contrast
-    alpha = random.uniform(0.75, 1.35)
+    alpha = random.uniform(0.85, 1.20)
 
     # brightness
-    beta = random.uniform(-0.15, 0.15)
+    beta = random.uniform(-0.10, 0.10)
 
     image = alpha * image + beta
     image = np.clip(image, 0, 1)
 
     # gamma
-    gamma = random.uniform(0.7, 1.5)
+    gamma = random.uniform(0.85, 1.25)
     image = np.power(image, gamma)
 
     return np.clip(image, 0, 1).astype(np.float32)
