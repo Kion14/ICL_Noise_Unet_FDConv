@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "augment_A_3.0_mildintens_DAPI_samecontext_ctx16"
+EXPERIMENT_NAME = "augment_A_3.0_p=0.5_DAPI_samecontext_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
