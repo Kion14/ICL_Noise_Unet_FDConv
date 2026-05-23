@@ -65,23 +65,23 @@ def adjust_brightness_contrast(image, alpha=1.2, beta=0.2):
 
 
 
-def random_intensity_augmentation(image, p=0.5):
+def random_intensity_augmentation(image, p=0.8):
     if random.random() > p:
         return image
 
     image = image.astype(np.float32)
 
     # contrast
-    alpha = random.uniform(0.85, 1.20)
+    alpha = random.uniform(0.75, 1.35)
 
     # brightness
-    beta = random.uniform(-0.10, 0.10)
+    beta = random.uniform(-0.15, 0.15)
 
     image = alpha * image + beta
     image = np.clip(image, 0, 1)
 
     # gamma
-    gamma = random.uniform(0.85, 1.25)
+    gamma = random.uniform(0.7, 1.5)
     image = np.power(image, gamma)
 
     return np.clip(image, 0, 1).astype(np.float32)
