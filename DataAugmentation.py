@@ -41,19 +41,42 @@ def adjust_brightness_contrast(image, alpha=1.2, beta=0.2):
     return np.clip(alpha * image + beta, 0, 1)
 
 ################################################################### NIUEW
+# def random_intensity_augmentation(image, p=0.8):
+#     """
+#     Brightness + contrast + gamma augmentation.
+#     image expected in [0, 1], shape [H, W, C]
+#     """
+#     if random.random() > p:
+#         return image
+
+#     image = image.astype(np.float32)
+
+#     # brightness/contrast
+#     alpha = random.uniform(0.75, 1.35)  # contrast
+#     beta = random.uniform(-0.15, 0.15)  # brightness
+#     image = alpha * image + beta
+#     image = np.clip(image, 0, 1)
+
+#     # gamma
+#     gamma = random.uniform(0.7, 1.5)
+#     image = np.power(image, gamma)
+
+#     return np.clip(image, 0, 1).astype(np.float32)
+
+
+
 def random_intensity_augmentation(image, p=0.8):
-    """
-    Brightness + contrast + gamma augmentation.
-    image expected in [0, 1], shape [H, W, C]
-    """
     if random.random() > p:
         return image
 
     image = image.astype(np.float32)
 
-    # brightness/contrast
-    alpha = random.uniform(0.75, 1.35)  # contrast
-    beta = random.uniform(-0.15, 0.15)  # brightness
+    # contrast
+    alpha = random.uniform(0.75, 1.35)
+
+    # brightness
+    beta = random.uniform(-0.15, 0.15)
+
     image = alpha * image + beta
     image = np.clip(image, 0, 1)
 
@@ -63,71 +86,75 @@ def random_intensity_augmentation(image, p=0.8):
 
     return np.clip(image, 0, 1).astype(np.float32)
 
-def random_color_augmentation(image, p=0.5):
-    """
-    Color/stain augmentation:
-    - saturation jitter
-    - hue shift
-    - channel dropout
-    - channel shuffle
 
-    image expected in [0, 1], shape [H, W, 3]
-    """
-    if random.random() > p:
-        return image
 
-    image = image.astype(np.float32)
 
-    # saturation + hue via HSV
-    img_uint8 = (np.clip(image, 0, 1) * 255).astype(np.uint8)
-    hsv = cv2.cvtColor(img_uint8, cv2.COLOR_RGB2HSV).astype(np.float32)
 
-    # saturation jitter
-    sat_factor = random.uniform(0.6, 1.5)
-    hsv[:, :, 1] *= sat_factor
+# def random_color_augmentation(image, p=0.5):
+#     """
+#     Color/stain augmentation:
+#     - saturation jitter
+#     - hue shift
+#     - channel dropout
+#     - channel shuffle
 
-    # hue shift
-    hue_shift = random.uniform(-10, 10)
-    hsv[:, :, 0] = (hsv[:, :, 0] + hue_shift) % 180
+#     image expected in [0, 1], shape [H, W, 3]
+#     """
+#     if random.random() > p:
+#         return image
 
-    hsv[:, :, 1] = np.clip(hsv[:, :, 1], 0, 255)
-    hsv[:, :, 2] = np.clip(hsv[:, :, 2], 0, 255)
+#     image = image.astype(np.float32)
 
-    image = cv2.cvtColor(hsv.astype(np.uint8), cv2.COLOR_HSV2RGB).astype(np.float32) / 255.0
+#     # saturation + hue via HSV
+#     img_uint8 = (np.clip(image, 0, 1) * 255).astype(np.uint8)
+#     hsv = cv2.cvtColor(img_uint8, cv2.COLOR_RGB2HSV).astype(np.float32)
 
-    # channel dropout
-    if random.random() < 0.25:
-        ch = random.randint(0, 2)
-        image[:, :, ch] = 0.0
+#     # saturation jitter
+#     sat_factor = random.uniform(0.6, 1.5)
+#     hsv[:, :, 1] *= sat_factor
 
-    # channel shuffle
-    if random.random() < 0.25:
-        order = np.random.permutation(3)
-        image = image[:, :, order]
+#     # hue shift
+#     hue_shift = random.uniform(-10, 10)
+#     hsv[:, :, 0] = (hsv[:, :, 0] + hue_shift) % 180
 
-    return np.clip(image, 0, 1).astype(np.float32)
+#     hsv[:, :, 1] = np.clip(hsv[:, :, 1], 0, 255)
+#     hsv[:, :, 2] = np.clip(hsv[:, :, 2], 0, 255)
 
-def random_grayscale(image, p=0.3):
-    """
-    Random grayscale augmentation.
-    Converts RGB -> grayscale -> back to RGB.
-    """
-    if random.random() > p:
-        return image
+#     image = cv2.cvtColor(hsv.astype(np.uint8), cv2.COLOR_HSV2RGB).astype(np.float32) / 255.0
 
-    image = image.astype(np.float32)
+#     # channel dropout
+#     if random.random() < 0.25:
+#         ch = random.randint(0, 2)
+#         image[:, :, ch] = 0.0
 
-    gray = cv2.cvtColor(
-        (image * 255).astype(np.uint8),
-        cv2.COLOR_RGB2GRAY
-    )
+#     # channel shuffle
+#     if random.random() < 0.25:
+#         order = np.random.permutation(3)
+#         image = image[:, :, order]
 
-    gray = gray.astype(np.float32) / 255.0
+#     return np.clip(image, 0, 1).astype(np.float32)
 
-    # back to 3 channels
-    gray_rgb = np.stack([gray, gray, gray], axis=-1)
+# def random_grayscale(image, p=0.3):
+#     """
+#     Random grayscale augmentation.
+#     Converts RGB -> grayscale -> back to RGB.
+#     """
+#     if random.random() > p:
+#         return image
 
-    return np.clip(gray_rgb, 0, 1).astype(np.float32)
+#     image = image.astype(np.float32)
+
+#     gray = cv2.cvtColor(
+#         (image * 255).astype(np.uint8),
+#         cv2.COLOR_RGB2GRAY
+#     )
+
+#     gray = gray.astype(np.float32) / 255.0
+
+#     # back to 3 channels
+#     gray_rgb = np.stack([gray, gray, gray], axis=-1)
+
+#     return np.clip(gray_rgb, 0, 1).astype(np.float32)
 ###################################################################
 
 
