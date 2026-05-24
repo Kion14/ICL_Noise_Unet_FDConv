@@ -87,6 +87,19 @@ def random_intensity_augmentation(image, p=0.8):
     return np.clip(image, 0, 1).astype(np.float32)
 
 
+def random_invert_intensity(image, p=0.3):
+    """
+    Random intensity inversion:
+    dark nuclei <-> bright nuclei
+    """
+    if random.random() > p:
+        return image
+
+    image = image.astype(np.float32)
+
+    return (1.0 - image).astype(np.float32)
+
+
 
 
 
