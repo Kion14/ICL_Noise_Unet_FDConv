@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "augment_A_DAPI_qualitygreyscalecontext_ctx8"
+EXPERIMENT_NAME = "augment_A_DAPI_qualitygreyscalecontext_ctx4"
 
 
 class SoftDiceLoss(nn.Module):
