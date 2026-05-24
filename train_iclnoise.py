@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "augment_A_Niuew_10×Genomics_DAPI_samecontext_ctx16"
+EXPERIMENT_NAME = "augment_A_DAPI_qualitygreyscalecontext_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -329,7 +329,7 @@ X_init = X.copy()
 
 data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
 
-heldout_stain = "10×Genomics_DAPI"  #  /DAPI,  nog doen
+heldout_stain = "DAPI"  #  /DAPI,  nog doen
 
 X, V, Y = split_leave_one_stain_out(
     data,
@@ -532,7 +532,26 @@ class EvalDataset(Dataset):
         ]
 
         # Fallback: als er geen context samples met dezelfde stain zijn
+        # candidate_context = same_stain_context if len(same_stain_context) > 0 else self.context_dataset
+
         candidate_context = same_stain_context if len(same_stain_context) > 0 else self.context_dataset
+
+        # Filter slechte context masks
+        filtered_context = []
+        for item in candidate_context:
+            ctx_img, ctx_mask, *_ = item
+            mask_ratio = ctx_mask.mean()
+
+            if 0.01 < mask_ratio < 0.70:
+                filtered_context.append(item)
+
+        # fallback als filter te streng is
+        candidate_context = filtered_context if len(filtered_context) >= self.context_size else candidate_context
+
+
+
+
+
 
         distances = []
         for context_img, context_mask, *_ in candidate_context:
@@ -541,7 +560,14 @@ class EvalDataset(Dataset):
                 dtype=torch.float32
             ).permute(2, 0, 1)
 
-            distances.append(torch.norm(target_img - ctx_tensor).item())
+            # distances.append(torch.norm(target_img - ctx_tensor).item())
+            target_gray = target_img.mean(dim=0)
+            target_gray = (target_gray - target_gray.mean()) / (target_gray.std() + 1e-6)
+
+            ctx_gray = ctx_tensor.mean(dim=0)
+            ctx_gray = (ctx_gray - ctx_gray.mean()) / (ctx_gray.std() + 1e-6)
+
+            distances.append(torch.norm(target_gray - ctx_gray).item())
 
         sorted_indices = np.argsort(distances)[:self.context_size]
 
