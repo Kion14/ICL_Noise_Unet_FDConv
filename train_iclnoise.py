@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "augment_A_DAPI_qualitygreyscalecontext_ctx16"
+EXPERIMENT_NAME = "augment_A_DAPI_qualitygreyscalecontext_ctx8"
 
 
 class SoftDiceLoss(nn.Module):
@@ -358,7 +358,7 @@ test_context = Y.copy()
 
 
 class TrainDataset(Dataset):
-    def __init__(self, data, context_dataset, context_size=4, return_context_only=False, device='cuda'):
+    def __init__(self, data, context_dataset, context_size=8, return_context_only=False, device='cuda'):
         self.data = data
         self.context_size = context_size
         self.return_context_only = return_context_only
@@ -478,7 +478,7 @@ class TrainDataset(Dataset):
 
 class EvalDataset(Dataset):
     """Evaluation dataset with same channel padding as TrainDataset and 4 context samples"""
-    def __init__(self, target_data, context_dataset, context_size=4):
+    def __init__(self, target_data, context_dataset, context_size=8):
         self.target_data = target_data
         self.context_dataset = context_dataset
         #self.context_dataset = [(img, mask, cls) if len(item) == 3 else (img, mask, None) for item in context_dataset for img, mask, *cls in [item]]
