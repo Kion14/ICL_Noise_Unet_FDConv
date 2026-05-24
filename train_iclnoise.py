@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "augment_A_DAPI_BATCH1randINVERT_ctx16"
+EXPERIMENT_NAME = "augment_A_DAPI_AANPASSINGEN_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -304,10 +304,10 @@ class LightningModel(pl.LightningModule):
 
 
 ###############
-data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192) #192
-X, V, Y = split_training_data(data)
+# data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192) #192
+# X, V, Y = split_training_data(data)
 
-X_init = X.copy()
+# X_init = X.copy()
 ##############
 
 
@@ -414,9 +414,12 @@ class TrainDataset(Dataset):
             k = random.randint(1, self.context_size)
 
             # Random context samples kiezen
-            available_indices = list(range(len(self.data)))
-            available_indices.remove(idx)
+            # available_indices = list(range(len(self.data)))
+            # available_indices.remove(idx)
 
+            # context_indices = random.sample(available_indices, k)
+
+            available_indices = list(range(len(self.context_dataset)))
             context_indices = random.sample(available_indices, k)
 
             context_imgs = []
@@ -425,7 +428,8 @@ class TrainDataset(Dataset):
                 # c_img, c_mask = self.data[context_idx]
 
 
-                c_img, c_mask, *_ = self.data[context_idx]
+                # c_img, c_mask, *_ = self.data[context_idx]
+                c_img, c_mask, *_ = self.context_dataset[context_idx]
                 c_img = random_intensity_augmentation(c_img)
                 c_img = random_invert_intensity(c_img)
                 # c_img = random_color_augmentation(c_img)
@@ -444,9 +448,12 @@ class TrainDataset(Dataset):
                 context_masks.append(c_mask)
             # Stack context samples along the sequence dimension
             # Pad naar vaste lengte
-            while len(context_imgs) < self.context_size:
-                context_imgs.append(torch.zeros_like(context_imgs[0]))
-                context_masks.append(torch.zeros_like(context_masks[0]))
+            # while len(context_imgs) < self.context_size:
+            #     context_imgs.append(torch.zeros_like(context_imgs[0]))
+            #     context_masks.append(torch.zeros_like(context_masks[0]))
+
+            k = self.context_size
+            context_indices = random.sample(available_indices, k)
 
 
             context_img = torch.stack(context_imgs, dim=0)  # [4, 1, C, H, W]
