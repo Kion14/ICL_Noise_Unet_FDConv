@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "augment_A_DAPI_qualitygreyscalecontext_ctx32"
+EXPERIMENT_NAME = "augment_A_DAPI_BATCH1_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -624,7 +624,7 @@ class UltrasoundDataModule(LightningDataModule):
     #     self.num_workers=num_workers
 
 
-    def __init__(self, X_train, train_context, X_val, X_test, test_context, batch_size=4, num_workers=0):
+    def __init__(self, X_train, train_context, X_val, X_test, test_context, batch_size=1, num_workers=0):
         super().__init__()
         self.X_train = X_train
         self.train_context = train_context
@@ -648,19 +648,19 @@ class UltrasoundDataModule(LightningDataModule):
         self.train_dataset = TrainDataset(
             self.X_train,
             self.train_context,
-            context_size=32
+            context_size=16
         )
 
         self.val_dataset = EvalDataset(
             self.X_val,
             self.train_context,
-            context_size=32
+            context_size=16
         )
 
         self.test_dataset = EvalDataset(
             self.X_test,
             self.test_context,
-            context_size=32
+            context_size=16
         )
         
     def train_dataloader(self):
@@ -684,7 +684,7 @@ data_module = UltrasoundDataModule(
     V,
     Y,
     test_context,
-    batch_size=4,
+    batch_size=1,
     num_workers=8
 )
 
@@ -706,7 +706,7 @@ if __name__ == "__main__":
         V,
         Y,
         test_context,
-        batch_size=4,
+        batch_size=1,
         num_workers=8
     )
 
