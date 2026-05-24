@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "augment_A_DAPI_AANPASSINGEN_ctx16"
+EXPERIMENT_NAME = "augment_A_DAPI_AANPASSINGEN2_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -411,7 +411,8 @@ class TrainDataset(Dataset):
             # context_indices = range(idx + 1, idx + 1 + self.context_size)
 
             # Random context size tussen 1 en max context_size
-            k = random.randint(1, self.context_size)
+            # k = random.randint(1, self.context_size)
+            k = self.context_size
 
             # Random context samples kiezen
             # available_indices = list(range(len(self.data)))
@@ -451,9 +452,6 @@ class TrainDataset(Dataset):
             # while len(context_imgs) < self.context_size:
             #     context_imgs.append(torch.zeros_like(context_imgs[0]))
             #     context_masks.append(torch.zeros_like(context_masks[0]))
-
-            k = self.context_size
-            context_indices = random.sample(available_indices, k)
 
 
             context_img = torch.stack(context_imgs, dim=0)  # [4, 1, C, H, W]
@@ -634,7 +632,7 @@ class UltrasoundDataModule(LightningDataModule):
     #     self.num_workers=num_workers
 
 
-    def __init__(self, X_train, train_context, X_val, X_test, test_context, batch_size=1, num_workers=0):
+    def __init__(self, X_train, train_context, X_val, X_test, test_context, batch_size=4, num_workers=0):
         super().__init__()
         self.X_train = X_train
         self.train_context = train_context
@@ -694,7 +692,7 @@ data_module = UltrasoundDataModule(
     V,
     Y,
     test_context,
-    batch_size=1,
+    batch_size=4,
     num_workers=8
 )
 
@@ -716,7 +714,7 @@ if __name__ == "__main__":
         V,
         Y,
         test_context,
-        batch_size=1,
+        batch_size=4,
         num_workers=8
     )
 
@@ -814,7 +812,18 @@ if __name__ == "__main__":
     # 4. Move the model to the appropriate device
     model.to("cuda" if torch.cuda.is_available() else "cpu")
 
-    test_results = trainer.test(model, data_module.test_dataloader())
+    # test_results = trainer.test(model, data_module.test_dataloader())
+
+    test_loader = DataLoader(
+        data_module.test_dataset,
+        batch_size=1,
+        shuffle=False,
+        num_workers=8
+    )
+
+    test_results = trainer.test(model, test_loader)
+
+
     logging.info(f"Test results: {test_results}")
 
     best_model_path = checkpoint_callback.best_model_path
