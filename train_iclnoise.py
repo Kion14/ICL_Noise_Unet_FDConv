@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "25mei_0-shotsOPLOSSEN_ctx16"
+EXPERIMENT_NAME = "25mei_0-shotsOPLOSSEN2_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -202,8 +202,11 @@ class LightningModel(pl.LightningModule):
 # Append Dice and IoU for each sample
         with open(metrics_path, "a") as f:
             f.write(
-                f"Batch {batch_idx} Stain: {stains[0]} "
-                f"Dice: {metrics['dice']:.4f}, IoU: {metrics['iou']:.4f}\n"
+                f"Batch {batch_idx} "
+                f"Stain: {stains[0]} "
+                f"Sample: {sample_ids[0]} "
+                f"Dice: {metrics['dice']:.4f}, "
+                f"IoU: {metrics['iou']:.4f}\n"
             )
         # plot side by side
         fig, axes = plt.subplots(1,4, figsize=(16,4))
@@ -228,9 +231,14 @@ class LightningModel(pl.LightningModule):
         # )
 
 
+        # save_path = os.path.join(
+        #     self.save_dir,
+        #     f"{EXPERIMENT_NAME}_batch_{batch_idx}_stain_{stains[0]}_dice_{metrics['dice']:.3f}.png"
+        # )
+
         save_path = os.path.join(
             self.save_dir,
-            f"{EXPERIMENT_NAME}_batch_{batch_idx}_stain_{stains[0]}_dice_{metrics['dice']:.3f}.png"
+            f"{EXPERIMENT_NAME}_batch_{batch_idx}_sample_{sample_ids[0]}_stain_{stains[0]}_dice_{metrics['dice']:.3f}.png"
         )
 
 
@@ -835,7 +843,7 @@ if __name__ == "__main__":
     logging.info(f"Test samples: {len(data_module.test_dataset)}")
 
     # Train the model
-    trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader())
+    # trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
 
 
 
@@ -857,6 +865,12 @@ if __name__ == "__main__":
         batch_size=1,
         shuffle=False,
         num_workers=8
+    )
+
+
+    model = LightningModel.load_from_checkpoint(
+        "iclnoise/25mei_0-shotsOPLOSSEN_ctx16/version_1/checkpoints/25mei_0-shotsOPLOSSEN_ctx16-epoch=14-val_loss=0.3148.ckpt",
+        hparams=hparams
     )
 
     test_results = trainer.test(model, test_loader)
