@@ -117,7 +117,7 @@ class LightningModel(pl.LightningModule):
         return loss
 
     def validation_step(self, batch, batch_idx):
-        target_images, target_masks, context_images,context_mask, stains = batch
+        target_images, target_masks, context_images,context_mask, stains, sample_ids = batch
         # Forward pass
 
         ################################################################################################# NIUEW
