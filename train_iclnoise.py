@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "25mei_ONLYLEGEMASKS_ctx16"
+EXPERIMENT_NAME = "25mei_0-shotsOPLOSSEN_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -95,7 +95,7 @@ class LightningModel(pl.LightningModule):
         return y_pred 
 
     def training_step(self, batch, batch_idx):
-        target_images, target_masks, context_images,context_masks = batch
+        target_images, target_masks, context_images, context_masks = batch
         target_images=target_images.to("cuda")
         target_masks=target_masks.to("cuda")
         context_images=context_images.to("cuda")
@@ -143,7 +143,14 @@ class LightningModel(pl.LightningModule):
 
 
     def test_step(self, batch, batch_idx):
-        target_images, target_masks, context_images,context_mask, stains = batch
+        # target_images, target_masks, context_images,context_mask, stains = batch
+        target_images, target_masks, context_images, context_mask, stains, sample_ids = batch
+
+        print(
+            f"Batch {batch_idx} | "
+            f"Stain: {stains[0]} | "
+            f"Sample: {sample_ids[0]}"
+        )
 
         ############################################################################### NIUEW
         # Forward pass
@@ -392,10 +399,7 @@ class TrainDataset(Dataset):
             # img, mask = self.data[idx]
 
             target_img, target_mask, *_ = self.data[idx]
-            # Skip bijna lege masks
-            if target_mask.mean() < 0.005:
-                new_idx = random.randint(0, len(self.data) - 1)
-                return self.__getitem__(new_idx)
+            
             # target_img = percentile_normalize(target_img)
             target_img = random_intensity_augmentation(target_img)
             target_img = random_invert_intensity(target_img)
@@ -517,7 +521,11 @@ class EvalDataset(Dataset):
     
     def __getitem__(self, idx):
         # target_img, target_mask = self.target_data[idx]
-        target_img, target_mask, stain = self.target_data[idx]
+        # target_img, target_mask, stain = self.target_data[idx]
+        target_img, target_mask, stain, sample_id = self.target_data[idx]
+
+
+
         # target_img = percentile_normalize(target_img)
         ################################################################################################ NIEUW
         # target_img = torch.tensor(np.ascontiguousarray(target_img), dtype=torch.float32)  # [H, W]
@@ -631,14 +639,23 @@ class EvalDataset(Dataset):
         #     context_masks_tensor.unsqueeze(1)  
         # )
 
+        # return (
+        #     target_img,
+        #     target_mask,
+        #     context_imgs_tensor,
+        #     context_masks_tensor,
+        #     stain
+        # )
+
         return (
             target_img,
             target_mask,
             context_imgs_tensor,
             context_masks_tensor,
-            stain
+            stain,
+            sample_id
         )
-            
+                    
         ######################################################################################
 
 
