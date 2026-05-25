@@ -399,8 +399,12 @@ def read_histopathology_data(root, image_size=192):
             img = np.array(img_pil, dtype=np.float32)
 
             # Normalize op basis van echte range
-            if img.max() > 0:
-                img = img / img.max()
+            # if img.max() > 0:
+            #     img = img / img.max()
+
+            p1, p99 = np.percentile(img, (1, 99))
+            img = (img - p1) / (p99 - p1 + 1e-6)
+            img = np.clip(img, 0, 1)
 
             # Als grayscale/16-bit single channel: maak RGB-achtig 3 channels
             if img.ndim == 2:
