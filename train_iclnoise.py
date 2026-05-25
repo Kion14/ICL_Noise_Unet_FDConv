@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "25mei_percentilenormalization&LEGEMASKS_ctx16"
+EXPERIMENT_NAME = "25mei_ONLYLEGEMASKS_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -356,16 +356,16 @@ test_context = Y.copy()
 # Define dataset and dataloaders
 # =============================================================================
 
-def percentile_normalize(img, lower=1, upper=99):
-    img = img.astype(np.float32)
+# def percentile_normalize(img, lower=1, upper=99):
+#     img = img.astype(np.float32)
 
-    p_low, p_high = np.percentile(img, (lower, upper))
+#     p_low, p_high = np.percentile(img, (lower, upper))
 
-    img = (img - p_low) / (p_high - p_low + 1e-6)
+#     img = (img - p_low) / (p_high - p_low + 1e-6)
 
-    img = np.clip(img, 0, 1)
+#     img = np.clip(img, 0, 1)
 
-    return img.astype(np.float32)
+#     return img.astype(np.float32)
 
 
 
@@ -396,7 +396,7 @@ class TrainDataset(Dataset):
             if target_mask.mean() < 0.005:
                 new_idx = random.randint(0, len(self.data) - 1)
                 return self.__getitem__(new_idx)
-            target_img = percentile_normalize(target_img)
+            # target_img = percentile_normalize(target_img)
             target_img = random_intensity_augmentation(target_img)
             target_img = random_invert_intensity(target_img)
             # target_img = random_color_augmentation(target_img)
@@ -412,7 +412,7 @@ class TrainDataset(Dataset):
             # target_img, target_mask = self.data[idx]
 
             target_img, target_mask, *_ = self.data[idx]
-            target_img = percentile_normalize(target_img)
+            # target_img = percentile_normalize(target_img)
             target_img = random_intensity_augmentation(target_img)
             target_img = random_invert_intensity(target_img)
             # target_img = random_color_augmentation(target_img)
@@ -450,7 +450,7 @@ class TrainDataset(Dataset):
 
                 # c_img, c_mask, *_ = self.data[context_idx]
                 c_img, c_mask, *_ = self.context_dataset[context_idx]
-                c_img = percentile_normalize(c_img)
+                # c_img = percentile_normalize(c_img)
                 c_img = random_intensity_augmentation(c_img)
                 c_img = random_invert_intensity(c_img)
                 # c_img = random_color_augmentation(c_img)
@@ -518,7 +518,7 @@ class EvalDataset(Dataset):
     def __getitem__(self, idx):
         # target_img, target_mask = self.target_data[idx]
         target_img, target_mask, stain = self.target_data[idx]
-        target_img = percentile_normalize(target_img)
+        # target_img = percentile_normalize(target_img)
         ################################################################################################ NIEUW
         # target_img = torch.tensor(np.ascontiguousarray(target_img), dtype=torch.float32)  # [H, W]
         target_img = torch.tensor(np.ascontiguousarray(target_img), dtype=torch.float32).permute(2, 0, 1)
@@ -583,7 +583,7 @@ class EvalDataset(Dataset):
 
         distances = []
         for context_img, context_mask, *_ in candidate_context:
-            context_img = percentile_normalize(context_img)
+            # context_img = percentile_normalize(context_img)
             ctx_tensor = torch.tensor(
                 np.ascontiguousarray(context_img),
                 dtype=torch.float32
