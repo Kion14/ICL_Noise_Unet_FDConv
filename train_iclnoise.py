@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "25mei_0-shotsOPLOSSEN2_ctx16"
+EXPERIMENT_NAME = "25mei_0-shotsOPLOSSEN3_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
