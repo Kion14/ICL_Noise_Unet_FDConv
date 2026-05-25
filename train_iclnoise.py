@@ -44,7 +44,7 @@ from dataloaders import split_single_stain
 from dataloaders import split_leave_one_stain_out
 
 
-EXPERIMENT_NAME = "25mei_percentilenormalization_ctx16"
+EXPERIMENT_NAME = "25mei_percentilenormalization&LEGEMASKS_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -392,6 +392,10 @@ class TrainDataset(Dataset):
             # img, mask = self.data[idx]
 
             target_img, target_mask, *_ = self.data[idx]
+            # Skip bijna lege masks
+            if target_mask.mean() < 0.005:
+                new_idx = random.randint(0, len(self.data) - 1)
+                return self.__getitem__(new_idx)
             target_img = percentile_normalize(target_img)
             target_img = random_intensity_augmentation(target_img)
             target_img = random_invert_intensity(target_img)
