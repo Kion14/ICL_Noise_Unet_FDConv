@@ -679,6 +679,11 @@ class EvalDataset(Dataset):
             context_imgs.append(np.ascontiguousarray(ctx_img))
             context_masks.append(np.ascontiguousarray(ctx_mask))
 
+
+        while len(context_imgs) < self.context_size:
+            context_imgs.append(np.zeros_like(context_imgs[0]))
+            context_masks.append(np.zeros_like(context_masks[0]))
+
         ############################################################################# NIEUW
         # Convert to tensors
         # context_imgs_tensor = torch.stack([
