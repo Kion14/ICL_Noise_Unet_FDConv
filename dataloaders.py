@@ -293,77 +293,13 @@ def identify_files(files):
     return image_file, instance_file, seg_file
 
 
-# def read_histopathology_data(root, image_size=192):
-
-#     data = []
-
-#     for stain_folder in os.listdir(root):
-
-#             # tijdelijk mIF overslaan
-#         if stain_folder == "mIF":
-#             print("Skipping mIF for baseline debugging", flush=True)
-#             continue
-
-#         stain_path = os.path.join(root, stain_folder)
-
-#         if not os.path.isdir(stain_path):
-#             continue
-
-#         for sample_folder in os.listdir(stain_path):
-
-#             sample_path = os.path.join(stain_path, sample_folder)
-
-#             if not os.path.isdir(sample_path):
-#                 continue
-
-#             files = [
-#                 f for f in os.listdir(sample_path)
-#                 if f.lower().endswith(
-#                     (".png", ".jpg", ".jpeg", ".tif", ".tiff")
-#                 )
-#             ]
-
-#             image_file, _, seg_file = identify_files(files)
-
-#             if image_file is None or seg_file is None:
-#                 continue
-
-#             image_path = os.path.join(sample_path, image_file)
-#             mask_path = os.path.join(sample_path, seg_file)
-
-#             img_pil = Image.open(image_path).convert("RGB")
-#             mask_pil = Image.open(mask_path).convert("L")
-
-#             img_pil = img_pil.resize((image_size, image_size), Image.BILINEAR)
-#             mask_pil = mask_pil.resize((image_size, image_size), Image.NEAREST)
-
-#             img = np.array(img_pil, dtype=np.float32) / 255.0
-#             mask_raw = np.array(mask_pil, dtype=np.float32)
-
-#             # Skip blank/corrupted images
-#             if img.max() < 0.01 or img.std() < 0.01:
-#                 print(f"Skipping blank image: {image_path}", flush=True)
-#                 continue
-
-#             if stain_folder == "mIF":
-#                 mask = (mask_raw < 128).astype(np.float32)
-#             else:
-#                 mask = (mask_raw > 0).astype(np.float32)
-
-#             # data.append((img, mask, stain_folder))
-            
-
-#     print("Loaded histopathology samples:", len(data))
-
-#     return data
-
-
 def read_histopathology_data(root, image_size=192):
 
     data = []
 
     for stain_folder in os.listdir(root):
 
+            # tijdelijk mIF overslaan
         if stain_folder == "mIF":
             print("Skipping mIF for baseline debugging", flush=True)
             continue
@@ -382,7 +318,9 @@ def read_histopathology_data(root, image_size=192):
 
             files = [
                 f for f in os.listdir(sample_path)
-                if f.lower().endswith((".png", ".jpg", ".jpeg", ".tif", ".tiff"))
+                if f.lower().endswith(
+                    (".png", ".jpg", ".jpeg", ".tif", ".tiff")
+                )
             ]
 
             image_file, _, seg_file = identify_files(files)
@@ -393,32 +331,13 @@ def read_histopathology_data(root, image_size=192):
             image_path = os.path.join(sample_path, image_file)
             mask_path = os.path.join(sample_path, seg_file)
 
-            # Image veilig laden, ook voor 16-bit tif
-            img_pil = Image.open(image_path)
-            img_pil = img_pil.resize((image_size, image_size), Image.BILINEAR)
-            img = np.array(img_pil, dtype=np.float32)
-
-            # Normalize op basis van echte range
-            # if img.max() > 0:
-            #     img = img / img.max()
-
-            p1, p99 = np.percentile(img, (1, 99))
-            img = (img - p1) / (p99 - p1 + 1e-6)
-            img = np.clip(img, 0, 1)
-
-            # Als grayscale/16-bit single channel: maak RGB-achtig 3 channels
-            if img.ndim == 2:
-                img = np.stack([img, img, img], axis=-1)
-
-            # Als RGBA of meer channels: pak eerste 3
-            if img.shape[-1] > 3:
-                img = img[:, :, :3]
-
-            img = img.astype(np.float32)
-
-            # Mask laden
+            img_pil = Image.open(image_path).convert("RGB")
             mask_pil = Image.open(mask_path).convert("L")
+
+            img_pil = img_pil.resize((image_size, image_size), Image.BILINEAR)
             mask_pil = mask_pil.resize((image_size, image_size), Image.NEAREST)
+
+            img = np.array(img_pil, dtype=np.float32) / 255.0
             mask_raw = np.array(mask_pil, dtype=np.float32)
 
             # Skip blank/corrupted images
@@ -426,16 +345,101 @@ def read_histopathology_data(root, image_size=192):
                 print(f"Skipping blank image: {image_path}", flush=True)
                 continue
 
+            if stain_folder == "DAPI" and img.mean() > 0.85 and img.std() < 0.15:
+                print(f"Skipping low-contrast bright DAPI image: {image_path}")
+                continue
+
             if stain_folder == "mIF":
                 mask = (mask_raw < 128).astype(np.float32)
             else:
                 mask = (mask_raw > 0).astype(np.float32)
 
-            data.append((img, mask, stain_folder, sample_folder))
+            # data.append((img, mask, stain_folder))
+            
 
     print("Loaded histopathology samples:", len(data))
 
     return data
+
+
+# def read_histopathology_data(root, image_size=192):
+
+#     data = []
+
+#     for stain_folder in os.listdir(root):
+
+#         if stain_folder == "mIF":
+#             print("Skipping mIF for baseline debugging", flush=True)
+#             continue
+
+#         stain_path = os.path.join(root, stain_folder)
+
+#         if not os.path.isdir(stain_path):
+#             continue
+
+#         for sample_folder in os.listdir(stain_path):
+
+#             sample_path = os.path.join(stain_path, sample_folder)
+
+#             if not os.path.isdir(sample_path):
+#                 continue
+
+#             files = [
+#                 f for f in os.listdir(sample_path)
+#                 if f.lower().endswith((".png", ".jpg", ".jpeg", ".tif", ".tiff"))
+#             ]
+
+#             image_file, _, seg_file = identify_files(files)
+
+#             if image_file is None or seg_file is None:
+#                 continue
+
+#             image_path = os.path.join(sample_path, image_file)
+#             mask_path = os.path.join(sample_path, seg_file)
+
+#             # Image veilig laden, ook voor 16-bit tif
+#             img_pil = Image.open(image_path)
+#             img_pil = img_pil.resize((image_size, image_size), Image.BILINEAR)
+#             img = np.array(img_pil, dtype=np.float32)
+
+#             Normalize op basis van echte range
+#             if img.max() > 0:
+#                 img = img / img.max()
+
+#             # p1, p99 = np.percentile(img, (1, 99))
+#             # img = (img - p1) / (p99 - p1 + 1e-6)
+#             # img = np.clip(img, 0, 1)
+
+#             # Als grayscale/16-bit single channel: maak RGB-achtig 3 channels
+#             if img.ndim == 2:
+#                 img = np.stack([img, img, img], axis=-1)
+
+#             # Als RGBA of meer channels: pak eerste 3
+#             if img.shape[-1] > 3:
+#                 img = img[:, :, :3]
+
+#             img = img.astype(np.float32)
+
+#             # Mask laden
+#             mask_pil = Image.open(mask_path).convert("L")
+#             mask_pil = mask_pil.resize((image_size, image_size), Image.NEAREST)
+#             mask_raw = np.array(mask_pil, dtype=np.float32)
+
+#             # Skip blank/corrupted images
+#             if img.max() < 0.01 or img.std() < 0.01:
+#                 print(f"Skipping blank image: {image_path}", flush=True)
+#                 continue
+
+#             if stain_folder == "mIF":
+#                 mask = (mask_raw < 128).astype(np.float32)
+#             else:
+#                 mask = (mask_raw > 0).astype(np.float32)
+
+#             data.append((img, mask, stain_folder, sample_folder))
+
+#     print("Loaded histopathology samples:", len(data))
+
+#     return data
 
 
 
