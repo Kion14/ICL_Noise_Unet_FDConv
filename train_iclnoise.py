@@ -379,19 +379,19 @@ cellbindb_dapi_test = [
 ]
 
 monuseg_he = read_image_mask_folder_dataset(
-    "/data/MoNuSeg",
+    "/gpfs/home3/kkramer/data/MoNuSeg",
     stain_name="MoNuSeg_HE",
     image_size=192
 )
 
 lizard_he = read_image_mask_folder_dataset(
-    "/data/Lizard",
+    "/gpfs/home3/kkramer/data/Lizard",
     stain_name="Lizard_HE",
     image_size=192
 )
 
 # nuinsseg_he = read_image_mask_folder_dataset(
-#     "/data/NuInsSeg_HE",
+#     "/gpfs/home3/kkramer/data/NuInsSeg_HE",
 #     stain_name="NuInsSeg_HE",
 #     image_size=192
 # )
