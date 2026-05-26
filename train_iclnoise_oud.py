@@ -47,7 +47,7 @@ from dataloaders import read_image_mask_folder_dataset, read_bbbc038_dataset
 import random
 
 
-EXPERIMENT_NAME = "26mei_TRAINHE_TESTDAPI_ctx16"
+EXPERIMENT_NAME = "26mei_lizardTreincellbindbTEST&CONTEXT_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -396,32 +396,20 @@ lizard_he = read_image_mask_folder_dataset(
 #     image_size=192
 # )
 
-# train_data = cellbindb_he + monuseg_he + lizard_he
-
-# random.seed(42)
-# random.shuffle(train_data)
-
-# val_len = int(0.2 * len(train_data))
-
-# V = train_data[:val_len]
-# X = train_data[val_len:]
-
-# Y = cellbindb_dapi_test
-
-# train_context = X.copy()
-# test_context = Y.copy()
+train_data = cellbindb_he + monuseg_he + lizard_he
 
 random.seed(42)
-random.shuffle(lizard_he)
+random.shuffle(train_data)
 
-val_len = int(0.2 * len(lizard_he))
+val_len = int(0.2 * len(train_data))
 
-V = lizard_he[:val_len]
-X = lizard_he[val_len:]
+V = train_data[:val_len]
+X = train_data[val_len:]
 
-Y = cellbindb_he
-test_context = Y.copy()
+Y = cellbindb_dapi_test
+
 train_context = X.copy()
+test_context = Y.copy()
 
 
 # data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
