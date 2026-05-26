@@ -475,7 +475,9 @@ def read_image_mask_folder_dataset(root, stain_name, image_size=192):
     import numpy as np
 
     root = Path(root)
-    image_dir = root / "images"
+    image_dir = root / "img"
+    if not image_dir.exists():
+        image_dir = root / "images"
     mask_dir = root / "masks"
 
     data = []
