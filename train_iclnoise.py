@@ -420,7 +420,7 @@ V = lizard_he[:val_len]
 X = lizard_he[val_len:]
 
 Y = cellbindb_he
-test_context = X.copy()
+test_context = Y.copy()
 train_context = X.copy()
 
 
