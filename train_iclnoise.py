@@ -849,7 +849,7 @@ if __name__ == "__main__":
     logging.info(f"Test samples: {len(data_module.test_dataset)}")
 
     # Train the model
-    # trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
+    trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
 
 
 
@@ -874,10 +874,10 @@ if __name__ == "__main__":
     )
 
 
-    model = LightningModel.load_from_checkpoint(
-        "iclnoise/25mei_0-shotsOPLOSSEN_ctx16/version_1/checkpoints/25mei_0-shotsOPLOSSEN_ctx16-epoch=14-val_loss=0.3148.ckpt",
-        hparams=hparams
-    )
+    # model = LightningModel.load_from_checkpoint(
+    #     "iclnoise/25mei_0-shotsOPLOSSEN_ctx16/version_1/checkpoints/25mei_0-shotsOPLOSSEN_ctx16-epoch=14-val_loss=0.3148.ckpt",
+    #     hparams=hparams
+    # )
 
     test_results = trainer.test(model, test_loader)
 
