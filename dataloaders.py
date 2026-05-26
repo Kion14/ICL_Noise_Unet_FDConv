@@ -469,11 +469,81 @@ def read_histopathology_data(root, image_size=192):
 
 
 
+def read_image_mask_folder_dataset(root, stain_name, image_size=192):
+    from pathlib import Path
+    from PIL import Image
+    import numpy as np
+
+    root = Path(root)
+    image_dir = root / "images"
+    mask_dir = root / "masks"
+
+    data = []
+
+    for img_path in sorted(image_dir.iterdir()):
+        if img_path.suffix.lower() not in [".png", ".jpg", ".jpeg", ".tif", ".tiff"]:
+            continue
+
+        stem = img_path.stem
+
+        possible_masks = [
+            mask_dir / f"{stem}.png",
+            mask_dir / f"{stem}_mask.png",
+            mask_dir / f"{stem}.tif",
+            mask_dir / f"{stem}.tiff",
+        ]
+
+        mask_path = next((p for p in possible_masks if p.exists()), None)
+
+        if mask_path is None:
+            print("No mask for:", img_path.name)
+            continue
+
+        img = Image.open(img_path).convert("RGB").resize((image_size, image_size), Image.BILINEAR)
+        mask = Image.open(mask_path).convert("L").resize((image_size, image_size), Image.NEAREST)
+
+        img = np.array(img, dtype=np.float32) / 255.0
+        mask = (np.array(mask, dtype=np.float32) > 0).astype(np.float32)
+
+        data.append((img, mask, stain_name, img_path.stem))
+
+    print(f"Loaded {stain_name}: {len(data)}")
+    return data
 
 
 
+def read_bbbc038_dataset(root, stain_name="BBBC038_DAPI", image_size=192):
+    from pathlib import Path
+    from PIL import Image
+    import numpy as np
 
+    root = Path(root)
+    data = []
 
+    for sample_dir in sorted([p for p in root.iterdir() if p.is_dir()]):
+        image_dir = sample_dir / "images"
+        mask_path = sample_dir / "combined_mask.png"
+
+        if not image_dir.exists() or not mask_path.exists():
+            continue
+
+        image_files = list(image_dir.glob("*.png")) + list(image_dir.glob("*.tif")) + list(image_dir.glob("*.tiff"))
+
+        if len(image_files) == 0:
+            continue
+
+        img_path = image_files[0]
+
+        img = Image.open(img_path).convert("RGB").resize((image_size, image_size), Image.BILINEAR)
+        mask = Image.open(mask_path).convert("L").resize((image_size, image_size), Image.NEAREST)
+
+        img = np.array(img, dtype=np.float32) / 255.0
+        mask = (np.array(mask, dtype=np.float32) > 0).astype(np.float32)
+
+        data.append((img, mask, stain_name, sample_dir.name))
+
+    print(f"Loaded {stain_name}: {len(data)}")
+    return data
 
 
 

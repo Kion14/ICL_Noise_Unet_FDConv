@@ -43,9 +43,11 @@ from dataloaders import reading_training_data_fetal, reading_camus_data, reading
 from dataloaders import split_single_stain
 # from dataloaders import split_leave_one_stain_out
 from dataloaders import split_leave_stains_out
+from dataloaders import read_image_mask_folder_dataset, read_bbbc038_dataset
+import random
 
 
-EXPERIMENT_NAME = "26mei_ALLDAPIOUT_ctx16"
+EXPERIMENT_NAME = "26mei_TRAINHE_TESTDAPI_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -342,24 +344,72 @@ class LightningModel(pl.LightningModule):
 # X_init = X.copy()
 
 
+################################################################################### UIT
+# data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
 
-data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
+# # heldout_stain = "DAPI"  #  /DAPI,  nog doen
 
-# heldout_stain = "DAPI"  #  /DAPI,  nog doen
+# # X, V, Y = split_leave_one_stain_out(
+# #     data,
+# #     test_stain=heldout_stain
+# # )
 
-# X, V, Y = split_leave_one_stain_out(
+# X, V, Y = split_leave_stains_out(
 #     data,
-#     test_stain=heldout_stain
+#     test_stains=["DAPI", "10×Genomics_DAPI"]
 # )
 
-X, V, Y = split_leave_stains_out(
-    data,
-    test_stains=["DAPI", "10×Genomics_DAPI"]
+# train_context = X.copy()
+# test_context = Y.copy()
+#####################################################################################
+
+
+
+
+cellbindb = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
+
+cellbindb_he = [
+    item for item in cellbindb
+    if item[2] in ["HE", "10×Genomics_HE"]
+]
+
+cellbindb_dapi_test = [
+    item for item in cellbindb
+    if item[2] in ["DAPI", "10×Genomics_DAPI"]
+]
+
+monuseg_he = read_image_mask_folder_dataset(
+    "/data/MoNuSeg",
+    stain_name="MoNuSeg_HE",
+    image_size=192
 )
+
+lizard_he = read_image_mask_folder_dataset(
+    "/data/Lizard",
+    stain_name="Lizard_HE",
+    image_size=192
+)
+
+# nuinsseg_he = read_image_mask_folder_dataset(
+#     "/data/NuInsSeg_HE",
+#     stain_name="NuInsSeg_HE",
+#     image_size=192
+# )
+
+train_data = cellbindb_he + monuseg_he + lizard_he
+
+random.seed(42)
+random.shuffle(train_data)
+
+val_len = int(0.2 * len(train_data))
+
+V = train_data[:val_len]
+X = train_data[val_len:]
+
+Y = cellbindb_dapi_test
 
 train_context = X.copy()
 test_context = Y.copy()
-
 
 
 # data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
