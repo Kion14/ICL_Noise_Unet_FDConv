@@ -355,6 +355,7 @@ def read_histopathology_data(root, image_size=192):
                 mask = (mask_raw > 0).astype(np.float32)
 
             # data.append((img, mask, stain_folder))
+            data.append((img, mask, stain_folder, sample_folder))
             
 
     print("Loaded histopathology samples:", len(data))
