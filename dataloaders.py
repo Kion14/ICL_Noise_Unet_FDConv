@@ -181,12 +181,40 @@ def read_and_split_busi_data(
 
 #     return X, V, Y
 
-def split_leave_one_stain_out(image_pairs, test_stain, val_ratio=0.20, seed=42, print_stats=True):
+# def split_leave_one_stain_out(image_pairs, test_stain, val_ratio=0.20, seed=42, print_stats=True):
+#     import random
+#     from collections import Counter
+
+#     test_set = [item for item in image_pairs if item[2] == test_stain]
+#     train_val = [item for item in image_pairs if item[2] != test_stain]
+
+#     random.seed(seed)
+#     random.shuffle(train_val)
+
+#     val_len = int(len(train_val) * val_ratio)
+
+#     V = train_val[:val_len]
+#     X = train_val[val_len:]
+#     Y = test_set
+
+#     if print_stats:
+#         print("Leave-one-stain-out split")
+#         print("Held-out test stain:", test_stain)
+#         print("Train:", len(X), Counter([item[2] for item in X]))
+#         print("Val:", len(V), Counter([item[2] for item in V]))
+#         print("Test:", len(Y), Counter([item[2] for item in Y]))
+
+#     return X, V, Y
+
+
+def split_leave_stains_out(image_pairs, test_stains, val_ratio=0.20, seed=42):
     import random
     from collections import Counter
 
-    test_set = [item for item in image_pairs if item[2] == test_stain]
-    train_val = [item for item in image_pairs if item[2] != test_stain]
+    test_stains = set(test_stains)
+
+    Y = [item for item in image_pairs if item[2] in test_stains]
+    train_val = [item for item in image_pairs if item[2] not in test_stains]
 
     random.seed(seed)
     random.shuffle(train_val)
@@ -195,14 +223,11 @@ def split_leave_one_stain_out(image_pairs, test_stain, val_ratio=0.20, seed=42, 
 
     V = train_val[:val_len]
     X = train_val[val_len:]
-    Y = test_set
 
-    if print_stats:
-        print("Leave-one-stain-out split")
-        print("Held-out test stain:", test_stain)
-        print("Train:", len(X), Counter([item[2] for item in X]))
-        print("Val:", len(V), Counter([item[2] for item in V]))
-        print("Test:", len(Y), Counter([item[2] for item in Y]))
+    print("Held-out test stains:", test_stains)
+    print("Train:", len(X), Counter([item[2] for item in X]))
+    print("Val:", len(V), Counter([item[2] for item in V]))
+    print("Test:", len(Y), Counter([item[2] for item in Y]))
 
     return X, V, Y
 

@@ -41,10 +41,11 @@ import csv
 import pandas as pd
 from dataloaders import reading_training_data_fetal, reading_camus_data, reading_data, reading_data_tg3k, get_data_jnu,get_frame_labels, read_and_split_busi_data, read_and_split_busbra_data, read_data_jnu,split_training_data, read_histopathology_data, split_leave_one_stain_out
 from dataloaders import split_single_stain
-from dataloaders import split_leave_one_stain_out
+# from dataloaders import split_leave_one_stain_out
+from dataloaders import split_leave_stains_out
 
 
-EXPERIMENT_NAME = "25mei_0-shotsOPLOSSEN5_ctx16"
+EXPERIMENT_NAME = "26mei_ALLDAPIOUT_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -344,11 +345,16 @@ class LightningModel(pl.LightningModule):
 
 data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
 
-heldout_stain = "DAPI"  #  /DAPI,  nog doen
+# heldout_stain = "DAPI"  #  /DAPI,  nog doen
 
-X, V, Y = split_leave_one_stain_out(
+# X, V, Y = split_leave_one_stain_out(
+#     data,
+#     test_stain=heldout_stain
+# )
+
+X, V, Y = split_leave_stains_out(
     data,
-    test_stain=heldout_stain
+    test_stains=["DAPI", "10×Genomics_DAPI"]
 )
 
 train_context = X.copy()
