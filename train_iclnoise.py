@@ -48,7 +48,7 @@ from dataloaders import read_image_mask_folder_dataset, read_bbbc038_dataset
 import random
 
 
-EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCTX_FDCONV1.0_ctx16"
+EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCTX_FDCONV_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -740,100 +740,97 @@ class EvalDataset(Dataset):
 
         
 
-        target_mask = torch.tensor(np.ascontiguousarray(target_mask), dtype=torch.float32)  # [H, W]
+        # target_mask = torch.tensor(np.ascontiguousarray(target_mask), dtype=torch.float32)  # [H, W]
     
-        ############################################################################################
+        #############################################################################################
    
-        # --- Find k closest context samples based on L2 distance ---
-        distances = []
-        for context_img, context_mask, *_ in self.context_dataset:
-
-            ######################################################################################### NIUEW
-            # ctx_tensor = torch.tensor(np.ascontiguousarray(context_img), dtype=torch.float32)
-            ctx_tensor = torch.tensor(
-                np.ascontiguousarray(context_img),
-                dtype=torch.float32
-            ).permute(2, 0, 1)
-            #############################################################################
-            # distances.append(torch.norm(target_img - ctx_tensor).item())
-            same_stain_context = [
-                item for item in self.context_dataset if item[2] == stain
-            ]
-        
-        sorted_indices = np.argsort(distances)[:self.context_size]
-
-        # Select the top-k most similar context samples
-        context_imgs = []
-        context_masks = []
-
-
-
-        # # --- Find k closest context samples, preferably from same stain ---
-        # same_stain_context = [
-        #     item for item in self.context_dataset if item[2] == stain
-        # ]
-
-        # # Fallback: als er geen context samples met dezelfde stain zijn
-        # # candidate_context = same_stain_context if len(same_stain_context) > 0 else self.context_dataset
-
-        # candidate_context = same_stain_context if len(same_stain_context) > 0 else self.context_dataset
-
-        # # Filter slechte context masks
-        # filtered_context = []
-        # for item in candidate_context:
-        #     ctx_img, ctx_mask, *_ = item
-        #     mask_ratio = ctx_mask.mean()
-
-        #     if 0.01 < mask_ratio < 0.70:
-        #         filtered_context.append(item)
-
-        # # fallback als filter te streng is
-        # candidate_context = filtered_context if len(filtered_context) >= self.context_size else candidate_context
-
-
-
-
-
-
+        # # --- Find k closest context samples based on L2 distance ---
         # distances = []
-        # for context_img, context_mask, *_ in candidate_context:
-        #     # context_img = percentile_normalize(context_img)
+        # for context_img, context_mask, *_ in self.context_dataset:
+
+        #     ######################################################################################### NIUEW
+        #     # ctx_tensor = torch.tensor(np.ascontiguousarray(context_img), dtype=torch.float32)
         #     ctx_tensor = torch.tensor(
         #         np.ascontiguousarray(context_img),
         #         dtype=torch.float32
         #     ).permute(2, 0, 1)
-
+        #     #############################################################################
         #     # distances.append(torch.norm(target_img - ctx_tensor).item())
-        #     target_gray = target_img.mean(dim=0)
-        #     target_gray = (target_gray - target_gray.mean()) / (target_gray.std() + 1e-6)
-
-        #     ctx_gray = ctx_tensor.mean(dim=0)
-        #     ctx_gray = (ctx_gray - ctx_gray.mean()) / (ctx_gray.std() + 1e-6)
-
-        #     distances.append(torch.norm(target_gray - ctx_gray).item())
-
+        #     same_stain_context = [
+        #         item for item in self.context_dataset if item[2] == stain
+        #     ]
+        
         # sorted_indices = np.argsort(distances)[:self.context_size]
+
+        # # Select the top-k most similar context samples
+        # context_imgs = []
+        # context_masks = []
+
+
+
+        # --- Find k closest context samples, preferably from same stain ---
+        same_stain_context = [
+            item for item in self.context_dataset if item[2] == stain
+        ]
+
+        # Fallback: als er geen context samples met dezelfde stain zijn
+        # candidate_context = same_stain_context if len(same_stain_context) > 0 else self.context_dataset
+
+        candidate_context = same_stain_context if len(same_stain_context) > 0 else self.context_dataset
+
+        # Filter slechte context masks
+        filtered_context = []
+        for item in candidate_context:
+            ctx_img, ctx_mask, *_ = item
+            mask_ratio = ctx_mask.mean()
+
+            if 0.01 < mask_ratio < 0.70:
+                filtered_context.append(item)
+
+        # fallback als filter te streng is
+        candidate_context = filtered_context if len(filtered_context) >= self.context_size else candidate_context
+
+
+
 
 
 
         distances = []
-
-        target_img_np = target_img.permute(1, 2, 0).numpy()
-        target_mask_np = target_mask.squeeze(0).numpy()
-
         for context_img, context_mask, *_ in candidate_context:
-            dist = context_distance(
-                target_img_np,
-                target_mask_np,
-                context_img,
-                context_mask
-            )
-            distances.append(dist)
+            # context_img = percentile_normalize(context_img)
+            ctx_tensor = torch.tensor(
+                np.ascontiguousarray(context_img),
+                dtype=torch.float32
+            ).permute(2, 0, 1)
+
+            # distances.append(torch.norm(target_img - ctx_tensor).item())
+            target_gray = target_img.mean(dim=0)
+            target_gray = (target_gray - target_gray.mean()) / (target_gray.std() + 1e-6)
+
+            ctx_gray = ctx_tensor.mean(dim=0)
+            ctx_gray = (ctx_gray - ctx_gray.mean()) / (ctx_gray.std() + 1e-6)
+
+            distances.append(torch.norm(target_gray - ctx_gray).item())
 
         sorted_indices = np.argsort(distances)[:self.context_size]
 
 
 
+        # distances = []
+
+        # target_img_np = target_img.permute(1, 2, 0).numpy()
+        # target_mask_np = target_mask.squeeze(0).numpy()
+
+        # for context_img, context_mask, *_ in candidate_context:
+        #     dist = context_distance(
+        #         target_img_np,
+        #         target_mask_np,
+        #         context_img,
+        #         context_mask
+        #     )
+        #     distances.append(dist)
+
+        # sorted_indices = np.argsort(distances)[:self.context_size]
 
 
         context_imgs = []
@@ -1106,16 +1103,16 @@ if __name__ == "__main__":
     )
 
     ################################################################ model test w/out augmentation
-    # model = LightningModel.load_from_checkpoint(
-    #     "iclnoise/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16/version_0/checkpoints/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16-epoch=19-val_loss=0.6501.ckpt",
-    #     hparams=hparams
-    # )
-
-    ################################################################ model test w/ augmentation
     model = LightningModel.load_from_checkpoint(
-        "iclnoise/27mei_THEliz_TESTHEbindbCONTEXT_CTXIMPROVEMENTS+HEAUGEMENTATION_ctx16/version_0/checkpoints/27mei_THEliz_TESTHEbindbCONTEXT_CTXIMPROVEMENTS+HEAUGEMENTATION_ctx16-epoch=39-val_loss=0.5843.ckpt",
+        "iclnoise/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16/version_0/checkpoints/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16-epoch=19-val_loss=0.6501.ckpt",
         hparams=hparams
     )
+
+    ################################################################ model test w/ augmentation
+    # model = LightningModel.load_from_checkpoint(
+    #     "iclnoise/27mei_THEliz_TESTHEbindbCONTEXT_CTXIMPROVEMENTS+HEAUGEMENTATION_ctx16/version_0/checkpoints/27mei_THEliz_TESTHEbindbCONTEXT_CTXIMPROVEMENTS+HEAUGEMENTATION_ctx16-epoch=39-val_loss=0.5843.ckpt",
+    #     hparams=hparams
+    # )
 
     test_results = trainer.test(model, test_loader)
 
