@@ -47,7 +47,7 @@ from dataloaders import read_image_mask_folder_dataset, read_bbbc038_dataset
 import random
 
 
-EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCONTEXT_pred=0.4_ctx16"
+EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCONTEXT_pred=0.3_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -265,7 +265,7 @@ class LightningModel(pl.LightningModule):
         
         pred = torch.sigmoid(pred_logits)
         
-        preds = pred > 0.4  ##################################################################################### threshhold
+        preds = pred > 0.3  ##################################################################################### threshhold
         targets = target > 0.5
         smooth = 1e-6  # Smoothing factor to avoid division by zero
         
