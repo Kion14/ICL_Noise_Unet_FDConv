@@ -47,7 +47,7 @@ from dataloaders import read_image_mask_folder_dataset, read_bbbc038_dataset
 import random
 
 
-EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCONTEXT_pred=0.45_ctx16"
+EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCONTEXT_DROPOUTlogging_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -176,6 +176,49 @@ class LightningModel(pl.LightningModule):
         # Calculate metrics
         metrics = self._calculate_metrics(pred_masks, target_masks)
 
+
+
+
+
+
+        probs = torch.sigmoid(pred_masks)
+        preds = (probs > 0.45).float()
+
+        dice = metrics["dice"]
+
+        if dice < 0.3:
+
+            print(
+                f"DROPOUT | Batch {batch_idx} | "
+                f"Stain: {stains[0]} | "
+                f"Sample: {sample_ids[0]} | "
+                f"Dice: {dice:.4f} | "
+                f"mask_mean: {target_masks.mean().item():.4f} | "
+                f"pred_mean: {preds.mean().item():.4f} | "
+                f"prob_max: {probs.max().item():.4f} | "
+                f"prob_mean: {probs.mean().item():.4f}",
+                flush=True
+            )
+
+            dropout_dir = os.path.join(self.save_dir, "dropout_debug")
+            os.makedirs(dropout_dir, exist_ok=True)
+
+            prob_np = probs[0, 0].detach().cpu().numpy()
+
+            plt.imsave(
+                os.path.join(
+                    dropout_dir,
+                    f"batch{batch_idx}_{sample_ids[0]}_prob.png"
+                ),
+                prob_np,
+                cmap="gray"
+            )
+
+
+
+
+
+
         # Log everything
         self.log_dict({f"test_{k}": v for k, v in metrics.items()})
         self.log("test_loss", loss)
@@ -201,6 +244,8 @@ class LightningModel(pl.LightningModule):
             self.save_dir,
             f"{EXPERIMENT_NAME}_metrics.txt"
         )
+
+
 
 # Append Dice and IoU for each sample
         with open(metrics_path, "a") as f:
