@@ -266,7 +266,7 @@ class LightningModel(pl.LightningModule):
         img_np = img.permute(1,2,0).numpy() if img.ndim==3 else img.numpy()
         gt_np = gt_mask.squeeze().numpy()
         # pred_np = (pred_mask > 0.5).squeeze().numpy().astype(float)  # binarize
-        pred_np = (pred_mask > 0.5).squeeze().numpy().astype(float)
+        pred_np = (pred_mask > 0.45).squeeze().numpy().astype(float)
         # Rotate all images 90° clockwise
        
         # metrics_path = os.path.join(self.save_dir, "test_metrics.txt")
