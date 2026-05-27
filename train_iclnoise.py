@@ -48,7 +48,7 @@ from dataloaders import read_image_mask_folder_dataset, read_bbbc038_dataset
 import random
 
 
-EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCTX_FDCONV3.0NOCONTEXT_ctx16"
+EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindb_FDCONV4.0_NOCONTEXT_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -104,16 +104,16 @@ class LightningModel(pl.LightningModule):
 
 
 
-        # dices = np.array(self.test_dices)
-        # ious = np.array(self.test_ious)
+        dices = np.array(self.test_dices)
+        ious = np.array(self.test_ious)
 
-        dices_all = np.array(self.test_dices) ##################################################################### GEMIDDELDE FILTER
-        ious_all = np.array(self.test_ious)
+        # dices_all = np.array(self.test_dices) ##################################################################### GEMIDDELDE FILTER
+        # ious_all = np.array(self.test_ious)
 
-        keep = (dices_all >= 0.4) & (ious_all >= 0.3)
+        # keep = (dices_all >= 0.4) & (ious_all >= 0.3)
 
-        dices = dices_all[keep]
-        ious = ious_all[keep]
+        # dices = dices_all[keep]
+        # ious = ious_all[keep]
 
 
         summary_path = os.path.join(
