@@ -48,7 +48,7 @@ from DataAugmentation import random_he_augmentation
 import random
 
 
-EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindb_NOCONTEXT_CTXIMP+HEAUG_2_ctx16"
+EXPERIMENT_NAME = "27mei_THEliz_TESTDAPIbindbCTX_CTXIMP+HEAUG_2_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -494,10 +494,14 @@ val_len = int(0.2 * len(lizard_he))
 V = lizard_he[:val_len]
 X = lizard_he[val_len:]
 
-Y = cellbindb_he
-# test_context = X.copy()
-test_context = [] ######################################################################### CONTEXTS
-train_context = X.copy()
+# Y = cellbindb_he
+# # test_context = X.copy()
+# test_context = [] ######################################################################### CONTEXTS
+# train_context = X.copy()
+
+Y = cellbindb_dapi_test
+test_context = cellbindb_dapi_test
+
 
 
 # data = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
