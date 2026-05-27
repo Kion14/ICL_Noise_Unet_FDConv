@@ -48,7 +48,7 @@ from DataAugmentation import random_he_augmentation
 import random
 
 
-EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCONTEXT_CTXIMPROVEMENTS+HEAUGEMENTATION_ctx16"
+EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCONTEXT_CTXIMP+HEAUG_2_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -85,6 +85,8 @@ class LightningModel(pl.LightningModule):
         #self.net=UNETR2D(img_shape=(192, 192), input_dim=1, output_dim=1)
         #self.net=NnUNet(in_channels=1, out_channels=1, base_num_features=16, num_pool=4, ndim=2, deep_supervision=False)
         #self.net=SwinUNet()
+        self.test_dices = []
+        self.test_ious = []
 
        
         
@@ -96,7 +98,33 @@ class LightningModel(pl.LightningModule):
         sc = ShapeChecker()
         y_pred = self.net(target_in,context_in,context_out)
         sc.check(y_pred, "B C H W")
-        return y_pred 
+        return y_pred
+    
+    def on_test_epoch_end(self):
+        dices = np.array(self.test_dices)
+        ious = np.array(self.test_ious)
+
+        summary_path = os.path.join(
+            self.save_dir,
+            f"{EXPERIMENT_NAME}_summary_metrics.txt"
+        )
+
+        with open(summary_path, "w") as f:
+            f.write(f"Mean Dice: {dices.mean():.4f}\n")
+            f.write(f"Median Dice: {np.median(dices):.4f}\n")
+            f.write(f"Std Dice: {dices.std():.4f}\n")
+            f.write(f"Highest Dice: {dices.max():.4f}\n")
+            f.write(f"Lowest Dice: {dices.min():.4f}\n")
+            f.write(f"Dropouts Dice < 0.3: {(dices < 0.3).sum()}\n\n")
+
+            f.write(f"Mean IoU: {ious.mean():.4f}\n")
+            f.write(f"Median IoU: {np.median(ious):.4f}\n")
+            f.write(f"Std IoU: {ious.std():.4f}\n")
+            f.write(f"Highest IoU: {ious.max():.4f}\n")
+            f.write(f"Lowest IoU: {ious.min():.4f}\n")
+            f.write(f"Dropouts IoU < 0.2: {(ious < 0.2).sum()}\n")
+
+        print(f"Saved summary metrics to: {summary_path}", flush=True)
 
     def training_step(self, batch, batch_idx):
         target_images, target_masks, context_images, context_masks = batch
@@ -177,7 +205,8 @@ class LightningModel(pl.LightningModule):
         # Calculate metrics
         metrics = self._calculate_metrics(pred_masks, target_masks)
 
-
+        self.test_dices.append(metrics["dice"])
+        self.test_ious.append(metrics["iou"])
 
 
 
@@ -1050,7 +1079,7 @@ if __name__ == "__main__":
     logging.info(f"Test samples: {len(data_module.test_dataset)}")
 
     # Train the model
-    trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
+    # trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
 
 
 
@@ -1074,11 +1103,17 @@ if __name__ == "__main__":
         num_workers=8
     )
 
-
+    ################################################################ model test w/out augmentation
     # model = LightningModel.load_from_checkpoint(
     #     "iclnoise/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16/version_0/checkpoints/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16-epoch=19-val_loss=0.6501.ckpt",
     #     hparams=hparams
     # )
+
+    ################################################################ model test w/ augmentation
+    model = LightningModel.load_from_checkpoint(
+        "iclnoise/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16/version_0/checkpoints/27mei_THEliz_TESTHEbindbCONTEXT_CTXIMPROVEMENTS+HEAUGEMENTATION_ctx16-epoch=39-val_loss=0.5843.ckpt",
+        hparams=hparams
+    )
 
     test_results = trainer.test(model, test_loader)
 
