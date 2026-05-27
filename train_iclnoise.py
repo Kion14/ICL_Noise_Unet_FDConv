@@ -687,15 +687,28 @@ class EvalDataset(Dataset):
 
         context_imgs = []
         context_masks = []
-        for i in sorted_indices:
-            ctx_img, ctx_mask, *_ = candidate_context[i]
-            context_imgs.append(np.ascontiguousarray(ctx_img))
-            context_masks.append(np.ascontiguousarray(ctx_mask))
 
 
-        while len(context_imgs) < self.context_size:
-            context_imgs.append(np.zeros_like(context_imgs[0]))
-            context_masks.append(np.zeros_like(context_masks[0]))
+
+        if len(candidate_context) == 0:
+            context_imgs = [
+                np.zeros_like(target_img.permute(1, 2, 0).numpy())
+                for _ in range(self.context_size)
+            ]
+            context_masks = [
+                np.zeros_like(target_mask.squeeze(0).numpy())
+                for _ in range(self.context_size)
+            ]
+        else:
+            for i in sorted_indices:
+                ctx_img, ctx_mask, *_ = candidate_context[i]
+                context_imgs.append(np.ascontiguousarray(ctx_img))
+                context_masks.append(np.ascontiguousarray(ctx_mask))
+
+
+            while len(context_imgs) < self.context_size:
+                context_imgs.append(np.zeros_like(context_imgs[0]))
+                context_masks.append(np.zeros_like(context_masks[0]))
 
         ############################################################################# NIEUW
         # Convert to tensors
