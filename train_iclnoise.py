@@ -47,7 +47,7 @@ from dataloaders import read_image_mask_folder_dataset, read_bbbc038_dataset
 import random
 
 
-EXPERIMENT_NAME = "27mei_TRAINHElizard_TESTHEcellbindb_CONTEXTLIZARD_ctx16"
+EXPERIMENT_NAME = "27mei_TRAINHElizard_TESTHEcellbindb_NOCONTEXT_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -421,7 +421,7 @@ X = lizard_he[val_len:]
 
 Y = cellbindb_he
 # test_context = X.copy()
-test_context = X.copy()
+test_context = [] ######################################################################### CONTEXTS
 train_context = X.copy()
 
 
