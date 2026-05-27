@@ -47,7 +47,7 @@ from dataloaders import read_image_mask_folder_dataset, read_bbbc038_dataset
 import random
 
 
-EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCONTEXT_DROPOUTlogging_ctx16"
+EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCONTEXT_CTXIMPROVEMENTS_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -630,6 +630,37 @@ class TrainDataset(Dataset):
         )
         ###############################################################################################
 
+def context_features(img, mask):
+    gray = img.mean(axis=2).astype(np.float32)
+
+    brightness = gray.mean()
+    contrast = gray.std()
+    fg_ratio = mask.mean()
+
+    hist, _ = np.histogram(gray, bins=32, range=(0, 1), density=True)
+    hist = hist / (hist.sum() + 1e-6)
+
+    return brightness, contrast, fg_ratio, hist
+
+
+def context_distance(target_img, target_mask, ctx_img, ctx_mask):
+    tb, tc, tf, th = context_features(target_img, target_mask)
+    cb, cc, cf, ch = context_features(ctx_img, ctx_mask)
+
+    brightness_dist = abs(tb - cb)
+    contrast_dist = abs(tc - cc)
+    foreground_dist = abs(tf - cf)
+    hist_dist = np.linalg.norm(th - ch)
+
+    return (
+        1.0 * brightness_dist +
+        1.0 * contrast_dist +
+        2.0 * foreground_dist +
+        1.0 * hist_dist
+    )
+
+
+
 class EvalDataset(Dataset):
     """Evaluation dataset with same channel padding as TrainDataset and 4 context samples"""
     def __init__(self, target_data, context_dataset, context_size=8):
@@ -711,24 +742,46 @@ class EvalDataset(Dataset):
 
 
 
+        # distances = []
+        # for context_img, context_mask, *_ in candidate_context:
+        #     # context_img = percentile_normalize(context_img)
+        #     ctx_tensor = torch.tensor(
+        #         np.ascontiguousarray(context_img),
+        #         dtype=torch.float32
+        #     ).permute(2, 0, 1)
+
+        #     # distances.append(torch.norm(target_img - ctx_tensor).item())
+        #     target_gray = target_img.mean(dim=0)
+        #     target_gray = (target_gray - target_gray.mean()) / (target_gray.std() + 1e-6)
+
+        #     ctx_gray = ctx_tensor.mean(dim=0)
+        #     ctx_gray = (ctx_gray - ctx_gray.mean()) / (ctx_gray.std() + 1e-6)
+
+        #     distances.append(torch.norm(target_gray - ctx_gray).item())
+
+        # sorted_indices = np.argsort(distances)[:self.context_size]
+
+
+
         distances = []
+
+        target_img_np = target_img.permute(1, 2, 0).numpy()
+        target_mask_np = target_mask.squeeze(0).numpy()
+
         for context_img, context_mask, *_ in candidate_context:
-            # context_img = percentile_normalize(context_img)
-            ctx_tensor = torch.tensor(
-                np.ascontiguousarray(context_img),
-                dtype=torch.float32
-            ).permute(2, 0, 1)
-
-            # distances.append(torch.norm(target_img - ctx_tensor).item())
-            target_gray = target_img.mean(dim=0)
-            target_gray = (target_gray - target_gray.mean()) / (target_gray.std() + 1e-6)
-
-            ctx_gray = ctx_tensor.mean(dim=0)
-            ctx_gray = (ctx_gray - ctx_gray.mean()) / (ctx_gray.std() + 1e-6)
-
-            distances.append(torch.norm(target_gray - ctx_gray).item())
+            dist = context_distance(
+                target_img_np,
+                target_mask_np,
+                context_img,
+                context_mask
+            )
+            distances.append(dist)
 
         sorted_indices = np.argsort(distances)[:self.context_size]
+
+
+
+
 
         context_imgs = []
         context_masks = []
