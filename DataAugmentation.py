@@ -99,6 +99,38 @@ def random_invert_intensity(image, p=0.3):
 
     return (1.0 - image).astype(np.float32)
 
+def random_he_augmentation(image, p=0.8):
+    if random.random() > p:
+        return image
+
+    image = image.astype(np.float32)
+
+    # brightness / contrast
+    alpha = random.uniform(0.85, 1.20)
+    beta = random.uniform(-0.08, 0.08)
+    image = np.clip(alpha * image + beta, 0, 1)
+
+    # gamma
+    gamma = random.uniform(0.85, 1.25)
+    image = np.power(image, gamma)
+
+    # hue / saturation
+    if random.random() < 0.5:
+        img_uint8 = (image * 255).astype(np.uint8)
+        hsv = cv2.cvtColor(img_uint8, cv2.COLOR_RGB2HSV).astype(np.float32)
+
+        hsv[:, :, 0] = (hsv[:, :, 0] + random.uniform(-5, 5)) % 180
+        hsv[:, :, 1] *= random.uniform(0.85, 1.20)
+        hsv[:, :, 1] = np.clip(hsv[:, :, 1], 0, 255)
+
+        image = cv2.cvtColor(hsv.astype(np.uint8), cv2.COLOR_HSV2RGB).astype(np.float32) / 255.0
+
+    # lichte blur
+    if random.random() < 0.25:
+        image = cv2.GaussianBlur(image, (3, 3), 0)
+
+    return np.clip(image, 0, 1).astype(np.float32)
+
 
 
 

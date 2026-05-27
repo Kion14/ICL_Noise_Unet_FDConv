@@ -44,10 +44,11 @@ from dataloaders import split_single_stain
 # from dataloaders import split_leave_one_stain_out
 from dataloaders import split_leave_stains_out
 from dataloaders import read_image_mask_folder_dataset, read_bbbc038_dataset
+from DataAugmentation import random_he_augmentation
 import random
 
 
-EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCONTEXT_CTXIMPROVEMENTS_ctx16"
+EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCONTEXT_CTXIMPROVEMENTS+HEAUGEMENTATION_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -523,8 +524,15 @@ class TrainDataset(Dataset):
             target_img, target_mask, *_ = self.data[idx]
             
             # target_img = percentile_normalize(target_img)
-            target_img = random_intensity_augmentation(target_img)
-            target_img = random_invert_intensity(target_img)
+
+
+            # target_img = random_intensity_augmentation(target_img)
+            # target_img = random_invert_intensity(target_img)
+            target_img = random_he_augmentation(target_img)
+
+
+
+
             # target_img = random_color_augmentation(target_img)
             # target_img = random_grayscale(target_img)
 
@@ -539,8 +547,15 @@ class TrainDataset(Dataset):
 
             target_img, target_mask, *_ = self.data[idx]
             # target_img = percentile_normalize(target_img)
-            target_img = random_intensity_augmentation(target_img)
-            target_img = random_invert_intensity(target_img)
+
+
+            # target_img = random_intensity_augmentation(target_img)
+            # target_img = random_invert_intensity(target_img)
+            target_img = random_he_augmentation(target_img)
+
+
+
+
             # target_img = random_color_augmentation(target_img)
             # target_img = random_grayscale(target_img)
 
@@ -577,8 +592,15 @@ class TrainDataset(Dataset):
                 # c_img, c_mask, *_ = self.data[context_idx]
                 c_img, c_mask, *_ = self.context_dataset[context_idx]
                 # c_img = percentile_normalize(c_img)
-                c_img = random_intensity_augmentation(c_img)
-                c_img = random_invert_intensity(c_img)
+
+
+                # c_img = random_intensity_augmentation(c_img)
+                # c_img = random_invert_intensity(c_img)
+                c_img = random_he_augmentation(c_img)
+
+
+
+
                 # c_img = random_color_augmentation(c_img)
                 # c_img = random_grayscale(c_img)
 
@@ -1028,7 +1050,7 @@ if __name__ == "__main__":
     logging.info(f"Test samples: {len(data_module.test_dataset)}")
 
     # Train the model
-    # trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
+    trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
 
 
 
@@ -1053,10 +1075,10 @@ if __name__ == "__main__":
     )
 
 
-    model = LightningModel.load_from_checkpoint(
-        "iclnoise/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16/version_0/checkpoints/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16-epoch=19-val_loss=0.6501.ckpt",
-        hparams=hparams
-    )
+    # model = LightningModel.load_from_checkpoint(
+    #     "iclnoise/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16/version_0/checkpoints/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16-epoch=19-val_loss=0.6501.ckpt",
+    #     hparams=hparams
+    # )
 
     test_results = trainer.test(model, test_loader)
 
