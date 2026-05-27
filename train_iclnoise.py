@@ -497,7 +497,7 @@ X = lizard_he[val_len:]
 # Y = cellbindb_he
 # # test_context = X.copy()
 # test_context = [] ######################################################################### CONTEXTS
-# train_context = X.copy()
+train_context = X.copy()
 
 Y = cellbindb_dapi_test
 test_context = cellbindb_dapi_test
