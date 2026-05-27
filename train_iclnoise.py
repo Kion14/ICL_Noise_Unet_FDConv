@@ -47,7 +47,7 @@ from dataloaders import read_image_mask_folder_dataset, read_bbbc038_dataset
 import random
 
 
-EXPERIMENT_NAME = "26mei_TRAINHElizard_TESTHEcellbindb_NOCONTEXT_ctx16"
+EXPERIMENT_NAME = "27mei_TRAINHElizard_TESTHEcellbindb_CONTEXTLIZARD_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -421,7 +421,7 @@ X = lizard_he[val_len:]
 
 Y = cellbindb_he
 # test_context = X.copy()
-test_context = []
+test_context = X.copy()
 train_context = X.copy()
 
 
@@ -917,7 +917,7 @@ if __name__ == "__main__":
     logging.info(f"Test samples: {len(data_module.test_dataset)}")
 
     # Train the model
-    trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
+    # trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
 
 
 
@@ -942,10 +942,10 @@ if __name__ == "__main__":
     )
 
 
-    # model = LightningModel.load_from_checkpoint(
-    #     "iclnoise/25mei_0-shotsOPLOSSEN_ctx16/version_1/checkpoints/25mei_0-shotsOPLOSSEN_ctx16-epoch=14-val_loss=0.3148.ckpt",
-    #     hparams=hparams
-    # )
+    model = LightningModel.load_from_checkpoint(
+        "iclnoise/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16/version_0/checkpoints/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16-epoch=19-val_loss=0.6501.ckpt",
+        hparams=hparams
+    )
 
     test_results = trainer.test(model, test_loader)
 
