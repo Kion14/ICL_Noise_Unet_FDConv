@@ -48,7 +48,7 @@ from DataAugmentation import random_he_augmentation
 import random
 
 
-EXPERIMENT_NAME = "27mei_THElizCONTEXT_TESTHEbindb_CTXIMP+HEAUG_2_ctx16"
+EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindb_NOCONTEXT_CTXIMP+HEAUG_2_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -496,7 +496,7 @@ X = lizard_he[val_len:]
 
 Y = cellbindb_he
 # test_context = X.copy()
-test_context = X.copy() ######################################################################### CONTEXTS
+test_context = [] ######################################################################### CONTEXTS
 train_context = X.copy()
 
 
