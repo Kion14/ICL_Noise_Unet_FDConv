@@ -44,11 +44,11 @@ from dataloaders import split_single_stain
 # from dataloaders import split_leave_one_stain_out
 from dataloaders import split_leave_stains_out
 from dataloaders import read_image_mask_folder_dataset, read_bbbc038_dataset
-from DataAugmentation import random_he_augmentation
+# from DataAugmentation import random_he_augmentation
 import random
 
 
-EXPERIMENT_NAME = "27mei_THEliz_TESTDAPIbindbCTX_CTXIMP+HEAUG_2_ctx16"
+EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindbCTX_FDCONV1.0_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -494,13 +494,11 @@ val_len = int(0.2 * len(lizard_he))
 V = lizard_he[:val_len]
 X = lizard_he[val_len:]
 
-# Y = cellbindb_he
-# # test_context = X.copy()
-# test_context = [] ######################################################################### CONTEXTS
+Y = cellbindb_he
+# test_context = X.copy()
+test_context = Y.copy() ######################################################################### CONTEXTS
 train_context = X.copy()
 
-Y = cellbindb_dapi_test
-test_context = cellbindb_dapi_test
 
 
 
@@ -559,9 +557,9 @@ class TrainDataset(Dataset):
             # target_img = percentile_normalize(target_img)
 
 
-            # target_img = random_intensity_augmentation(target_img)
-            # target_img = random_invert_intensity(target_img)
-            target_img = random_he_augmentation(target_img)
+            target_img = random_intensity_augmentation(target_img)
+            target_img = random_invert_intensity(target_img)
+            # target_img = random_he_augmentation(target_img)
 
 
 
@@ -582,9 +580,9 @@ class TrainDataset(Dataset):
             # target_img = percentile_normalize(target_img)
 
 
-            # target_img = random_intensity_augmentation(target_img)
-            # target_img = random_invert_intensity(target_img)
-            target_img = random_he_augmentation(target_img)
+            target_img = random_intensity_augmentation(target_img)
+            target_img = random_invert_intensity(target_img)
+            # target_img = random_he_augmentation(target_img)
 
 
 
@@ -627,9 +625,9 @@ class TrainDataset(Dataset):
                 # c_img = percentile_normalize(c_img)
 
 
-                # c_img = random_intensity_augmentation(c_img)
-                # c_img = random_invert_intensity(c_img)
-                c_img = random_he_augmentation(c_img)
+                c_img = random_intensity_augmentation(c_img)
+                c_img = random_invert_intensity(c_img)
+                # c_img = random_he_augmentation(c_img)
 
 
 
@@ -742,55 +740,55 @@ class EvalDataset(Dataset):
 
         
 
-        # target_mask = torch.tensor(np.ascontiguousarray(target_mask), dtype=torch.float32)  # [H, W]
+        target_mask = torch.tensor(np.ascontiguousarray(target_mask), dtype=torch.float32)  # [H, W]
     
-        #############################################################################################
+        ############################################################################################
    
         # --- Find k closest context samples based on L2 distance ---
-        # distances = []
-        # for context_img, context_mask, *_ in self.context_dataset:
+        distances = []
+        for context_img, context_mask, *_ in self.context_dataset:
 
-        #     ######################################################################################### NIUEW
-        #     # ctx_tensor = torch.tensor(np.ascontiguousarray(context_img), dtype=torch.float32)
-        #     ctx_tensor = torch.tensor(
-        #         np.ascontiguousarray(context_img),
-        #         dtype=torch.float32
-        #     ).permute(2, 0, 1)
-        #     #############################################################################
-        #     # distances.append(torch.norm(target_img - ctx_tensor).item())
-        #     same_stain_context = [
-        #         item for item in self.context_dataset if item[2] == stain
-        #     ]
+            ######################################################################################### NIUEW
+            # ctx_tensor = torch.tensor(np.ascontiguousarray(context_img), dtype=torch.float32)
+            ctx_tensor = torch.tensor(
+                np.ascontiguousarray(context_img),
+                dtype=torch.float32
+            ).permute(2, 0, 1)
+            #############################################################################
+            # distances.append(torch.norm(target_img - ctx_tensor).item())
+            same_stain_context = [
+                item for item in self.context_dataset if item[2] == stain
+            ]
         
-        # sorted_indices = np.argsort(distances)[:self.context_size]
+        sorted_indices = np.argsort(distances)[:self.context_size]
 
-        # # Select the top-k most similar context samples
-        # context_imgs = []
-        # context_masks = []
+        # Select the top-k most similar context samples
+        context_imgs = []
+        context_masks = []
 
 
 
-        # --- Find k closest context samples, preferably from same stain ---
-        same_stain_context = [
-            item for item in self.context_dataset if item[2] == stain
-        ]
+        # # --- Find k closest context samples, preferably from same stain ---
+        # same_stain_context = [
+        #     item for item in self.context_dataset if item[2] == stain
+        # ]
 
-        # Fallback: als er geen context samples met dezelfde stain zijn
+        # # Fallback: als er geen context samples met dezelfde stain zijn
+        # # candidate_context = same_stain_context if len(same_stain_context) > 0 else self.context_dataset
+
         # candidate_context = same_stain_context if len(same_stain_context) > 0 else self.context_dataset
 
-        candidate_context = same_stain_context if len(same_stain_context) > 0 else self.context_dataset
+        # # Filter slechte context masks
+        # filtered_context = []
+        # for item in candidate_context:
+        #     ctx_img, ctx_mask, *_ = item
+        #     mask_ratio = ctx_mask.mean()
 
-        # Filter slechte context masks
-        filtered_context = []
-        for item in candidate_context:
-            ctx_img, ctx_mask, *_ = item
-            mask_ratio = ctx_mask.mean()
+        #     if 0.01 < mask_ratio < 0.70:
+        #         filtered_context.append(item)
 
-            if 0.01 < mask_ratio < 0.70:
-                filtered_context.append(item)
-
-        # fallback als filter te streng is
-        candidate_context = filtered_context if len(filtered_context) >= self.context_size else candidate_context
+        # # fallback als filter te streng is
+        # candidate_context = filtered_context if len(filtered_context) >= self.context_size else candidate_context
 
 
 
