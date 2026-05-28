@@ -53,8 +53,8 @@ from pathlib import Path
 from collections import Counter
 
 
-EXPERIMENT_NAME = "28mei_AUGMENTATIONS_TrainHEliz_db_TestOTHERSTAINSbindb_NMBENCODER_ctx16"
-
+EXPERIMENT_NAME = "28mei_AUGMENTATIONS_TrainHEliz_db_TestHEbindb_NMBENCODER_ctx16"
+BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
     def __init__(self, smooth=1e-6):
@@ -510,8 +510,8 @@ class LightningModel(pl.LightningModule):
 #####################################################################################
 
 def load_sample_from_json_item(item, image_size=192):
-    img_path = item["image"]
-    mask_path = item["mask"]
+    img_path = BASE_DATA_DIR / item["image"]
+    mask_path = BASE_DATA_DIR / item["mask"]
     stain = item["stain"]
     sample_id = item.get("sample_id", Path(img_path).stem)
 
@@ -579,9 +579,9 @@ SPLIT_JSON = "datasplits_he_lizard_cellbindb_with_GOODcontext.json"
 TRAIN_KEY = "he_lizard_plus_half_cellbindb_he"
 
 # Kies hier je testmodus:
-# TEST_KEY = "he_only"
+TEST_KEY = "he_only"
 # TEST_KEY = "all_stains_without_he"
-TEST_KEY = "all_stains_without_he_without_mif"
+# TEST_KEY = "all_stains_without_he_without_mif"
 # TEST_KEY = "mif_only"
 
 X, V, Y, separate_test_context = load_json_split(

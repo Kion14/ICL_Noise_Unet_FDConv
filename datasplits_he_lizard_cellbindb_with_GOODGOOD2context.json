@@ -13,1667 +13,1667 @@
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_1",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_1.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_1_mask.png"
+                "image": "Lizard/img/consep_1.png",
+                "mask": "Lizard/masks/consep_1_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_10",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_10.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_10_mask.png"
+                "image": "Lizard/img/consep_10.png",
+                "mask": "Lizard/masks/consep_10_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_11",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_11.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_11_mask.png"
+                "image": "Lizard/img/consep_11.png",
+                "mask": "Lizard/masks/consep_11_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_12",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_12.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_12_mask.png"
+                "image": "Lizard/img/consep_12.png",
+                "mask": "Lizard/masks/consep_12_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_13",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_13.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_13_mask.png"
+                "image": "Lizard/img/consep_13.png",
+                "mask": "Lizard/masks/consep_13_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_14",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_14.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_14_mask.png"
+                "image": "Lizard/img/consep_14.png",
+                "mask": "Lizard/masks/consep_14_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_15",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_15.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_15_mask.png"
+                "image": "Lizard/img/consep_15.png",
+                "mask": "Lizard/masks/consep_15_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_16",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_16.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_16_mask.png"
+                "image": "Lizard/img/consep_16.png",
+                "mask": "Lizard/masks/consep_16_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_2",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_2.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_2_mask.png"
+                "image": "Lizard/img/consep_2.png",
+                "mask": "Lizard/masks/consep_2_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_3",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_3.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_3_mask.png"
+                "image": "Lizard/img/consep_3.png",
+                "mask": "Lizard/masks/consep_3_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_4",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_4.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_4_mask.png"
+                "image": "Lizard/img/consep_4.png",
+                "mask": "Lizard/masks/consep_4_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_5",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_5.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_5_mask.png"
+                "image": "Lizard/img/consep_5.png",
+                "mask": "Lizard/masks/consep_5_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_6",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_6.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_6_mask.png"
+                "image": "Lizard/img/consep_6.png",
+                "mask": "Lizard/masks/consep_6_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_7",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_7.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_7_mask.png"
+                "image": "Lizard/img/consep_7.png",
+                "mask": "Lizard/masks/consep_7_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_8",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_8.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_8_mask.png"
+                "image": "Lizard/img/consep_8.png",
+                "mask": "Lizard/masks/consep_8_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "consep_9",
-                "image": "/home/kion/AA Scriptie/Lizard/img/consep_9.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/consep_9_mask.png"
+                "image": "Lizard/img/consep_9.png",
+                "mask": "Lizard/masks/consep_9_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_1",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_1.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_1_mask.png"
+                "image": "Lizard/img/crag_1.png",
+                "mask": "Lizard/masks/crag_1_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_10",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_10.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_10_mask.png"
+                "image": "Lizard/img/crag_10.png",
+                "mask": "Lizard/masks/crag_10_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_11",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_11.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_11_mask.png"
+                "image": "Lizard/img/crag_11.png",
+                "mask": "Lizard/masks/crag_11_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_12",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_12.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_12_mask.png"
+                "image": "Lizard/img/crag_12.png",
+                "mask": "Lizard/masks/crag_12_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_13",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_13.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_13_mask.png"
+                "image": "Lizard/img/crag_13.png",
+                "mask": "Lizard/masks/crag_13_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_14",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_14.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_14_mask.png"
+                "image": "Lizard/img/crag_14.png",
+                "mask": "Lizard/masks/crag_14_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_15",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_15.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_15_mask.png"
+                "image": "Lizard/img/crag_15.png",
+                "mask": "Lizard/masks/crag_15_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_16",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_16.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_16_mask.png"
+                "image": "Lizard/img/crag_16.png",
+                "mask": "Lizard/masks/crag_16_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_17",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_17.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_17_mask.png"
+                "image": "Lizard/img/crag_17.png",
+                "mask": "Lizard/masks/crag_17_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_18",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_18.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_18_mask.png"
+                "image": "Lizard/img/crag_18.png",
+                "mask": "Lizard/masks/crag_18_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_19",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_19.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_19_mask.png"
+                "image": "Lizard/img/crag_19.png",
+                "mask": "Lizard/masks/crag_19_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_2",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_2.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_2_mask.png"
+                "image": "Lizard/img/crag_2.png",
+                "mask": "Lizard/masks/crag_2_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_20",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_20.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_20_mask.png"
+                "image": "Lizard/img/crag_20.png",
+                "mask": "Lizard/masks/crag_20_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_21",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_21.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_21_mask.png"
+                "image": "Lizard/img/crag_21.png",
+                "mask": "Lizard/masks/crag_21_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_22",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_22.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_22_mask.png"
+                "image": "Lizard/img/crag_22.png",
+                "mask": "Lizard/masks/crag_22_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_23",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_23.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_23_mask.png"
+                "image": "Lizard/img/crag_23.png",
+                "mask": "Lizard/masks/crag_23_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_24",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_24.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_24_mask.png"
+                "image": "Lizard/img/crag_24.png",
+                "mask": "Lizard/masks/crag_24_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_25",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_25.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_25_mask.png"
+                "image": "Lizard/img/crag_25.png",
+                "mask": "Lizard/masks/crag_25_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_26",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_26.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_26_mask.png"
+                "image": "Lizard/img/crag_26.png",
+                "mask": "Lizard/masks/crag_26_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_27",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_27.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_27_mask.png"
+                "image": "Lizard/img/crag_27.png",
+                "mask": "Lizard/masks/crag_27_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_28",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_28.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_28_mask.png"
+                "image": "Lizard/img/crag_28.png",
+                "mask": "Lizard/masks/crag_28_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_29",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_29.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_29_mask.png"
+                "image": "Lizard/img/crag_29.png",
+                "mask": "Lizard/masks/crag_29_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_3",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_3.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_3_mask.png"
+                "image": "Lizard/img/crag_3.png",
+                "mask": "Lizard/masks/crag_3_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_30",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_30.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_30_mask.png"
+                "image": "Lizard/img/crag_30.png",
+                "mask": "Lizard/masks/crag_30_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_31",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_31.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_31_mask.png"
+                "image": "Lizard/img/crag_31.png",
+                "mask": "Lizard/masks/crag_31_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_32",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_32.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_32_mask.png"
+                "image": "Lizard/img/crag_32.png",
+                "mask": "Lizard/masks/crag_32_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_33",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_33.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_33_mask.png"
+                "image": "Lizard/img/crag_33.png",
+                "mask": "Lizard/masks/crag_33_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_34",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_34.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_34_mask.png"
+                "image": "Lizard/img/crag_34.png",
+                "mask": "Lizard/masks/crag_34_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_35",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_35.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_35_mask.png"
+                "image": "Lizard/img/crag_35.png",
+                "mask": "Lizard/masks/crag_35_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_36",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_36.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_36_mask.png"
+                "image": "Lizard/img/crag_36.png",
+                "mask": "Lizard/masks/crag_36_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_37",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_37.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_37_mask.png"
+                "image": "Lizard/img/crag_37.png",
+                "mask": "Lizard/masks/crag_37_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_38",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_38.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_38_mask.png"
+                "image": "Lizard/img/crag_38.png",
+                "mask": "Lizard/masks/crag_38_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_39",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_39.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_39_mask.png"
+                "image": "Lizard/img/crag_39.png",
+                "mask": "Lizard/masks/crag_39_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_4",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_4.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_4_mask.png"
+                "image": "Lizard/img/crag_4.png",
+                "mask": "Lizard/masks/crag_4_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_40",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_40.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_40_mask.png"
+                "image": "Lizard/img/crag_40.png",
+                "mask": "Lizard/masks/crag_40_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_41",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_41.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_41_mask.png"
+                "image": "Lizard/img/crag_41.png",
+                "mask": "Lizard/masks/crag_41_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_42",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_42.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_42_mask.png"
+                "image": "Lizard/img/crag_42.png",
+                "mask": "Lizard/masks/crag_42_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_43",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_43.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_43_mask.png"
+                "image": "Lizard/img/crag_43.png",
+                "mask": "Lizard/masks/crag_43_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_44",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_44.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_44_mask.png"
+                "image": "Lizard/img/crag_44.png",
+                "mask": "Lizard/masks/crag_44_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_45",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_45.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_45_mask.png"
+                "image": "Lizard/img/crag_45.png",
+                "mask": "Lizard/masks/crag_45_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_46",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_46.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_46_mask.png"
+                "image": "Lizard/img/crag_46.png",
+                "mask": "Lizard/masks/crag_46_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_47",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_47.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_47_mask.png"
+                "image": "Lizard/img/crag_47.png",
+                "mask": "Lizard/masks/crag_47_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_48",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_48.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_48_mask.png"
+                "image": "Lizard/img/crag_48.png",
+                "mask": "Lizard/masks/crag_48_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_49",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_49.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_49_mask.png"
+                "image": "Lizard/img/crag_49.png",
+                "mask": "Lizard/masks/crag_49_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_5",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_5.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_5_mask.png"
+                "image": "Lizard/img/crag_5.png",
+                "mask": "Lizard/masks/crag_5_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_50",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_50.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_50_mask.png"
+                "image": "Lizard/img/crag_50.png",
+                "mask": "Lizard/masks/crag_50_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_51",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_51.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_51_mask.png"
+                "image": "Lizard/img/crag_51.png",
+                "mask": "Lizard/masks/crag_51_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_52",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_52.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_52_mask.png"
+                "image": "Lizard/img/crag_52.png",
+                "mask": "Lizard/masks/crag_52_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_53",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_53.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_53_mask.png"
+                "image": "Lizard/img/crag_53.png",
+                "mask": "Lizard/masks/crag_53_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_54",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_54.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_54_mask.png"
+                "image": "Lizard/img/crag_54.png",
+                "mask": "Lizard/masks/crag_54_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_55",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_55.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_55_mask.png"
+                "image": "Lizard/img/crag_55.png",
+                "mask": "Lizard/masks/crag_55_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_56",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_56.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_56_mask.png"
+                "image": "Lizard/img/crag_56.png",
+                "mask": "Lizard/masks/crag_56_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_57",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_57.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_57_mask.png"
+                "image": "Lizard/img/crag_57.png",
+                "mask": "Lizard/masks/crag_57_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_58",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_58.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_58_mask.png"
+                "image": "Lizard/img/crag_58.png",
+                "mask": "Lizard/masks/crag_58_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_59",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_59.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_59_mask.png"
+                "image": "Lizard/img/crag_59.png",
+                "mask": "Lizard/masks/crag_59_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_6",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_6.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_6_mask.png"
+                "image": "Lizard/img/crag_6.png",
+                "mask": "Lizard/masks/crag_6_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_60",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_60.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_60_mask.png"
+                "image": "Lizard/img/crag_60.png",
+                "mask": "Lizard/masks/crag_60_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_61",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_61.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_61_mask.png"
+                "image": "Lizard/img/crag_61.png",
+                "mask": "Lizard/masks/crag_61_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_62",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_62.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_62_mask.png"
+                "image": "Lizard/img/crag_62.png",
+                "mask": "Lizard/masks/crag_62_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_63",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_63.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_63_mask.png"
+                "image": "Lizard/img/crag_63.png",
+                "mask": "Lizard/masks/crag_63_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_64",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_64.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_64_mask.png"
+                "image": "Lizard/img/crag_64.png",
+                "mask": "Lizard/masks/crag_64_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_7",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_7.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_7_mask.png"
+                "image": "Lizard/img/crag_7.png",
+                "mask": "Lizard/masks/crag_7_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_8",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_8.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_8_mask.png"
+                "image": "Lizard/img/crag_8.png",
+                "mask": "Lizard/masks/crag_8_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "crag_9",
-                "image": "/home/kion/AA Scriptie/Lizard/img/crag_9.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/crag_9_mask.png"
+                "image": "Lizard/img/crag_9.png",
+                "mask": "Lizard/masks/crag_9_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_1",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_1.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_1_mask.png"
+                "image": "Lizard/img/dpath_1.png",
+                "mask": "Lizard/masks/dpath_1_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_10",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_10.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_10_mask.png"
+                "image": "Lizard/img/dpath_10.png",
+                "mask": "Lizard/masks/dpath_10_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_11",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_11.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_11_mask.png"
+                "image": "Lizard/img/dpath_11.png",
+                "mask": "Lizard/masks/dpath_11_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_12",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_12.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_12_mask.png"
+                "image": "Lizard/img/dpath_12.png",
+                "mask": "Lizard/masks/dpath_12_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_13",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_13.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_13_mask.png"
+                "image": "Lizard/img/dpath_13.png",
+                "mask": "Lizard/masks/dpath_13_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_14",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_14.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_14_mask.png"
+                "image": "Lizard/img/dpath_14.png",
+                "mask": "Lizard/masks/dpath_14_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_15",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_15.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_15_mask.png"
+                "image": "Lizard/img/dpath_15.png",
+                "mask": "Lizard/masks/dpath_15_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_16",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_16.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_16_mask.png"
+                "image": "Lizard/img/dpath_16.png",
+                "mask": "Lizard/masks/dpath_16_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_17",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_17.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_17_mask.png"
+                "image": "Lizard/img/dpath_17.png",
+                "mask": "Lizard/masks/dpath_17_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_18",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_18.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_18_mask.png"
+                "image": "Lizard/img/dpath_18.png",
+                "mask": "Lizard/masks/dpath_18_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_19",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_19.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_19_mask.png"
+                "image": "Lizard/img/dpath_19.png",
+                "mask": "Lizard/masks/dpath_19_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_2",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_2.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_2_mask.png"
+                "image": "Lizard/img/dpath_2.png",
+                "mask": "Lizard/masks/dpath_2_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_20",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_20.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_20_mask.png"
+                "image": "Lizard/img/dpath_20.png",
+                "mask": "Lizard/masks/dpath_20_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_21",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_21.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_21_mask.png"
+                "image": "Lizard/img/dpath_21.png",
+                "mask": "Lizard/masks/dpath_21_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_22",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_22.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_22_mask.png"
+                "image": "Lizard/img/dpath_22.png",
+                "mask": "Lizard/masks/dpath_22_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_23",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_23.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_23_mask.png"
+                "image": "Lizard/img/dpath_23.png",
+                "mask": "Lizard/masks/dpath_23_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_24",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_24.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_24_mask.png"
+                "image": "Lizard/img/dpath_24.png",
+                "mask": "Lizard/masks/dpath_24_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_25",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_25.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_25_mask.png"
+                "image": "Lizard/img/dpath_25.png",
+                "mask": "Lizard/masks/dpath_25_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_26",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_26.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_26_mask.png"
+                "image": "Lizard/img/dpath_26.png",
+                "mask": "Lizard/masks/dpath_26_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_27",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_27.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_27_mask.png"
+                "image": "Lizard/img/dpath_27.png",
+                "mask": "Lizard/masks/dpath_27_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_28",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_28.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_28_mask.png"
+                "image": "Lizard/img/dpath_28.png",
+                "mask": "Lizard/masks/dpath_28_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_29",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_29.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_29_mask.png"
+                "image": "Lizard/img/dpath_29.png",
+                "mask": "Lizard/masks/dpath_29_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_3",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_3.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_3_mask.png"
+                "image": "Lizard/img/dpath_3.png",
+                "mask": "Lizard/masks/dpath_3_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_30",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_30.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_30_mask.png"
+                "image": "Lizard/img/dpath_30.png",
+                "mask": "Lizard/masks/dpath_30_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_31",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_31.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_31_mask.png"
+                "image": "Lizard/img/dpath_31.png",
+                "mask": "Lizard/masks/dpath_31_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_32",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_32.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_32_mask.png"
+                "image": "Lizard/img/dpath_32.png",
+                "mask": "Lizard/masks/dpath_32_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_33",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_33.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_33_mask.png"
+                "image": "Lizard/img/dpath_33.png",
+                "mask": "Lizard/masks/dpath_33_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_34",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_34.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_34_mask.png"
+                "image": "Lizard/img/dpath_34.png",
+                "mask": "Lizard/masks/dpath_34_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_35",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_35.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_35_mask.png"
+                "image": "Lizard/img/dpath_35.png",
+                "mask": "Lizard/masks/dpath_35_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_36",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_36.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_36_mask.png"
+                "image": "Lizard/img/dpath_36.png",
+                "mask": "Lizard/masks/dpath_36_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_37",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_37.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_37_mask.png"
+                "image": "Lizard/img/dpath_37.png",
+                "mask": "Lizard/masks/dpath_37_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_38",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_38.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_38_mask.png"
+                "image": "Lizard/img/dpath_38.png",
+                "mask": "Lizard/masks/dpath_38_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_39",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_39.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_39_mask.png"
+                "image": "Lizard/img/dpath_39.png",
+                "mask": "Lizard/masks/dpath_39_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_4",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_4.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_4_mask.png"
+                "image": "Lizard/img/dpath_4.png",
+                "mask": "Lizard/masks/dpath_4_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_40",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_40.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_40_mask.png"
+                "image": "Lizard/img/dpath_40.png",
+                "mask": "Lizard/masks/dpath_40_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_41",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_41.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_41_mask.png"
+                "image": "Lizard/img/dpath_41.png",
+                "mask": "Lizard/masks/dpath_41_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_42",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_42.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_42_mask.png"
+                "image": "Lizard/img/dpath_42.png",
+                "mask": "Lizard/masks/dpath_42_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_43",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_43.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_43_mask.png"
+                "image": "Lizard/img/dpath_43.png",
+                "mask": "Lizard/masks/dpath_43_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_44",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_44.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_44_mask.png"
+                "image": "Lizard/img/dpath_44.png",
+                "mask": "Lizard/masks/dpath_44_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_45",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_45.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_45_mask.png"
+                "image": "Lizard/img/dpath_45.png",
+                "mask": "Lizard/masks/dpath_45_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_46",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_46.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_46_mask.png"
+                "image": "Lizard/img/dpath_46.png",
+                "mask": "Lizard/masks/dpath_46_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_47",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_47.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_47_mask.png"
+                "image": "Lizard/img/dpath_47.png",
+                "mask": "Lizard/masks/dpath_47_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_48",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_48.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_48_mask.png"
+                "image": "Lizard/img/dpath_48.png",
+                "mask": "Lizard/masks/dpath_48_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_49",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_49.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_49_mask.png"
+                "image": "Lizard/img/dpath_49.png",
+                "mask": "Lizard/masks/dpath_49_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_5",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_5.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_5_mask.png"
+                "image": "Lizard/img/dpath_5.png",
+                "mask": "Lizard/masks/dpath_5_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_50",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_50.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_50_mask.png"
+                "image": "Lizard/img/dpath_50.png",
+                "mask": "Lizard/masks/dpath_50_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_51",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_51.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_51_mask.png"
+                "image": "Lizard/img/dpath_51.png",
+                "mask": "Lizard/masks/dpath_51_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_52",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_52.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_52_mask.png"
+                "image": "Lizard/img/dpath_52.png",
+                "mask": "Lizard/masks/dpath_52_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_53",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_53.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_53_mask.png"
+                "image": "Lizard/img/dpath_53.png",
+                "mask": "Lizard/masks/dpath_53_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_54",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_54.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_54_mask.png"
+                "image": "Lizard/img/dpath_54.png",
+                "mask": "Lizard/masks/dpath_54_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_55",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_55.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_55_mask.png"
+                "image": "Lizard/img/dpath_55.png",
+                "mask": "Lizard/masks/dpath_55_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_56",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_56.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_56_mask.png"
+                "image": "Lizard/img/dpath_56.png",
+                "mask": "Lizard/masks/dpath_56_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_57",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_57.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_57_mask.png"
+                "image": "Lizard/img/dpath_57.png",
+                "mask": "Lizard/masks/dpath_57_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_58",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_58.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_58_mask.png"
+                "image": "Lizard/img/dpath_58.png",
+                "mask": "Lizard/masks/dpath_58_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_59",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_59.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_59_mask.png"
+                "image": "Lizard/img/dpath_59.png",
+                "mask": "Lizard/masks/dpath_59_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_6",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_6.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_6_mask.png"
+                "image": "Lizard/img/dpath_6.png",
+                "mask": "Lizard/masks/dpath_6_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_60",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_60.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_60_mask.png"
+                "image": "Lizard/img/dpath_60.png",
+                "mask": "Lizard/masks/dpath_60_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_61",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_61.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_61_mask.png"
+                "image": "Lizard/img/dpath_61.png",
+                "mask": "Lizard/masks/dpath_61_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_62",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_62.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_62_mask.png"
+                "image": "Lizard/img/dpath_62.png",
+                "mask": "Lizard/masks/dpath_62_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_63",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_63.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_63_mask.png"
+                "image": "Lizard/img/dpath_63.png",
+                "mask": "Lizard/masks/dpath_63_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_64",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_64.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_64_mask.png"
+                "image": "Lizard/img/dpath_64.png",
+                "mask": "Lizard/masks/dpath_64_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_65",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_65.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_65_mask.png"
+                "image": "Lizard/img/dpath_65.png",
+                "mask": "Lizard/masks/dpath_65_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_66",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_66.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_66_mask.png"
+                "image": "Lizard/img/dpath_66.png",
+                "mask": "Lizard/masks/dpath_66_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_67",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_67.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_67_mask.png"
+                "image": "Lizard/img/dpath_67.png",
+                "mask": "Lizard/masks/dpath_67_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_68",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_68.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_68_mask.png"
+                "image": "Lizard/img/dpath_68.png",
+                "mask": "Lizard/masks/dpath_68_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_69",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_69.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_69_mask.png"
+                "image": "Lizard/img/dpath_69.png",
+                "mask": "Lizard/masks/dpath_69_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_7",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_7.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_7_mask.png"
+                "image": "Lizard/img/dpath_7.png",
+                "mask": "Lizard/masks/dpath_7_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_8",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_8.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_8_mask.png"
+                "image": "Lizard/img/dpath_8.png",
+                "mask": "Lizard/masks/dpath_8_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "dpath_9",
-                "image": "/home/kion/AA Scriptie/Lizard/img/dpath_9.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/dpath_9_mask.png"
+                "image": "Lizard/img/dpath_9.png",
+                "mask": "Lizard/masks/dpath_9_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_1",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_1.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_1_mask.png"
+                "image": "Lizard/img/glas_1.png",
+                "mask": "Lizard/masks/glas_1_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_10",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_10.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_10_mask.png"
+                "image": "Lizard/img/glas_10.png",
+                "mask": "Lizard/masks/glas_10_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_11",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_11.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_11_mask.png"
+                "image": "Lizard/img/glas_11.png",
+                "mask": "Lizard/masks/glas_11_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_12",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_12.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_12_mask.png"
+                "image": "Lizard/img/glas_12.png",
+                "mask": "Lizard/masks/glas_12_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_13",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_13.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_13_mask.png"
+                "image": "Lizard/img/glas_13.png",
+                "mask": "Lizard/masks/glas_13_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_14",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_14.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_14_mask.png"
+                "image": "Lizard/img/glas_14.png",
+                "mask": "Lizard/masks/glas_14_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_15",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_15.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_15_mask.png"
+                "image": "Lizard/img/glas_15.png",
+                "mask": "Lizard/masks/glas_15_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_16",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_16.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_16_mask.png"
+                "image": "Lizard/img/glas_16.png",
+                "mask": "Lizard/masks/glas_16_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_17",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_17.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_17_mask.png"
+                "image": "Lizard/img/glas_17.png",
+                "mask": "Lizard/masks/glas_17_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_18",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_18.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_18_mask.png"
+                "image": "Lizard/img/glas_18.png",
+                "mask": "Lizard/masks/glas_18_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_19",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_19.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_19_mask.png"
+                "image": "Lizard/img/glas_19.png",
+                "mask": "Lizard/masks/glas_19_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_2",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_2.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_2_mask.png"
+                "image": "Lizard/img/glas_2.png",
+                "mask": "Lizard/masks/glas_2_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_20",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_20.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_20_mask.png"
+                "image": "Lizard/img/glas_20.png",
+                "mask": "Lizard/masks/glas_20_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_21",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_21.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_21_mask.png"
+                "image": "Lizard/img/glas_21.png",
+                "mask": "Lizard/masks/glas_21_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_22",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_22.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_22_mask.png"
+                "image": "Lizard/img/glas_22.png",
+                "mask": "Lizard/masks/glas_22_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_23",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_23.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_23_mask.png"
+                "image": "Lizard/img/glas_23.png",
+                "mask": "Lizard/masks/glas_23_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_24",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_24.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_24_mask.png"
+                "image": "Lizard/img/glas_24.png",
+                "mask": "Lizard/masks/glas_24_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_25",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_25.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_25_mask.png"
+                "image": "Lizard/img/glas_25.png",
+                "mask": "Lizard/masks/glas_25_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_26",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_26.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_26_mask.png"
+                "image": "Lizard/img/glas_26.png",
+                "mask": "Lizard/masks/glas_26_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_27",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_27.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_27_mask.png"
+                "image": "Lizard/img/glas_27.png",
+                "mask": "Lizard/masks/glas_27_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_28",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_28.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_28_mask.png"
+                "image": "Lizard/img/glas_28.png",
+                "mask": "Lizard/masks/glas_28_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_29",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_29.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_29_mask.png"
+                "image": "Lizard/img/glas_29.png",
+                "mask": "Lizard/masks/glas_29_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_3",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_3.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_3_mask.png"
+                "image": "Lizard/img/glas_3.png",
+                "mask": "Lizard/masks/glas_3_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_30",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_30.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_30_mask.png"
+                "image": "Lizard/img/glas_30.png",
+                "mask": "Lizard/masks/glas_30_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_31",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_31.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_31_mask.png"
+                "image": "Lizard/img/glas_31.png",
+                "mask": "Lizard/masks/glas_31_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_32",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_32.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_32_mask.png"
+                "image": "Lizard/img/glas_32.png",
+                "mask": "Lizard/masks/glas_32_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_33",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_33.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_33_mask.png"
+                "image": "Lizard/img/glas_33.png",
+                "mask": "Lizard/masks/glas_33_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_34",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_34.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_34_mask.png"
+                "image": "Lizard/img/glas_34.png",
+                "mask": "Lizard/masks/glas_34_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_35",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_35.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_35_mask.png"
+                "image": "Lizard/img/glas_35.png",
+                "mask": "Lizard/masks/glas_35_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_36",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_36.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_36_mask.png"
+                "image": "Lizard/img/glas_36.png",
+                "mask": "Lizard/masks/glas_36_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_37",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_37.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_37_mask.png"
+                "image": "Lizard/img/glas_37.png",
+                "mask": "Lizard/masks/glas_37_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_38",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_38.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_38_mask.png"
+                "image": "Lizard/img/glas_38.png",
+                "mask": "Lizard/masks/glas_38_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_39",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_39.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_39_mask.png"
+                "image": "Lizard/img/glas_39.png",
+                "mask": "Lizard/masks/glas_39_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_4",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_4.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_4_mask.png"
+                "image": "Lizard/img/glas_4.png",
+                "mask": "Lizard/masks/glas_4_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_40",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_40.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_40_mask.png"
+                "image": "Lizard/img/glas_40.png",
+                "mask": "Lizard/masks/glas_40_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_41",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_41.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_41_mask.png"
+                "image": "Lizard/img/glas_41.png",
+                "mask": "Lizard/masks/glas_41_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_42",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_42.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_42_mask.png"
+                "image": "Lizard/img/glas_42.png",
+                "mask": "Lizard/masks/glas_42_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_43",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_43.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_43_mask.png"
+                "image": "Lizard/img/glas_43.png",
+                "mask": "Lizard/masks/glas_43_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_44",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_44.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_44_mask.png"
+                "image": "Lizard/img/glas_44.png",
+                "mask": "Lizard/masks/glas_44_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_45",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_45.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_45_mask.png"
+                "image": "Lizard/img/glas_45.png",
+                "mask": "Lizard/masks/glas_45_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_46",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_46.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_46_mask.png"
+                "image": "Lizard/img/glas_46.png",
+                "mask": "Lizard/masks/glas_46_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_47",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_47.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_47_mask.png"
+                "image": "Lizard/img/glas_47.png",
+                "mask": "Lizard/masks/glas_47_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_48",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_48.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_48_mask.png"
+                "image": "Lizard/img/glas_48.png",
+                "mask": "Lizard/masks/glas_48_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_49",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_49.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_49_mask.png"
+                "image": "Lizard/img/glas_49.png",
+                "mask": "Lizard/masks/glas_49_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_5",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_5.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_5_mask.png"
+                "image": "Lizard/img/glas_5.png",
+                "mask": "Lizard/masks/glas_5_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_50",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_50.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_50_mask.png"
+                "image": "Lizard/img/glas_50.png",
+                "mask": "Lizard/masks/glas_50_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_51",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_51.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_51_mask.png"
+                "image": "Lizard/img/glas_51.png",
+                "mask": "Lizard/masks/glas_51_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_52",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_52.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_52_mask.png"
+                "image": "Lizard/img/glas_52.png",
+                "mask": "Lizard/masks/glas_52_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_53",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_53.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_53_mask.png"
+                "image": "Lizard/img/glas_53.png",
+                "mask": "Lizard/masks/glas_53_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_54",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_54.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_54_mask.png"
+                "image": "Lizard/img/glas_54.png",
+                "mask": "Lizard/masks/glas_54_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_55",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_55.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_55_mask.png"
+                "image": "Lizard/img/glas_55.png",
+                "mask": "Lizard/masks/glas_55_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_56",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_56.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_56_mask.png"
+                "image": "Lizard/img/glas_56.png",
+                "mask": "Lizard/masks/glas_56_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_57",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_57.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_57_mask.png"
+                "image": "Lizard/img/glas_57.png",
+                "mask": "Lizard/masks/glas_57_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_58",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_58.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_58_mask.png"
+                "image": "Lizard/img/glas_58.png",
+                "mask": "Lizard/masks/glas_58_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_59",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_59.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_59_mask.png"
+                "image": "Lizard/img/glas_59.png",
+                "mask": "Lizard/masks/glas_59_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_6",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_6.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_6_mask.png"
+                "image": "Lizard/img/glas_6.png",
+                "mask": "Lizard/masks/glas_6_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_60",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_60.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_60_mask.png"
+                "image": "Lizard/img/glas_60.png",
+                "mask": "Lizard/masks/glas_60_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_61",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_61.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_61_mask.png"
+                "image": "Lizard/img/glas_61.png",
+                "mask": "Lizard/masks/glas_61_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_7",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_7.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_7_mask.png"
+                "image": "Lizard/img/glas_7.png",
+                "mask": "Lizard/masks/glas_7_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_8",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_8.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_8_mask.png"
+                "image": "Lizard/img/glas_8.png",
+                "mask": "Lizard/masks/glas_8_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "glas_9",
-                "image": "/home/kion/AA Scriptie/Lizard/img/glas_9.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/glas_9_mask.png"
+                "image": "Lizard/img/glas_9.png",
+                "mask": "Lizard/masks/glas_9_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_1",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_1.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_1_mask.png"
+                "image": "Lizard/img/pannuke_1.png",
+                "mask": "Lizard/masks/pannuke_1_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_10",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_10.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_10_mask.png"
+                "image": "Lizard/img/pannuke_10.png",
+                "mask": "Lizard/masks/pannuke_10_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_11",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_11.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_11_mask.png"
+                "image": "Lizard/img/pannuke_11.png",
+                "mask": "Lizard/masks/pannuke_11_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_12",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_12.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_12_mask.png"
+                "image": "Lizard/img/pannuke_12.png",
+                "mask": "Lizard/masks/pannuke_12_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_13",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_13.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_13_mask.png"
+                "image": "Lizard/img/pannuke_13.png",
+                "mask": "Lizard/masks/pannuke_13_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_14",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_14.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_14_mask.png"
+                "image": "Lizard/img/pannuke_14.png",
+                "mask": "Lizard/masks/pannuke_14_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_15",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_15.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_15_mask.png"
+                "image": "Lizard/img/pannuke_15.png",
+                "mask": "Lizard/masks/pannuke_15_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_16",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_16.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_16_mask.png"
+                "image": "Lizard/img/pannuke_16.png",
+                "mask": "Lizard/masks/pannuke_16_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_17",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_17.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_17_mask.png"
+                "image": "Lizard/img/pannuke_17.png",
+                "mask": "Lizard/masks/pannuke_17_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_18",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_18.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_18_mask.png"
+                "image": "Lizard/img/pannuke_18.png",
+                "mask": "Lizard/masks/pannuke_18_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_19",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_19.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_19_mask.png"
+                "image": "Lizard/img/pannuke_19.png",
+                "mask": "Lizard/masks/pannuke_19_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_2",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_2.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_2_mask.png"
+                "image": "Lizard/img/pannuke_2.png",
+                "mask": "Lizard/masks/pannuke_2_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_20",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_20.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_20_mask.png"
+                "image": "Lizard/img/pannuke_20.png",
+                "mask": "Lizard/masks/pannuke_20_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_21",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_21.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_21_mask.png"
+                "image": "Lizard/img/pannuke_21.png",
+                "mask": "Lizard/masks/pannuke_21_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_22",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_22.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_22_mask.png"
+                "image": "Lizard/img/pannuke_22.png",
+                "mask": "Lizard/masks/pannuke_22_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_23",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_23.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_23_mask.png"
+                "image": "Lizard/img/pannuke_23.png",
+                "mask": "Lizard/masks/pannuke_23_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_24",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_24.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_24_mask.png"
+                "image": "Lizard/img/pannuke_24.png",
+                "mask": "Lizard/masks/pannuke_24_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_25",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_25.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_25_mask.png"
+                "image": "Lizard/img/pannuke_25.png",
+                "mask": "Lizard/masks/pannuke_25_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_26",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_26.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_26_mask.png"
+                "image": "Lizard/img/pannuke_26.png",
+                "mask": "Lizard/masks/pannuke_26_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_27",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_27.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_27_mask.png"
+                "image": "Lizard/img/pannuke_27.png",
+                "mask": "Lizard/masks/pannuke_27_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_28",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_28.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_28_mask.png"
+                "image": "Lizard/img/pannuke_28.png",
+                "mask": "Lizard/masks/pannuke_28_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_3",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_3.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_3_mask.png"
+                "image": "Lizard/img/pannuke_3.png",
+                "mask": "Lizard/masks/pannuke_3_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_4",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_4.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_4_mask.png"
+                "image": "Lizard/img/pannuke_4.png",
+                "mask": "Lizard/masks/pannuke_4_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_5",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_5.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_5_mask.png"
+                "image": "Lizard/img/pannuke_5.png",
+                "mask": "Lizard/masks/pannuke_5_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_6",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_6.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_6_mask.png"
+                "image": "Lizard/img/pannuke_6.png",
+                "mask": "Lizard/masks/pannuke_6_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_7",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_7.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_7_mask.png"
+                "image": "Lizard/img/pannuke_7.png",
+                "mask": "Lizard/masks/pannuke_7_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_8",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_8.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_8_mask.png"
+                "image": "Lizard/img/pannuke_8.png",
+                "mask": "Lizard/masks/pannuke_8_mask.png"
             },
             {
                 "dataset": "lizard",
                 "stain": "HE",
                 "sample_id": "pannuke_9",
-                "image": "/home/kion/AA Scriptie/Lizard/img/pannuke_9.png",
-                "mask": "/home/kion/AA Scriptie/Lizard/masks/pannuke_9_mask.png"
+                "image": "Lizard/img/pannuke_9.png",
+                "mask": "Lizard/masks/pannuke_9_mask.png"
             },
             {
                 "dataset": "cellbindb",
