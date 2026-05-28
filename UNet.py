@@ -10,7 +10,7 @@ class UNet(nn.Module):
         super(UNet, self).__init__()
 
         # Downward path
-        self.conv1_1 = nn.Conv2d(1, 64, kernel_size=3, padding=1)
+        self.conv1_1 = nn.Conv2d(3, 64, kernel_size=3, padding=1)
         self.bn1_1 = nn.BatchNorm2d(64)
         self.relu1_1 = nn.ReLU()
         self.conv1_2 = nn.Conv2d(64, 64, kernel_size=3, padding=1)
