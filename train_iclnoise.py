@@ -7,7 +7,8 @@ from matplotlib import pyplot as plt
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from DataAugmentation import augment_data
-from DataAugmentation import random_intensity_augmentation, random_invert_intensity
+# from DataAugmentation import random_intensity_augmentation, random_invert_intensity
+from DataAugmentation import random_he_augmentation
 # from DataAugmentation import random_color_augmentation, random_grayscale
 import cv2
 import os
@@ -52,7 +53,7 @@ from pathlib import Path
 from collections import Counter
 
 
-EXPERIMENT_NAME = "28mei_TrainHEliz_db_TestHEbindb_NMBENCODER_ctx16"
+EXPERIMENT_NAME = "28mei_AUGMENTATIONS_TrainHEliz_db_TestHEbindb_NMBENCODER_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -573,7 +574,7 @@ def load_json_split(json_path, train_key, test_key, image_size=192, val_ratio=0.
 
 
 
-SPLIT_JSON = "datasplits_he_lizard_cellbindb.json"
+SPLIT_JSON = "datasplits_he_lizard_cellbindb_with_GOODcontext.json"
 
 TRAIN_KEY = "he_lizard_plus_half_cellbindb_he"
 
@@ -728,8 +729,9 @@ class TrainDataset(Dataset):
             # target_img = percentile_normalize(target_img)
 
 
-            target_img = random_intensity_augmentation(target_img)
-            target_img = random_invert_intensity(target_img)
+            # target_img = random_intensity_augmentation(target_img)
+            # target_img = random_invert_intensity(target_img)
+            target_img = random_he_augmentation(target_img)
             # target_img = random_he_augmentation(target_img)
 
 
@@ -751,8 +753,9 @@ class TrainDataset(Dataset):
             # target_img = percentile_normalize(target_img)
 
 
-            target_img = random_intensity_augmentation(target_img)
-            target_img = random_invert_intensity(target_img)
+            # target_img = random_intensity_augmentation(target_img)
+            # target_img = random_invert_intensity(target_img)
+            target_img = random_he_augmentation(target_img)
             # target_img = random_he_augmentation(target_img)
 
 
@@ -796,8 +799,9 @@ class TrainDataset(Dataset):
                 # c_img = percentile_normalize(c_img)
 
 
-                c_img = random_intensity_augmentation(c_img)
-                c_img = random_invert_intensity(c_img)
+                # c_img = random_intensity_augmentation(c_img)
+                # c_img = random_invert_intensity(c_img)
+                c_img = random_he_augmentation(c_img)
                 # c_img = random_he_augmentation(c_img)
 
 

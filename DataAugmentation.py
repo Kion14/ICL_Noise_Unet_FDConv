@@ -99,7 +99,7 @@ def random_invert_intensity(image, p=0.3):
 
     return (1.0 - image).astype(np.float32)
 
-def random_he_augmentation(image, p=0.8):
+def random_he_augmentation(image, p=0.5):
     if random.random() > p:
         return image
 
