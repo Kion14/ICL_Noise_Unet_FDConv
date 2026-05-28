@@ -574,7 +574,7 @@ def load_json_split(json_path, train_key, test_key, image_size=192, val_ratio=0.
 
 
 
-SPLIT_JSON = "datasplits_he_lizard_cellbindb_with_GOODcontext.json"
+SPLIT_JSON = "datasplits_he_lizard_cellbindb_with_GOODGOOD2context.json"
 
 TRAIN_KEY = "he_lizard_plus_half_cellbindb_he"
 
