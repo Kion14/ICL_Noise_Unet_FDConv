@@ -13,7 +13,7 @@ import cv2
 import os
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
-from pytorch_lightning.loggers import TensorBoardLogger, CSVLogger
+from pytorch_lightning.loggers import TensorBoardLogger
 from pytorch_lightning import LightningDataModule
 import logging
 import random
@@ -46,13 +46,9 @@ from dataloaders import split_leave_stains_out
 from dataloaders import read_image_mask_folder_dataset, read_bbbc038_dataset
 # from DataAugmentation import random_he_augmentation
 import random
-import json
-from PIL import Image
-from pathlib import Path
-from collections import Counter
 
 
-EXPERIMENT_NAME = "28mei_TrainHEliz_db_TestHEbindb_NMBENCODER_ctx16"
+EXPERIMENT_NAME = "27mei_THEliz_TESTHEbindb_FDCONV4.0_NOCONTEXT_ctx16"
 
 
 class SoftDiceLoss(nn.Module):
@@ -181,13 +177,6 @@ class LightningModel(pl.LightningModule):
         ##################################################################################################
         # Calculate metrics
         metrics = self._calculate_metrics(pred_masks, target_masks)
-
-        self.save_validation_visuals(
-            target_images,
-            target_masks,
-            pred_masks,
-            batch_idx
-        )
 
         # Log everything
         self.log_dict({f"val_{k}": v for k, v in metrics.items()}, prog_bar=True)
@@ -410,53 +399,6 @@ class LightningModel(pl.LightningModule):
         plt.close()
         
         return metrics
-    
-
-    def save_validation_visuals(self, target_images, target_masks, pred_masks, batch_idx, max_batches=3):
-        if batch_idx >= max_batches:
-            return
-
-        if self.current_epoch % 10 != 0:
-            return
-
-        vis_dir = os.path.join(self.save_dir, "validation_visuals")
-        os.makedirs(vis_dir, exist_ok=True)
-
-        img = target_images[0].detach().cpu()
-        gt_mask = target_masks[0, 0].detach().cpu()
-        pred_mask = torch.sigmoid(pred_masks[0, 0]).detach().cpu()
-        pred_binary = (pred_mask > 0.45).float()
-
-        img_np = img.permute(1, 2, 0).numpy()
-        gt_np = gt_mask.numpy()
-        pred_np = pred_binary.numpy()
-
-        fig, axes = plt.subplots(1, 4, figsize=(16, 4))
-
-        axes[0].imshow(img_np)
-        axes[0].set_title("Input")
-
-        axes[1].imshow(gt_np, cmap="gray")
-        axes[1].set_title("Ground truth")
-
-        axes[2].imshow(pred_np, cmap="gray")
-        axes[2].set_title("Prediction")
-
-        axes[3].imshow(img_np)
-        axes[3].imshow(pred_np, alpha=0.4, cmap="jet")
-        axes[3].set_title("Overlay")
-
-        for ax in axes:
-            ax.axis("off")
-
-        save_path = os.path.join(
-            vis_dir,
-            f"epoch_{self.current_epoch}_batch_{batch_idx}.png"
-        )
-
-        plt.tight_layout()
-        plt.savefig(save_path, dpi=200)
-        plt.close(fig)
 
 
 # =============================================================================
@@ -508,167 +450,66 @@ class LightningModel(pl.LightningModule):
 # test_context = Y.copy()
 #####################################################################################
 
-def load_sample_from_json_item(item, image_size=192):
-    img_path = item["image"]
-    mask_path = item["mask"]
-    stain = item["stain"]
-    sample_id = item.get("sample_id", Path(img_path).stem)
-
-    img = Image.open(img_path).convert("RGB")
-    mask = Image.open(mask_path).convert("L")
-
-    img = img.resize((image_size, image_size), Image.BILINEAR)
-    mask = mask.resize((image_size, image_size), Image.NEAREST)
-
-    img = np.array(img, dtype=np.float32) / 255.0
-    mask_raw = np.array(mask, dtype=np.float32)
-
-    if stain == "mIF":
-        mask = (mask_raw < 128).astype(np.float32)
-    else:
-        mask = (mask_raw > 0).astype(np.float32)
-
-    return img, mask, stain, sample_id
-
-
-def load_json_split(json_path, train_key, test_key, image_size=192, val_ratio=0.2, seed=42):
-    with open(json_path, "r") as f:
-        splits = json.load(f)
-
-    train_items = splits["train"][train_key]
-    test_items = splits["test"][test_key]
-    test_context_items = splits["test_context"][test_key]
-
-    train_data = [
-        load_sample_from_json_item(item, image_size=image_size)
-        for item in train_items
-    ]
-
-    test_data = [
-        load_sample_from_json_item(item, image_size=image_size)
-        for item in test_items
-    ]
-
-    test_context_data = [
-        load_sample_from_json_item(item, image_size=image_size)
-        for item in test_context_items
-    ]
-
-    random.seed(seed)
-    random.shuffle(train_data)
-
-    val_len = int(len(train_data) * val_ratio)
-
-    V = train_data[:val_len]
-    X = train_data[val_len:]
-    Y = test_data
-
-    print("\n========== JSON SPLIT LOADED ==========")
-    print("Train:", len(X), Counter([x[2] for x in X]))
-    print("Val:", len(V), Counter([x[2] for x in V]))
-    print("Test:", len(Y), Counter([x[2] for x in Y]))
-
-    return X, V, Y, test_context_data
 
 
 
+cellbindb = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
 
-SPLIT_JSON = "datasplits_he_lizard_cellbindb.json"
+cellbindb_he = [
+    item for item in cellbindb
+    if item[2] in ["HE", "10×Genomics_HE"]
+]
 
-TRAIN_KEY = "he_lizard_plus_half_cellbindb_he"
+cellbindb_dapi_test = [
+    item for item in cellbindb
+    if item[2] in ["DAPI", "10×Genomics_DAPI"]
+]
 
-# Kies hier je testmodus:
-TEST_KEY = "he_only"
-# TEST_KEY = "all_stains_without_he"
-# TEST_KEY = "all_stains_without_he_without_mif"
-# TEST_KEY = "mif_only"
-
-X, V, Y, separate_test_context = load_json_split(
-    json_path=SPLIT_JSON,
-    train_key=TRAIN_KEY,
-    test_key=TEST_KEY,
-    image_size=192,
-    val_ratio=0.2,
-    seed=42
+monuseg_he = read_image_mask_folder_dataset(
+    "/gpfs/home3/kkramer/data/MoNuSeg",
+    stain_name="MoNuSeg_HE",
+    image_size=192
 )
 
+lizard_he = read_image_mask_folder_dataset(
+    "/gpfs/home3/kkramer/data/Lizard",
+    stain_name="Lizard_HE",
+    image_size=192
+)
 
-train_context = X.copy()
-
-# Belangrijk:
-# Voor HE-test kun je train_context gebruiken.
-# Voor cross-stain test is Y.copy() logisch als je same-stain context wil gebruiken.
-test_context = separate_test_context
-
-
-
-
-
-
-
-
-
-
-
-
-
-# cellbindb = read_histopathology_data(os.environ["DATA_DIR"], image_size=192)
-
-# cellbindb_he = [
-#     item for item in cellbindb
-#     if item[2] in ["HE", "10×Genomics_HE"]
-# ]
-
-# cellbindb_dapi_test = [
-#     item for item in cellbindb
-#     if item[2] in ["DAPI", "10×Genomics_DAPI"]
-# ]
-
-# monuseg_he = read_image_mask_folder_dataset(
-#     "/gpfs/home3/kkramer/data/MoNuSeg",
-#     stain_name="MoNuSeg_HE",
+# nuinsseg_he = read_image_mask_folder_dataset(
+#     "/gpfs/home3/kkramer/data/NuInsSeg_HE",
+#     stain_name="NuInsSeg_HE",
 #     image_size=192
 # )
 
-# lizard_he = read_image_mask_folder_dataset(
-#     "/gpfs/home3/kkramer/data/Lizard",
-#     stain_name="Lizard_HE",
-#     image_size=192
-# )
-
-# # nuinsseg_he = read_image_mask_folder_dataset(
-# #     "/gpfs/home3/kkramer/data/NuInsSeg_HE",
-# #     stain_name="NuInsSeg_HE",
-# #     image_size=192
-# # )
-
-# # train_data = cellbindb_he + monuseg_he + lizard_he
-
-# # random.seed(42)
-# # random.shuffle(train_data)
-
-# # val_len = int(0.2 * len(train_data))
-
-# # V = train_data[:val_len]
-# # X = train_data[val_len:]
-
-# # Y = cellbindb_dapi_test
-
-# # train_context = X.copy()
-# # test_context = Y.copy()
+# train_data = cellbindb_he + monuseg_he + lizard_he
 
 # random.seed(42)
-# random.shuffle(lizard_he)
+# random.shuffle(train_data)
 
-# val_len = int(0.2 * len(lizard_he))
+# val_len = int(0.2 * len(train_data))
 
-# V = lizard_he[:val_len]
-# X = lizard_he[val_len:]
+# V = train_data[:val_len]
+# X = train_data[val_len:]
 
-# Y = cellbindb_he
-# # test_context = X.copy()
-# test_context = [] ######################################################################### CONTEXTS
+# Y = cellbindb_dapi_test
+
 # train_context = X.copy()
+# test_context = Y.copy()
+
+random.seed(42)
+random.shuffle(lizard_he)
+
+val_len = int(0.2 * len(lizard_he))
+
+V = lizard_he[:val_len]
+X = lizard_he[val_len:]
+
+Y = cellbindb_he
+# test_context = X.copy()
+test_context = [] ######################################################################### CONTEXTS
+train_context = X.copy()
 
 
 
@@ -1185,22 +1026,10 @@ if __name__ == "__main__":
 
     # logger = TensorBoardLogger("iclnoise", name="model_logs")
 
-    # logger = TensorBoardLogger(
-    #     "iclnoise",
-    #     name=EXPERIMENT_NAME
-    # )
-
-    tb_logger = TensorBoardLogger(
+    logger = TensorBoardLogger(
         "iclnoise",
         name=EXPERIMENT_NAME
     )
-
-    csv_logger = CSVLogger(
-        "iclnoise_csv",
-        name=EXPERIMENT_NAME
-    )
-
-    logger = [tb_logger, csv_logger]
 
     # Initialize your model
     hparams = {
@@ -1261,7 +1090,7 @@ if __name__ == "__main__":
     logging.info(f"Test samples: {len(data_module.test_dataset)}")
 
     # Train the model
-    trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
+    # trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
 
 
 
@@ -1286,24 +1115,16 @@ if __name__ == "__main__":
     )
 
     ################################################################ model test w/out augmentation
-    # model = LightningModel.load_from_checkpoint(
-    #     "iclnoise/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16/version_0/checkpoints/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16-epoch=19-val_loss=0.6501.ckpt",
-    #     hparams=hparams
-    # )
+    model = LightningModel.load_from_checkpoint(
+        "iclnoise/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16/version_0/checkpoints/26mei_TRAINHElizard_TESTHEcellbindbCONTEXT_ctx16-epoch=19-val_loss=0.6501.ckpt",
+        hparams=hparams
+    )
 
     ################################################################ model test w/ augmentation
     # model = LightningModel.load_from_checkpoint(
     #     "iclnoise/27mei_THEliz_TESTHEbindbCONTEXT_CTXIMPROVEMENTS+HEAUGEMENTATION_ctx16/version_0/checkpoints/27mei_THEliz_TESTHEbindbCONTEXT_CTXIMPROVEMENTS+HEAUGEMENTATION_ctx16-epoch=39-val_loss=0.5843.ckpt",
     #     hparams=hparams
     # )
-
-    best_model_path = checkpoint_callback.best_model_path
-    print(f"Loading best checkpoint: {best_model_path}")
-
-    model = LightningModel.load_from_checkpoint(
-        best_model_path,
-        hparams=hparams
-    )
 
     test_results = trainer.test(model, test_loader)
 

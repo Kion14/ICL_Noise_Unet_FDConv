@@ -319,7 +319,7 @@ class UNet_Context(nn.Module):
         # Normal UNet forward, but modulate features with noise maps if provided
         x1 = self.relu1_1(self.bn1_1(self.conv1_1(x)))
         x1 = self.relu1_2(self.bn1_2(self.conv1_2(x1)))
-        #x1 = self.noise_block1(x1, speckle_map, var_map)
+        # x1 = self.noise_block1(x1, speckle_map, var_map)
 
         x1_pool = self.pool1(x1)
 
@@ -350,7 +350,7 @@ class UNet_Context(nn.Module):
             x1_pool = F.gelu(x1_pool + target_update)
             context1_pool = F.gelu(context1_pool + context_update)
 
-        # x1_pool = self.noise_block1(x1_pool, speckle_map, var_map)
+        x1_pool = self.noise_block1(x1_pool, speckle_map, var_map)
 
         x2 = self.relu2_1(self.bn2_1(self.conv2_1(x1_pool)))
         x2 = self.relu2_2(self.bn2_2(self.conv2_2(x2)))
@@ -378,7 +378,7 @@ class UNet_Context(nn.Module):
             x2_pool = F.gelu(x2_pool + target_update_2)
             context2_pool = F.gelu(context2_pool + context_update_2)
 
-        # x2_pool = self.noise_block2(x2_pool, speckle_map, var_map)
+        x2_pool = self.noise_block2(x2_pool, speckle_map, var_map)
 
 
         x3 = self.relu3_1(self.bn3_1(self.conv3_1(x2_pool)))
@@ -405,7 +405,7 @@ class UNet_Context(nn.Module):
             context3_pool = F.gelu(context3_pool + context_update_3)
 
 
-        # x3_pool = self.noise_block3(x3_pool, speckle_map, var_map)
+        x3_pool = self.noise_block3(x3_pool, speckle_map, var_map)
 
         x4 = self.relu4_1(self.bn4_1(self.conv4_1(x3_pool)))
         x4 = self.relu4_2(self.bn4_2(self.conv4_2(x4)))
@@ -430,7 +430,7 @@ class UNet_Context(nn.Module):
             x4_pool = F.gelu(x4_pool + target_update_4)
             context4_pool = F.gelu(context4_pool + context_update_4)
 
-        # x4_pool = self.noise_block4(x4_pool, speckle_map, var_map)
+        x4_pool = self.noise_block4(x4_pool, speckle_map, var_map)
 
         x5 = self.relu5_1(self.bn5_1(self.conv5_1(x4_pool)))
         x5 = self.relu5_2(self.bn5_2(self.conv5_2(x5)))
@@ -453,7 +453,7 @@ class UNet_Context(nn.Module):
             x5 = F.gelu(x5 + target_update_5)
             context5 = F.gelu(context5 + context_update_5)
 
-        # x5 = self.noise_block5(x5, speckle_map, var_map)
+        x5 = self.noise_block5(x5, speckle_map, var_map)
 
         # Upward path
         x6 = self.up6(x5)
