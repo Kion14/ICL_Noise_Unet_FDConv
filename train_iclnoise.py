@@ -53,7 +53,7 @@ from pathlib import Path
 from collections import Counter
 
 
-EXPERIMENT_NAME = "29mei_GrayscaleNorm_TrainHE_TestNonHE_NoMIF_ICL_NMB_ctx16"
+EXPERIMENT_NAME = "29mei_11111_GrayscaleNorm_TrainHE_TestNonHE_ICL_NMB_ctx16"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -534,21 +534,22 @@ def preprocess_grayscale_percentile(img_pil):
     img = np.array(img_pil, dtype=np.float32)
 
     if img.ndim == 3:
-        gray = img.mean(axis=2)
+        gray_raw = img.mean(axis=2)
     else:
-        gray = img
+        gray_raw = img
 
-    p1, p99 = np.percentile(gray, (1, 99))
+    p1, p99 = np.percentile(gray_raw, (1, 99))
 
     if p99 - p1 < 1e-6:
-        gray = (gray - gray.min()) / (gray.max() - gray.min() + 1e-6)
+        gray_norm = (gray_raw - gray_raw.min()) / (gray_raw.max() - gray_raw.min() + 1e-6)
     else:
-        gray = (gray - p1) / (p99 - p1 + 1e-6)
+        gray_norm = (gray_raw - p1) / (p99 - p1 + 1e-6)
 
-    gray = np.clip(gray, 0, 1)
+    gray_norm = np.clip(gray_norm, 0, 1)
 
-    gray_rgb = np.stack([gray, gray, gray], axis=-1)
-    return gray_rgb.astype(np.float32)
+    gray_rgb = np.stack([gray_norm, gray_norm, gray_norm], axis=-1)
+
+    return gray_rgb.astype(np.float32), gray_raw, gray_norm
 
 def load_sample_from_json_item(item, image_size=192):
     img_path = BASE_DATA_DIR / item["image"]
