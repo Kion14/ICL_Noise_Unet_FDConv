@@ -51,9 +51,10 @@ import json
 from PIL import Image
 from pathlib import Path
 from collections import Counter
+import cv2
 
 
-EXPERIMENT_NAME = "29mei_11111_GrayscaleNorm_TrainHE_TestNonHE_ICL_NMB_ctx16"
+EXPERIMENT_NAME = "29mei_2222_GrayscaleNorm_TrainHE_TestNonHE_ICL_NMB_ctx16"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -530,8 +531,8 @@ class LightningModel(pl.LightningModule):
 
 #     return gray_rgb.astype(np.float32)
 
-def preprocess_grayscale_percentile(img_pil):
-    img = np.array(img_pil, dtype=np.float32)
+def preprocess_grayscale_percentile(img):
+    img = img.astype(np.float32)
 
     if img.ndim == 3:
         gray_raw = img.mean(axis=2)
@@ -567,19 +568,37 @@ def load_sample_from_json_item(item, image_size=192):
     # mask_raw = np.array(mask, dtype=np.float32)
 
     # img_pil = Image.open(img_path).convert("RGB")
-    img_pil = Image.open(img_path)
+    # img_pil = Image.open(img_path)
 
-    img_raw = np.array(img_pil).astype(np.float32)
+    # img_raw = np.array(img_pil).astype(np.float32)
+    # mask = Image.open(mask_path).convert("L")
+
+    # img_pil = img_pil.resize((image_size, image_size), Image.BILINEAR)
+    # mask = mask.resize((image_size, image_size), Image.NEAREST)
+
+    # img = preprocess_grayscale_percentile(img_pil)
+    # mask_raw = np.array(mask, dtype=np.float32)
+
+    img_raw = cv2.imread(
+        str(img_path),
+        cv2.IMREAD_UNCHANGED
+    )
+
+    if img_raw is None:
+        raise RuntimeError(f"Could not load image: {img_path}")
+
+    img_raw = cv2.resize(
+        img_raw,
+        (image_size, image_size),
+        interpolation=cv2.INTER_LINEAR
+    )
+
     mask = Image.open(mask_path).convert("L")
-
-    img_pil = img_pil.resize((image_size, image_size), Image.BILINEAR)
     mask = mask.resize((image_size, image_size), Image.NEAREST)
 
-    img = preprocess_grayscale_percentile(img_pil)
+    img = preprocess_grayscale_percentile(img_raw)
+
     mask_raw = np.array(mask, dtype=np.float32)
-
-
-
 
     if stain == "mIF":
         mask = (mask_raw < 128).astype(np.float32)
