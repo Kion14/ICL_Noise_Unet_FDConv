@@ -24,7 +24,7 @@ from models.UNet import UNet
 # ============================================================
 # Experiment settings
 # ============================================================
-EXPERIMENT_NAME = "29mei_GrayscaleNorm_TrainHE_TestNonHE_NoMIF_UNet"
+EXPERIMENT_NAME = "29mei_PRINTTEST_GrayscaleNorm_TrainHE_TestNonHE_NoMIF_UNet"
 
 # This should point to the folder that contains both CellBinDB/ and Lizard/
 # In your Slurm job: export DATA_DIR=$TMPDIR
@@ -113,12 +113,52 @@ def load_sample_from_json_item(item, image_size=192):
 
 
     img_pil = Image.open(img_path).convert("RGB")
+
+    img_raw = np.array(img_pil, dtype=np.float32)
+
+    print(
+        f"RAW | stain={stain} | sample={sample_id} | "
+        f"min={img_raw.min():.1f} "
+        f"max={img_raw.max():.1f} "
+        f"mean={img_raw.mean():.1f} "
+        f"std={img_raw.std():.1f}",
+        flush=True
+    )
+
+
+
+
     mask = Image.open(mask_path).convert("L")
 
     img_pil = img_pil.resize((image_size, image_size), Image.BILINEAR)
     mask = mask.resize((image_size, image_size), Image.NEAREST)
 
     img = preprocess_grayscale_percentile(img_pil)
+
+    print(
+        f"PREPROC | stain={stain} | sample={sample_id} | "
+        f"min={img.min():.4f} "
+        f"max={img.max():.4f} "
+        f"mean={img.mean():.4f} "
+        f"std={img.std():.4f}",
+        flush=True
+    )
+
+    if img.std() < 0.01:
+        print(
+            f"WARNING LOW CONTRAST | "
+            f"stain={stain} | sample={sample_id}",
+            flush=True
+        )
+
+    if img.max() - img.min() < 0.05:
+        print(
+            f"WARNING FLAT IMAGE | "
+            f"stain={stain} | sample={sample_id}",
+            flush=True
+        )
+
+
     mask_raw = np.array(mask, dtype=np.float32)
 
     if stain == "mIF":
