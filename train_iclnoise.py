@@ -53,7 +53,7 @@ from pathlib import Path
 from collections import Counter
 
 
-EXPERIMENT_NAME = "28mei_AUGMENTATIONS_TrainHEliz_db_TestALLSTAINSbindb_NMBENCODER_ctx16"
+EXPERIMENT_NAME = "29mei_GrayscaleNorm_TrainHE_TestNonHE_NoMIF_ICL_NMB_ctx16"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -509,20 +509,53 @@ class LightningModel(pl.LightningModule):
 # test_context = Y.copy()
 #####################################################################################
 
+
+
+def preprocess_grayscale_percentile(img_pil):
+    img = np.array(img_pil, dtype=np.float32)
+
+    # RGB -> grayscale
+    if img.ndim == 3:
+        gray = img.mean(axis=2)
+    else:
+        gray = img
+
+    # Percentile normalization
+    p1, p99 = np.percentile(gray, (1, 99))
+    gray = (gray - p1) / (p99 - p1 + 1e-6)
+    gray = np.clip(gray, 0, 1)
+
+    # Terug naar 3 kanalen zodat modelinput [3,H,W] blijft
+    gray_rgb = np.stack([gray, gray, gray], axis=-1)
+
+    return gray_rgb.astype(np.float32)
+
 def load_sample_from_json_item(item, image_size=192):
     img_path = BASE_DATA_DIR / item["image"]
     mask_path = BASE_DATA_DIR / item["mask"]
     stain = item["stain"]
     sample_id = item.get("sample_id", Path(img_path).stem)
 
-    img = Image.open(img_path).convert("RGB")
+    # img = Image.open(img_path).convert("RGB")
+    # mask = Image.open(mask_path).convert("L")
+
+    # img = img.resize((image_size, image_size), Image.BILINEAR)
+    # mask = mask.resize((image_size, image_size), Image.NEAREST)
+
+    # img = np.array(img, dtype=np.float32) / 255.0
+    # mask_raw = np.array(mask, dtype=np.float32)
+
+    img_pil = Image.open(img_path).convert("RGB")
     mask = Image.open(mask_path).convert("L")
 
-    img = img.resize((image_size, image_size), Image.BILINEAR)
+    img_pil = img_pil.resize((image_size, image_size), Image.BILINEAR)
     mask = mask.resize((image_size, image_size), Image.NEAREST)
 
-    img = np.array(img, dtype=np.float32) / 255.0
+    img = preprocess_grayscale_percentile(img_pil)
     mask_raw = np.array(mask, dtype=np.float32)
+
+
+
 
     if stain == "mIF":
         mask = (mask_raw < 128).astype(np.float32)
@@ -731,7 +764,9 @@ class TrainDataset(Dataset):
 
             # target_img = random_intensity_augmentation(target_img)
             # target_img = random_invert_intensity(target_img)
-            target_img = random_he_augmentation(target_img)
+
+            # target_img = random_he_augmentation(target_img)
+
             # target_img = random_he_augmentation(target_img)
 
 
@@ -755,7 +790,9 @@ class TrainDataset(Dataset):
 
             # target_img = random_intensity_augmentation(target_img)
             # target_img = random_invert_intensity(target_img)
-            target_img = random_he_augmentation(target_img)
+
+            # target_img = random_he_augmentation(target_img)
+
             # target_img = random_he_augmentation(target_img)
 
 
@@ -801,7 +838,9 @@ class TrainDataset(Dataset):
 
                 # c_img = random_intensity_augmentation(c_img)
                 # c_img = random_invert_intensity(c_img)
-                c_img = random_he_augmentation(c_img)
+
+                # c_img = random_he_augmentation(c_img)
+                
                 # c_img = random_he_augmentation(c_img)
 
 

@@ -24,7 +24,7 @@ from models.UNet import UNet
 # ============================================================
 # Experiment settings
 # ============================================================
-EXPERIMENT_NAME = "28mei_UNET_BASELINE_AUG_TrainHEliz_TestALLSTAINSbindb_ctxIgnored"
+EXPERIMENT_NAME = "29mei_GrayscaleNorm_TrainHE_TestNonHE_NoMIF_UNet"
 
 # This should point to the folder that contains both CellBinDB/ and Lizard/
 # In your Slurm job: export DATA_DIR=$TMPDIR
@@ -69,6 +69,28 @@ class SoftDiceLoss(nn.Module):
 # ============================================================
 # Data loading from JSON
 # ============================================================
+
+def preprocess_grayscale_percentile(img_pil):
+    img = np.array(img_pil, dtype=np.float32)
+
+    # RGB -> grayscale
+    if img.ndim == 3:
+        gray = img.mean(axis=2)
+    else:
+        gray = img
+
+    # Percentile normalization
+    p1, p99 = np.percentile(gray, (1, 99))
+    gray = (gray - p1) / (p99 - p1 + 1e-6)
+    gray = np.clip(gray, 0, 1)
+
+    # Terug naar 3 kanalen zodat modelinput [3,H,W] blijft
+    gray_rgb = np.stack([gray, gray, gray], axis=-1)
+
+    return gray_rgb.astype(np.float32)
+
+
+
 def load_sample_from_json_item(item, image_size=192):
     img_path = BASE_DATA_DIR / item["image"]
     mask_path = BASE_DATA_DIR / item["mask"]
@@ -80,13 +102,23 @@ def load_sample_from_json_item(item, image_size=192):
     if not mask_path.exists():
         raise FileNotFoundError(f"Mask not found: {mask_path}")
 
-    img = Image.open(img_path).convert("RGB")
+    # img = Image.open(img_path).convert("RGB")
+    # mask = Image.open(mask_path).convert("L")
+
+    # img = img.resize((image_size, image_size), Image.BILINEAR)
+    # mask = mask.resize((image_size, image_size), Image.NEAREST)
+
+    # img = np.array(img, dtype=np.float32) / 255.0
+    # mask_raw = np.array(mask, dtype=np.float32)
+
+
+    img_pil = Image.open(img_path).convert("RGB")
     mask = Image.open(mask_path).convert("L")
 
-    img = img.resize((image_size, image_size), Image.BILINEAR)
+    img_pil = img_pil.resize((image_size, image_size), Image.BILINEAR)
     mask = mask.resize((image_size, image_size), Image.NEAREST)
 
-    img = np.array(img, dtype=np.float32) / 255.0
+    img = preprocess_grayscale_percentile(img_pil)
     mask_raw = np.array(mask, dtype=np.float32)
 
     if stain == "mIF":
@@ -180,7 +212,7 @@ class UNetDataModule(LightningDataModule):
         self.num_workers = num_workers
 
     def setup(self, stage=None):
-        self.train_dataset = UNetTrainDataset(self.X_train, augment=True)
+        self.train_dataset = UNetTrainDataset(self.X_train, augment=False)
         self.val_dataset = UNetEvalDataset(self.X_val)
         self.test_dataset = UNetEvalDataset(self.X_test)
 
