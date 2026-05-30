@@ -8,8 +8,8 @@ import csv
 from PIL import Image
 import matplotlib.pyplot as plt
 
-
-BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
+BASE_DATA_DIR = Path("/home/kkramer/data")
+# BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 SPLIT_JSON = "datasplits_he_lizard_cellbindb_with_GOODGOOD2context_FIXED.json"
 
 TEST_KEY = "all_stains_without_he_without_mif"
