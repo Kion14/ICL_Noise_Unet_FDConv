@@ -549,7 +549,7 @@ def preprocess_grayscale_percentile(img_pil):
 
     gray_rgb = np.stack([gray_norm, gray_norm, gray_norm], axis=-1)
 
-    return gray_rgb.astype(np.float32), gray_raw, gray_norm
+    return gray_rgb.astype(np.float32)
 
 def load_sample_from_json_item(item, image_size=192):
     img_path = BASE_DATA_DIR / item["image"]

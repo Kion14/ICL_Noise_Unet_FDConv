@@ -108,7 +108,7 @@ def preprocess_grayscale_percentile(img_pil):
 
     gray_rgb = np.stack([gray_norm, gray_norm, gray_norm], axis=-1)
 
-    return gray_rgb.astype(np.float32), gray_raw, gray_norm
+    return gray_rgb.astype(np.float32)
 
 
 
