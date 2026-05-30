@@ -16,9 +16,29 @@ TEST_KEY = "all_stains_without_he_without_mif"
 TRAIN_KEY = "he_lizard_plus_half_cellbindb_he"
 
 IMAGE_SIZE = 192
-OUT_DIR = Path("debug_json_loading")
+OUT_DIR = Path("debug_json_loading2222")
 OUT_DIR.mkdir(exist_ok=True)
 
+
+# def preprocess_grayscale_percentile(img_pil):
+#     img = np.array(img_pil, dtype=np.float32)
+
+#     if img.ndim == 3:
+#         gray = img.mean(axis=2)
+#     else:
+#         gray = img
+
+#     p1, p99 = np.percentile(gray, (1, 99))
+
+#     if p99 - p1 < 1e-6:
+#         gray_norm = (gray - gray.min()) / (gray.max() - gray.min() + 1e-6)
+#     else:
+#         gray_norm = (gray - p1) / (p99 - p1 + 1e-6)
+
+#     gray_norm = np.clip(gray_norm, 0, 1)
+#     gray_rgb = np.stack([gray_norm, gray_norm, gray_norm], axis=-1)
+
+#     return gray_rgb.astype(np.float32), gray, gray_norm
 
 def preprocess_grayscale_percentile(img_pil):
     img = np.array(img_pil, dtype=np.float32)
@@ -31,14 +51,14 @@ def preprocess_grayscale_percentile(img_pil):
     p1, p99 = np.percentile(gray, (1, 99))
 
     if p99 - p1 < 1e-6:
-        gray_norm = (gray - gray.min()) / (gray.max() - gray.min() + 1e-6)
+        gray = (gray - gray.min()) / (gray.max() - gray.min() + 1e-6)
     else:
-        gray_norm = (gray - p1) / (p99 - p1 + 1e-6)
+        gray = (gray - p1) / (p99 - p1 + 1e-6)
 
-    gray_norm = np.clip(gray_norm, 0, 1)
-    gray_rgb = np.stack([gray_norm, gray_norm, gray_norm], axis=-1)
+    gray = np.clip(gray, 0, 1)
 
-    return gray_rgb.astype(np.float32), gray, gray_norm
+    gray_rgb = np.stack([gray, gray, gray], axis=-1)
+    return gray_rgb.astype(np.float32)
 
 
 def load_and_debug_item(item, split_name, idx):
@@ -50,7 +70,13 @@ def load_and_debug_item(item, split_name, idx):
     img_pil_raw = Image.open(img_path)
     img_raw_arr = np.array(img_pil_raw)
 
-    img_pil = img_pil_raw.convert("RGB")
+    # img_pil = img_pil_raw.convert("RGB")
+    img_pil = Image.open(img_path)
+
+    img_raw = np.array(img_pil).astype(np.float32)
+    img_pil = Image.open(img_path)
+
+    img_raw = np.array(img_pil).astype(np.float32)
     mask_pil = Image.open(mask_path).convert("L")
 
     img_pil = img_pil.resize((IMAGE_SIZE, IMAGE_SIZE), Image.BILINEAR)

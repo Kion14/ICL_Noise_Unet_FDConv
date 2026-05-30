@@ -70,23 +70,43 @@ class SoftDiceLoss(nn.Module):
 # Data loading from JSON
 # ============================================================
 
+# def preprocess_grayscale_percentile(img_pil):
+#     img = np.array(img_pil, dtype=np.float32)
+
+#     # RGB -> grayscale
+#     if img.ndim == 3:
+#         gray = img.mean(axis=2)
+#     else:
+#         gray = img
+
+#     # Percentile normalization
+#     p1, p99 = np.percentile(gray, (1, 99))
+#     gray = (gray - p1) / (p99 - p1 + 1e-6)
+#     gray = np.clip(gray, 0, 1)
+
+#     # Terug naar 3 kanalen zodat modelinput [3,H,W] blijft
+#     gray_rgb = np.stack([gray, gray, gray], axis=-1)
+
+#     return gray_rgb.astype(np.float32)
+
 def preprocess_grayscale_percentile(img_pil):
     img = np.array(img_pil, dtype=np.float32)
 
-    # RGB -> grayscale
     if img.ndim == 3:
         gray = img.mean(axis=2)
     else:
         gray = img
 
-    # Percentile normalization
     p1, p99 = np.percentile(gray, (1, 99))
-    gray = (gray - p1) / (p99 - p1 + 1e-6)
+
+    if p99 - p1 < 1e-6:
+        gray = (gray - gray.min()) / (gray.max() - gray.min() + 1e-6)
+    else:
+        gray = (gray - p1) / (p99 - p1 + 1e-6)
+
     gray = np.clip(gray, 0, 1)
 
-    # Terug naar 3 kanalen zodat modelinput [3,H,W] blijft
     gray_rgb = np.stack([gray, gray, gray], axis=-1)
-
     return gray_rgb.astype(np.float32)
 
 
@@ -112,7 +132,10 @@ def load_sample_from_json_item(item, image_size=192):
     # mask_raw = np.array(mask, dtype=np.float32)
 
 
-    img_pil = Image.open(img_path).convert("RGB")
+    # img_pil = Image.open(img_path).convert("RGB")
+    img_pil = Image.open(img_path)
+
+    img_raw = np.array(img_pil).astype(np.float32)
 
     img_raw = np.array(img_pil, dtype=np.float32)
 
