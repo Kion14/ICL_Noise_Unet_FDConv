@@ -4,7 +4,7 @@ from pathlib import Path
 from collections import Counter
 
 import numpy as np
-import pandas as pd
+import csv
 from PIL import Image
 import matplotlib.pyplot as plt
 
@@ -144,16 +144,10 @@ for idx, item in enumerate(test_items):
     row = load_and_debug_item(item, "test", idx)
     items.append(row)
 
-df = pd.DataFrame(items)
 csv_path = OUT_DIR / "debug_loading_stats.csv"
-df.to_csv(csv_path, index=False)
 
-print("\nSaved CSV:", csv_path)
-print("\nProblem counts:")
-print(df[["is_low_contrast", "is_flat"]].sum())
+with open(csv_path, "w", newline="") as f:
+    writer = csv.DictWriter(f, fieldnames=items[0].keys())
+    writer.writeheader()
+    writer.writerows(items)
 
-print("\nMean stats per stain:")
-print(df.groupby("stain")[["raw_min", "raw_max", "raw_mean", "raw_std", "proc_mean", "proc_std", "mask_mean"]].mean())
-
-print("\nWorst processed std samples:")
-print(df.sort_values("proc_std").head(20)[["stain", "sample_id", "proc_mean", "proc_std", "raw_min", "raw_max", "raw_mean", "raw_std", "image_path"]])
