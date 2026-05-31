@@ -25,7 +25,7 @@ import cv2
 # ============================================================
 # Experiment settings
 # ============================================================
-EXPERIMENT_NAME = "29mei_3333_GrayscaleNorm_TrainHE_TestHE_UNET"
+EXPERIMENT_NAME = "31mei_HEAUGMENT_TrainHEliz_TestHEbin_UNET_NMB_ctx16"
 
 # This should point to the folder that contains both CellBinDB/ and Lizard/
 # In your Slurm job: export DATA_DIR=$TMPDIR
@@ -35,9 +35,9 @@ SPLIT_JSON = "datasplits_he_lizard_cellbindb_with_GOODGOOD2context_FIXED.json"
 TRAIN_KEY = "he_lizard_plus_half_cellbindb_he"
 
 # Choose one:
-TEST_KEY = "he_only"
+# TEST_KEY = "he_only"
 # TEST_KEY = "all_stains_without_he"
-# TEST_KEY = "all_stains_without_he_without_mif"
+TEST_KEY = "all_stains_without_he_without_mif"
 # TEST_KEY = "mif_only"
 
 IMAGE_SIZE = 192
@@ -285,7 +285,7 @@ class UNetDataModule(LightningDataModule):
         self.num_workers = num_workers
 
     def setup(self, stage=None):
-        self.train_dataset = UNetTrainDataset(self.X_train, augment=False)
+        self.train_dataset = UNetTrainDataset(self.X_train, augment=True)
         self.val_dataset = UNetEvalDataset(self.X_val)
         self.test_dataset = UNetEvalDataset(self.X_test)
 
