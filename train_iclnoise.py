@@ -55,7 +55,7 @@ import cv2
 from dataloaders import preprocess_histology_grayscale
 
 
-EXPERIMENT_NAME = "1juni_5eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx8"
+EXPERIMENT_NAME = "1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -1199,19 +1199,19 @@ class UltrasoundDataModule(LightningDataModule):
         self.train_dataset = TrainDataset(
             self.X_train,
             self.train_context,
-            context_size=8
+            context_size=4
         )
 
         self.val_dataset = EvalDataset(
             self.X_val,
             self.train_context,
-            context_size=8
+            context_size=4
         )
 
         self.test_dataset = EvalDataset(
             self.X_test,
             self.test_context,
-            context_size=8
+            context_size=4
         )
         
     def train_dataloader(self):
