@@ -55,7 +55,7 @@ import cv2
 from dataloaders import preprocess_histology_grayscale
 
 
-EXPERIMENT_NAME = "1juni_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSbin_ICL_NMB_ctx16"
+EXPERIMENT_NAME = "1juni_2eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSbin_ICL_NMB_ctx16"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -811,7 +811,7 @@ class TrainDataset(Dataset):
             # target_img = random_invert_intensity(target_img)
 
             target_img = random_he_augmentation(target_img)
-            # target_img = enhance_bright_nuclei(target_img, p=0.5)
+            target_img = enhance_bright_nuclei(target_img, p=0.5)
 
             # target_img = random_he_augmentation(target_img)
 
@@ -838,7 +838,7 @@ class TrainDataset(Dataset):
             # target_img = random_invert_intensity(target_img)
 
             target_img = random_he_augmentation(target_img)
-            # target_img = enhance_bright_nuclei(target_img, p=0.5)
+            target_img = enhance_bright_nuclei(target_img, p=0.5)
 
             # target_img = random_he_augmentation(target_img)
 
@@ -887,7 +887,7 @@ class TrainDataset(Dataset):
                 # c_img = random_invert_intensity(c_img)
 
                 c_img = random_he_augmentation(c_img)
-                # c_img = enhance_bright_nuclei(c_img, p=0.5)
+                c_img = enhance_bright_nuclei(c_img, p=0.5)
 
                 # c_img = random_he_augmentation(c_img)
 
