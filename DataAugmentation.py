@@ -162,7 +162,19 @@ def random_he_augmentation(image, p=0.7):
     return np.clip(image, 0, 1).astype(np.float32)
 
 
+def enhance_bright_nuclei(image, p=0.5):
+    if random.random() > p:
+        return image
 
+    image = image.astype(np.float32)
+
+    # achtergrond iets optillen
+    image = image + 0.05
+
+    # heldere pixels extra versterken
+    image = np.power(image, 0.7)
+
+    return np.clip(image, 0, 1).astype(np.float32)
 
 
 # def random_color_augmentation(image, p=0.5):

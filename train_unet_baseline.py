@@ -17,15 +17,16 @@ from pytorch_lightning import LightningDataModule
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 from pytorch_lightning.loggers import TensorBoardLogger, CSVLogger
 
-from DataAugmentation import random_he_augmentation
+from DataAugmentation import random_he_augmentation, enhance_bright_nuclei
 from models.UNet import UNet
 import cv2
+from dataloaders import preprocess_histology_grayscale
 
 
 # ============================================================
 # Experiment settings
 # ============================================================
-EXPERIMENT_NAME = "31mei_HEAUGMENT_TrainHEliz_TestHEbin_UNET_NMB_ctx16"
+EXPERIMENT_NAME = "1juni_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSbin_UNET_NMB_ctx16"
 
 # This should point to the folder that contains both CellBinDB/ and Lizard/
 # In your Slurm job: export DATA_DIR=$TMPDIR
@@ -169,7 +170,8 @@ def load_sample_from_json_item(item, image_size=192):
     mask = Image.open(mask_path).convert("L")
     mask = mask.resize((image_size, image_size), Image.NEAREST)
 
-    img = preprocess_grayscale_percentile(img_raw)
+    # img = preprocess_grayscale_percentile(img_raw)
+    img = preprocess_histology_grayscale(img_raw, stain)
 
 
 
@@ -252,6 +254,7 @@ class UNetTrainDataset(Dataset):
 
         if self.augment:
             img = random_he_augmentation(img)
+            # img = enhance_bright_nuclei(img, p=0.5)
 
         img = torch.tensor(np.ascontiguousarray(img), dtype=torch.float32).permute(2, 0, 1)
         mask = torch.tensor(np.ascontiguousarray(mask), dtype=torch.float32).unsqueeze(0)

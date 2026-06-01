@@ -388,6 +388,40 @@ def read_histopathology_data(root, image_size=192):
     return data
 
 
+def preprocess_histology_grayscale(img_raw, stain):
+    img = img_raw.astype(np.float32)
+
+    if img.max() > 1.0:
+        img = img / 255.0
+
+    # RGB/BGR naar grayscale
+    if img.ndim == 3:
+        # cv2.imread geeft BGR, dus neem luminance-achtige mix
+        gray = (
+            0.114 * img[:, :, 0] +
+            0.587 * img[:, :, 1] +
+            0.299 * img[:, :, 2]
+        )
+    else:
+        gray = img
+
+    # robuuste contrastnormalisatie
+    lo, hi = np.percentile(gray, (1, 99))
+    gray = np.clip(gray, lo, hi)
+    gray = (gray - lo) / (hi - lo + 1e-6)
+
+    # HE omdraaien: donkere nuclei worden licht
+    if "HE" in stain:
+        gray = 1.0 - gray
+
+    # lichte gamma-correctie
+    gray = np.power(gray, 0.8)
+
+    # terug naar 3 kanalen voor je huidige model
+    gray_rgb = np.stack([gray, gray, gray], axis=-1)
+
+    return gray_rgb.astype(np.float32)
+
 # def read_histopathology_data(root, image_size=192):
 
 #     data = []

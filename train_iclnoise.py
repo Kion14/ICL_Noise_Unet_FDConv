@@ -8,7 +8,7 @@ import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from DataAugmentation import augment_data
 # from DataAugmentation import random_intensity_augmentation, random_invert_intensity
-from DataAugmentation import random_he_augmentation
+from DataAugmentation import random_he_augmentation, enhance_bright_nuclei
 # from DataAugmentation import random_color_augmentation, random_grayscale
 import cv2
 import os
@@ -52,9 +52,10 @@ from PIL import Image
 from pathlib import Path
 from collections import Counter
 import cv2
+from dataloaders import preprocess_histology_grayscale
 
 
-EXPERIMENT_NAME = "31mei_HEAUGMENT_TrainHEliz_TestHEbin_ICL_NMB_ctx16"
+EXPERIMENT_NAME = "1juni_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSbin_ICL_NMB_ctx16"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -596,7 +597,8 @@ def load_sample_from_json_item(item, image_size=192):
     mask = Image.open(mask_path).convert("L")
     mask = mask.resize((image_size, image_size), Image.NEAREST)
 
-    img = preprocess_grayscale_percentile(img_raw)
+    # img = preprocess_grayscale_percentile(img_raw)
+    img = preprocess_histology_grayscale(img_raw, stain)
 
     mask_raw = np.array(mask, dtype=np.float32)
 
@@ -809,6 +811,7 @@ class TrainDataset(Dataset):
             # target_img = random_invert_intensity(target_img)
 
             target_img = random_he_augmentation(target_img)
+            # target_img = enhance_bright_nuclei(target_img, p=0.5)
 
             # target_img = random_he_augmentation(target_img)
 
@@ -835,6 +838,7 @@ class TrainDataset(Dataset):
             # target_img = random_invert_intensity(target_img)
 
             target_img = random_he_augmentation(target_img)
+            # target_img = enhance_bright_nuclei(target_img, p=0.5)
 
             # target_img = random_he_augmentation(target_img)
 
@@ -883,6 +887,7 @@ class TrainDataset(Dataset):
                 # c_img = random_invert_intensity(c_img)
 
                 c_img = random_he_augmentation(c_img)
+                # c_img = enhance_bright_nuclei(c_img, p=0.5)
 
                 # c_img = random_he_augmentation(c_img)
 
