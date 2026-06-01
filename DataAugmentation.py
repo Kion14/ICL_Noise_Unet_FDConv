@@ -156,7 +156,7 @@ def random_he_augmentation(image, p=0.7):
         image = cv2.GaussianBlur(image, (3,3), 0)
 
     # inversion
-    if random.random() < 0.3:
+    if random.random() < 0.0:
         image = 1.0 - image
 
     return np.clip(image, 0, 1).astype(np.float32)
