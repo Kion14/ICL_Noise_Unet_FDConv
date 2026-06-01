@@ -26,7 +26,7 @@ from dataloaders import preprocess_histology_grayscale
 # ============================================================
 # Experiment settings
 # ============================================================
-EXPERIMENT_NAME = "1juni_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSbin_UNET_NMB_ctx16"
+EXPERIMENT_NAME = "1juni_IMPROVE_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSbin_UNET"
 
 # This should point to the folder that contains both CellBinDB/ and Lizard/
 # In your Slurm job: export DATA_DIR=$TMPDIR
@@ -254,7 +254,7 @@ class UNetTrainDataset(Dataset):
 
         if self.augment:
             img = random_he_augmentation(img)
-            # img = enhance_bright_nuclei(img, p=0.5)
+            img = enhance_bright_nuclei(img, p=0.5)
 
         img = torch.tensor(np.ascontiguousarray(img), dtype=torch.float32).permute(2, 0, 1)
         mask = torch.tensor(np.ascontiguousarray(mask), dtype=torch.float32).unsqueeze(0)
