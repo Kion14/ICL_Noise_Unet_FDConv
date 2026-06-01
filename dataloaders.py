@@ -414,6 +414,11 @@ def preprocess_histology_grayscale(img_raw, stain):
     if "HE" in stain:
         gray = 1.0 - gray
 
+        # mIF: ook omdraaien als nuclei/foreground donker zijn
+    elif "mIF" in stain:
+        gray = 1.0 - gray
+        gray = np.power(gray, 0.8)
+
     # lichte gamma-correctie
     gray = np.power(gray, 0.8)
 

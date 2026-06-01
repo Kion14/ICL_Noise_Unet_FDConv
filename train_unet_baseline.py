@@ -26,7 +26,7 @@ from dataloaders import preprocess_histology_grayscale
 # ============================================================
 # Experiment settings
 # ============================================================
-EXPERIMENT_NAME = "1juni_IMPROVE_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSbin_UNET"
+EXPERIMENT_NAME = "1juni_IMPROVE_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_UNET"
 
 # This should point to the folder that contains both CellBinDB/ and Lizard/
 # In your Slurm job: export DATA_DIR=$TMPDIR
@@ -37,8 +37,8 @@ TRAIN_KEY = "he_lizard_plus_half_cellbindb_he"
 
 # Choose one:
 # TEST_KEY = "he_only"
-# TEST_KEY = "all_stains_without_he"
-TEST_KEY = "all_stains_without_he_without_mif"
+TEST_KEY = "all_stains_without_he"
+# TEST_KEY = "all_stains_without_he_without_mif"
 # TEST_KEY = "mif_only"
 
 IMAGE_SIZE = 192
