@@ -16,6 +16,8 @@ from torch.utils.data import Dataset, DataLoader
 from pytorch_lightning import LightningDataModule
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 from pytorch_lightning.loggers import TensorBoardLogger, CSVLogger
+import pandas as pd
+import matplotlib.pyplot as plt
 
 from DataAugmentation import random_he_augmentation, enhance_bright_nuclei
 from models.UNet import UNet
@@ -26,7 +28,7 @@ from dataloaders import preprocess_histology_grayscale
 # ============================================================
 # Experiment settings
 # ============================================================
-EXPERIMENT_NAME = "2juni_3.6_eRUN_UNET_DEBUGPROBEREN"
+EXPERIMENT_NAME = "2juni_3.9_eRUN_UNET"
 
 # This should point to the folder that contains both CellBinDB/ and Lizard/
 # In your Slurm job: export DATA_DIR=$TMPDIR
@@ -582,3 +584,93 @@ if __name__ == "__main__":
 
     test_results = trainer.test(model, data_module.test_dataloader())
     logging.info(f"Test results: {test_results}")
+
+        # ============================================================
+    # Save training curves as PNG files
+    # ============================================================
+    csv_path = f"unet_csv/{EXPERIMENT_NAME}/version_0/metrics.csv"
+
+    if os.path.exists(csv_path):
+        df = pd.read_csv(csv_path)
+
+        curves_dir = os.path.join(model.save_dir, "training_curves")
+        os.makedirs(curves_dir, exist_ok=True)
+
+        # Loss curve
+        plt.figure(figsize=(8, 5))
+
+        if "train_loss" in df.columns:
+            train_loss = df[["epoch", "train_loss"]].dropna()
+            plt.plot(train_loss["epoch"], train_loss["train_loss"], label="Train Loss")
+
+        if "val_loss" in df.columns:
+            val_loss = df[["epoch", "val_loss"]].dropna()
+            plt.plot(val_loss["epoch"], val_loss["val_loss"], label="Validation Loss")
+
+        plt.xlabel("Epoch")
+        plt.ylabel("Loss")
+        plt.title("Training and Validation Loss")
+        plt.legend()
+        plt.grid()
+
+        plt.savefig(
+            os.path.join(curves_dir, "loss_curve.png"),
+            dpi=300,
+            bbox_inches="tight"
+        )
+        plt.close()
+
+
+        # Dice curve
+        plt.figure(figsize=(8, 5))
+
+        if "train_dice" in df.columns:
+            train_dice = df[["epoch", "train_dice"]].dropna()
+            plt.plot(train_dice["epoch"], train_dice["train_dice"], label="Train Dice")
+
+        if "val_dice" in df.columns:
+            val_dice = df[["epoch", "val_dice"]].dropna()
+            plt.plot(val_dice["epoch"], val_dice["val_dice"], label="Validation Dice")
+
+        plt.xlabel("Epoch")
+        plt.ylabel("Dice")
+        plt.title("Training and Validation Dice")
+        plt.legend()
+        plt.grid()
+
+        plt.savefig(
+            os.path.join(curves_dir, "dice_curve.png"),
+            dpi=300,
+            bbox_inches="tight"
+        )
+        plt.close()
+
+
+        # IoU curve
+        plt.figure(figsize=(8, 5))
+
+        if "train_iou" in df.columns:
+            train_iou = df[["epoch", "train_iou"]].dropna()
+            plt.plot(train_iou["epoch"], train_iou["train_iou"], label="Train IoU")
+
+        if "val_iou" in df.columns:
+            val_iou = df[["epoch", "val_iou"]].dropna()
+            plt.plot(val_iou["epoch"], val_iou["val_iou"], label="Validation IoU")
+
+        plt.xlabel("Epoch")
+        plt.ylabel("IoU")
+        plt.title("Training and Validation IoU")
+        plt.legend()
+        plt.grid()
+
+        plt.savefig(
+            os.path.join(curves_dir, "iou_curve.png"),
+            dpi=300,
+            bbox_inches="tight"
+        )
+        plt.close()
+
+        print(f"Saved training curves to: {curves_dir}", flush=True)
+
+    else:
+        print(f"CSV metrics file not found: {csv_path}", flush=True)

@@ -162,38 +162,38 @@ def random_he_augmentation(image, p=0.7):
     return np.clip(image, 0, 1).astype(np.float32)
 
 
-# def enhance_bright_nuclei(image, p=0.5):
-#     if random.random() > p:
-#         return image
+def enhance_bright_nuclei(image, p=0.5):
+    if random.random() > p:
+        return image
 
-#     image = image.astype(np.float32)
+    image = image.astype(np.float32)
 
-#     # achtergrond iets optillen
-#     image = image + 0.05
+    # achtergrond iets optillen
+    image = image + 0.05
 
-#     # heldere pixels extra versterken
-#     image = np.power(image, 0.7)
+    # heldere pixels extra versterken
+    image = np.power(image, 0.7)
 
-#     return np.clip(image, 0, 1).astype(np.float32)
+    return np.clip(image, 0, 1).astype(np.float32)
 
-# def degrade_target_image(image, p=0.5):
-#     if random.random() > p:
-#         return image
+def degrade_target_image(image, p=0.5):
+    if random.random() > p:
+        return image
 
-#     image = image.astype(np.float32)
+    image = image.astype(np.float32)
 
-#     # contrast verlagen: alles dichter naar midden-grijs
-#     image = 0.5 * image + 0.25
+    # contrast verlagen: alles dichter naar midden-grijs
+    image = 0.5 * image + 0.25
 
-#     # lichte blur
-#     if random.random() < 0.5:
-#         image = cv2.GaussianBlur(image, (3, 3), 0)
+    # lichte blur
+    if random.random() < 0.5:
+        image = cv2.GaussianBlur(image, (3, 3), 0)
 
-#     # lichte ruis
-#     noise = np.random.normal(0, 0.03, image.shape)
-#     image = image + noise
+    # lichte ruis
+    noise = np.random.normal(0, 0.03, image.shape)
+    image = image + noise
 
-#     return np.clip(image, 0, 1).astype(np.float32)
+    return np.clip(image, 0, 1).astype(np.float32)
 
 
 # def random_color_augmentation(image, p=0.5):
