@@ -57,7 +57,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-EXPERIMENT_NAME = "2juni_8.5_eRUN_ICL_NMB_ctx4"
+EXPERIMENT_NAME = "2juni_8.6_eRUN_ICL_NMB_ctx4"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
