@@ -53,9 +53,11 @@ from pathlib import Path
 from collections import Counter
 import cv2
 from dataloaders import preprocess_histology_grayscale
+import pandas as pd
+import matplotlib.pyplot as plt
 
 
-EXPERIMENT_NAME = "2juni_8.4_eRUN_ICL_NMB_ctx4"
+EXPERIMENT_NAME = "2juni_8.5_eRUN_ICL_NMB_ctx4"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -1352,7 +1354,7 @@ if __name__ == "__main__":
     logging.info(f"Test samples: {len(data_module.test_dataset)}")
 
     # Train the model
-    # trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
+    trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
 
 
 
@@ -1388,18 +1390,18 @@ if __name__ == "__main__":
     #     hparams=hparams
     # )
 
-    model = LightningModel.load_from_checkpoint(
-        "iclnoise/1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4/version_0/checkpoints/1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4-epoch=51-val_loss=0.5392.ckpt",
-        hparams=hparams
-    )
-
-    # best_model_path = checkpoint_callback.best_model_path
-    # print(f"Loading best checkpoint: {best_model_path}")
-
     # model = LightningModel.load_from_checkpoint(
-    #     best_model_path,
+    #     "iclnoise/1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4/version_0/checkpoints/1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4-epoch=51-val_loss=0.5392.ckpt",
     #     hparams=hparams
     # )
+
+    best_model_path = checkpoint_callback.best_model_path
+    print(f"Loading best checkpoint: {best_model_path}")
+
+    model = LightningModel.load_from_checkpoint(
+        best_model_path,
+        hparams=hparams
+    )
 
     test_results = trainer.test(model, test_loader)
 
@@ -1408,6 +1410,67 @@ if __name__ == "__main__":
 
     best_model_path = checkpoint_callback.best_model_path
     logging.info(f"Best model saved at: {best_model_path}")
+
+    csv_path = (
+    f"iclnoise_csv/{EXPERIMENT_NAME}/version_0/metrics.csv"
+)
+
+if os.path.exists(csv_path):
+
+    df = pd.read_csv(csv_path)
+
+    # Loss curve
+    plt.figure(figsize=(8,5))
+
+    if "train_loss" in df.columns:
+        plt.plot(df["epoch"], df["train_loss"],
+                 label="Train Loss")
+
+    if "val_loss" in df.columns:
+        plt.plot(df["epoch"], df["val_loss"],
+                 label="Validation Loss")
+
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.legend()
+    plt.grid()
+
+    plt.savefig(
+        os.path.join(
+            model.save_dir,
+            "loss_curve.png"
+        ),
+        dpi=300
+    )
+    plt.close()
+
+
+    # Dice curve
+    plt.figure(figsize=(8,5))
+
+    if "train_dice" in df.columns:
+        plt.plot(df["epoch"], df["train_dice"],
+                 label="Train Dice")
+
+    if "val_dice" in df.columns:
+        plt.plot(df["epoch"], df["val_dice"],
+                 label="Validation Dice")
+
+    plt.xlabel("Epoch")
+    plt.ylabel("Dice")
+    plt.legend()
+    plt.grid()
+
+    plt.savefig(
+        os.path.join(
+            model.save_dir,
+            "dice_curve.png"
+        ),
+        dpi=300
+    )
+    plt.close()
+
+    print("Saved training curves.")
 
     # TensorBoard reminder
     logging.info("Launch TensorBoard with the command: tensorboard --logdir=lightning_logs/")
