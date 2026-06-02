@@ -55,7 +55,7 @@ import cv2
 from dataloaders import preprocess_histology_grayscale
 
 
-EXPERIMENT_NAME = "2juni_7eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_WRONGctx4"
+EXPERIMENT_NAME = "2juni_NOCTX_7eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_NOctx4"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -677,7 +677,7 @@ train_context = X.copy()
 # Belangrijk:
 # Voor HE-test kun je train_context gebruiken.
 # Voor cross-stain test is Y.copy() logisch als je same-stain context wil gebruiken.
-test_context = X.copy()
+test_context = []
 
 
 
