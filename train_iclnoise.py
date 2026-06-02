@@ -55,7 +55,7 @@ import cv2
 from dataloaders import preprocess_histology_grayscale
 
 
-EXPERIMENT_NAME = "1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4"
+EXPERIMENT_NAME = "2juni_7eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_WRONGctx4"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -677,7 +677,7 @@ train_context = X.copy()
 # Belangrijk:
 # Voor HE-test kun je train_context gebruiken.
 # Voor cross-stain test is Y.copy() logisch als je same-stain context wil gebruiken.
-test_context = separate_test_context
+test_context = X.copy()
 
 
 
@@ -1352,7 +1352,7 @@ if __name__ == "__main__":
     logging.info(f"Test samples: {len(data_module.test_dataset)}")
 
     # Train the model
-    trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
+    # trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
 
 
 
@@ -1387,6 +1387,11 @@ if __name__ == "__main__":
     #     "iclnoise/27mei_THEliz_TESTHEbindbCONTEXT_CTXIMPROVEMENTS+HEAUGEMENTATION_ctx16/version_0/checkpoints/27mei_THEliz_TESTHEbindbCONTEXT_CTXIMPROVEMENTS+HEAUGEMENTATION_ctx16-epoch=39-val_loss=0.5843.ckpt",
     #     hparams=hparams
     # )
+
+    model = LightningModel.load_from_checkpoint(
+        "iclnoise/1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4/version_0/checkpoints/1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4-epoch=51-val_loss=0.5392.ckpt",
+        hparams=hparams
+    )
 
     best_model_path = checkpoint_callback.best_model_path
     print(f"Loading best checkpoint: {best_model_path}")
