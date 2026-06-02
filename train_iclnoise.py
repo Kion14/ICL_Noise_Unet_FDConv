@@ -1393,13 +1393,13 @@ if __name__ == "__main__":
         hparams=hparams
     )
 
-    best_model_path = checkpoint_callback.best_model_path
-    print(f"Loading best checkpoint: {best_model_path}")
+    # best_model_path = checkpoint_callback.best_model_path
+    # print(f"Loading best checkpoint: {best_model_path}")
 
-    model = LightningModel.load_from_checkpoint(
-        best_model_path,
-        hparams=hparams
-    )
+    # model = LightningModel.load_from_checkpoint(
+    #     best_model_path,
+    #     hparams=hparams
+    # )
 
     test_results = trainer.test(model, test_loader)
 
