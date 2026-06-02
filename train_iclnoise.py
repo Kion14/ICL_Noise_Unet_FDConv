@@ -55,7 +55,7 @@ import cv2
 from dataloaders import preprocess_histology_grayscale
 
 
-EXPERIMENT_NAME = "2juni_8.3_eRUN_ICL_NMB_ctx4"
+EXPERIMENT_NAME = "2juni_8.4_eRUN_ICL_NMB_ctx4"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
