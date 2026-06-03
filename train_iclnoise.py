@@ -57,7 +57,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-EXPERIMENT_NAME = "2juni_8.6_eRUN_ICL_NMB_ctx4"
+EXPERIMENT_NAME = "3juni_8.7_eRUN_ICL_NMB_ctx32train"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -1201,19 +1201,19 @@ class UltrasoundDataModule(LightningDataModule):
         self.train_dataset = TrainDataset(
             self.X_train,
             self.train_context,
-            context_size=4
+            context_size=32
         )
 
         self.val_dataset = EvalDataset(
             self.X_val,
             self.train_context,
-            context_size=4
+            context_size=32
         )
 
         self.test_dataset = EvalDataset(
             self.X_test,
             self.test_context,
-            context_size=4
+            context_size=32
         )
         
     def train_dataloader(self):
