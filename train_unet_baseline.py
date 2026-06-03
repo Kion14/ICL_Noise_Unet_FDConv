@@ -28,7 +28,7 @@ from dataloaders import preprocess_histology_grayscale
 # ============================================================
 # Experiment settings
 # ============================================================
-EXPERIMENT_NAME = "2juni_3.9_eRUN_UNET"
+EXPERIMENT_NAME = "2juni_13_eRUN_UNET_SPECIFIC"
 
 # This should point to the folder that contains both CellBinDB/ and Lizard/
 # In your Slurm job: export DATA_DIR=$TMPDIR
@@ -38,8 +38,8 @@ SPLIT_JSON = "datasplits_he_lizard_cellbindb_with_GOODGOOD2context_FIXED.json"
 TRAIN_KEY = "he_lizard_plus_half_cellbindb_he"
 
 # Choose one:
-# TEST_KEY = "he_only"
-TEST_KEY = "all_stains_without_he"
+TEST_KEY = "he_only"
+# TEST_KEY = "all_stains_without_he"
 # TEST_KEY = "all_stains_without_he_without_mif"
 # TEST_KEY = "mif_only"
 
