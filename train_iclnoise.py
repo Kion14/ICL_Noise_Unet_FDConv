@@ -57,7 +57,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-EXPERIMENT_NAME = "3juni_8.8_eRUN_ICL_NMB_ctx4TEST"
+EXPERIMENT_NAME = "3juni_8.8_eRUN_ICL_NMB_ctx4TEST2"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -1393,16 +1393,12 @@ if __name__ == "__main__":
 
 
     #######*****************************************************************************
-    # model = LightningModel.load_from_checkpoint(
-    #     "iclnoise/1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4/version_0/checkpoints/1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4-epoch=51-val_loss=0.5392.ckpt",
-    #     hparams=hparams
-    # )
-    #######*****************************************************************************
-
     model = LightningModel.load_from_checkpoint(
-        "iclnoise/3juni_8.7_eRUN_ICL_NMB_ctx16train/version_0/checkpoints/3juni_8.7_eRUN_ICL_NMB_ctx16train-epoch=48-val_loss=0.5426.ckpt",
+        "iclnoise/1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4/version_0/checkpoints/1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4-epoch=51-val_loss=0.5392.ckpt",
         hparams=hparams
     )
+    #######*****************************************************************************
+
 
     # best_model_path = checkpoint_callback.best_model_path
     # print(f"Loading best checkpoint: {best_model_path}")
