@@ -239,6 +239,61 @@ def load_json_split(json_path, train_key, test_key, image_size=192, val_ratio=0.
 
     return X, V, Y
 
+def plot_convergence(csv_path, save_dir, model_name):
+    df = pd.read_csv(csv_path)
+    os.makedirs(save_dir, exist_ok=True)
+
+    def epoch_mean(metric):
+        return df[["epoch", metric]].dropna().groupby("epoch").mean().reset_index()
+
+    train_loss = epoch_mean("train_loss")
+    val_loss = epoch_mean("val_loss")
+    train_dice = epoch_mean("train_dice")
+    val_dice = epoch_mean("val_dice")
+
+    best_epoch_loss = val_loss.loc[val_loss["val_loss"].idxmin(), "epoch"]
+    best_epoch_dice = val_dice.loc[val_dice["val_dice"].idxmax(), "epoch"]
+
+    # 1. Loss convergence
+    plt.figure(figsize=(8, 5))
+    plt.plot(train_loss["epoch"], train_loss["train_loss"], label="Train Loss")
+    plt.plot(val_loss["epoch"], val_loss["val_loss"], label="Val Loss")
+    plt.axvline(best_epoch_loss, linestyle="--", label=f"Best val loss epoch {int(best_epoch_loss)}")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.title(f"{model_name} - Loss Convergence")
+    plt.legend()
+    plt.grid()
+    plt.savefig(os.path.join(save_dir, "loss_convergence.png"), dpi=300, bbox_inches="tight")
+    plt.close()
+
+    # 2. Dice convergence
+    plt.figure(figsize=(8, 5))
+    plt.plot(train_dice["epoch"], train_dice["train_dice"], label="Train Dice")
+    plt.plot(val_dice["epoch"], val_dice["val_dice"], label="Val Dice")
+    plt.axvline(best_epoch_dice, linestyle="--", label=f"Best val dice epoch {int(best_epoch_dice)}")
+    plt.xlabel("Epoch")
+    plt.ylabel("Dice")
+    plt.title(f"{model_name} - Dice Convergence")
+    plt.legend()
+    plt.grid()
+    plt.savefig(os.path.join(save_dir, "dice_convergence.png"), dpi=300, bbox_inches="tight")
+    plt.close()
+
+    # 3. Dice improvement per epoch
+    val_dice["dice_delta"] = val_dice["val_dice"].diff()
+
+    plt.figure(figsize=(8, 5))
+    plt.plot(val_dice["epoch"], val_dice["dice_delta"], label="Val Dice improvement")
+    plt.axhline(0, linestyle="--")
+    plt.xlabel("Epoch")
+    plt.ylabel("Δ Dice")
+    plt.title(f"{model_name} - Validation Dice Improvement per Epoch")
+    plt.legend()
+    plt.grid()
+    plt.savefig(os.path.join(save_dir, "dice_delta.png"), dpi=300, bbox_inches="tight")
+    plt.close()
+
 
 # ============================================================
 # Dataset classes
@@ -674,3 +729,9 @@ if __name__ == "__main__":
 
     else:
         print(f"CSV metrics file not found: {csv_path}", flush=True)
+
+    plot_convergence(
+        csv_path=f"unet_csv/{EXPERIMENT_NAME}/version_0/metrics.csv",
+        save_dir=f"results/{EXPERIMENT_NAME}/convergence_plots",
+        model_name="UNet"
+    )
