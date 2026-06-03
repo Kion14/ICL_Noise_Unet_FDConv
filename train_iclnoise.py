@@ -58,7 +58,7 @@ import matplotlib.pyplot as plt
 
 
 
-EXPERIMENT_NAME = "3juni_13.1_eRUN_ICL_NMB_ctx4_SPECIFIC"
+EXPERIMENT_NAME = "3juni_14.1_eRUN_ICL_NMB_ctx4_general_VIS"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -660,8 +660,8 @@ SPLIT_JSON = "datasplits_he_lizard_cellbindb_with_GOODGOOD2context_FIXED.json"
 TRAIN_KEY = "he_lizard_plus_half_cellbindb_he"
 
 # Kies hier je testmodus:
-TEST_KEY = "he_only"
-# TEST_KEY = "all_stains_without_he"
+# TEST_KEY = "he_only"
+TEST_KEY = "all_stains_without_he"
 # TEST_KEY = "all_stains_without_he_without_mif"
 # TEST_KEY = "mif_only"
 
