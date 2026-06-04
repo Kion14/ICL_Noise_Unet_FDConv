@@ -55,10 +55,11 @@ import cv2
 from dataloaders import preprocess_histology_grayscale
 import pandas as pd
 import matplotlib.pyplot as plt
+from collections import defaultdict
 
 
 
-EXPERIMENT_NAME = "4juni_15.2_eRUN_ICL_NMB_ctx4_general_VIS_mIForiginal"
+EXPERIMENT_NAME = "4juni_ICL_NMB_ctx4_general_VISUALISATIONSOVERLAY"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -97,12 +98,79 @@ class LightningModel(pl.LightningModule):
         #self.net=SwinUNet()
         self.test_dices = []
         self.test_ious = []
+        self.visual_count_per_stain = defaultdict(int)
+        self.max_visuals_per_stain = 5
 
        
         
         # Loss function
         self.dice_loss = SoftDiceLoss()
         self.bce_loss = nn.BCEWithLogitsLoss()
+
+
+    def save_error_overlay_visual(self, target_images, target_masks, pred_masks,
+                                  batch_idx, stain, sample_id, metrics):
+        if self.visual_count_per_stain[stain] >= self.max_visuals_per_stain:
+            return
+
+        vis_dir = os.path.join(self.save_dir, "test_visuals_per_stain", stain)
+        os.makedirs(vis_dir, exist_ok=True)
+
+        img = target_images[0].detach().cpu()
+        gt = target_masks[0, 0].detach().cpu().numpy() > 0.5
+
+        prob = torch.sigmoid(pred_masks[0, 0]).detach().cpu().numpy()
+        pred = prob > 0.45
+
+        img_np = img.permute(1, 2, 0).numpy()
+        pred_np = pred.astype(np.float32)
+        gt_np = gt.astype(np.float32)
+
+        # Error overlay op basis van predicted mask
+        overlay = np.zeros((*gt.shape, 3), dtype=np.float32)
+
+        tp = pred & gt          # goed voorspeld
+        fp = pred & ~gt         # fout voorspeld, hoort niet
+        fn = ~pred & gt         # gemist, had voorspeld moeten worden
+
+        overlay[tp] = [0.0, 1.0, 0.0]       # groen
+        overlay[fp] = [1.0, 0.0, 0.0]       # rood
+        overlay[fn] = [0.45, 0.0, 0.0]      # donkerrood
+
+        fig, axes = plt.subplots(1, 4, figsize=(18, 4))
+
+        axes[0].imshow(img_np, cmap="gray")
+        axes[0].set_title("Input image")
+
+        axes[1].imshow(gt_np, cmap="gray")
+        axes[1].set_title("Ground truth mask")
+
+        axes[2].imshow(pred_np, cmap="gray")
+        axes[2].imshow(overlay, alpha=0.75)
+        axes[2].set_title("Error overlay\nGreen=TP, Red=FP, Dark red=FN")
+
+        axes[3].imshow(pred_np, cmap="gray")
+        axes[3].set_title("Predicted mask")
+
+        for ax in axes:
+            ax.axis("off")
+
+        save_path = os.path.join(
+            vis_dir,
+            f"{stain}_vis{self.visual_count_per_stain[stain]+1}_"
+            f"batch{batch_idx}_sample_{sample_id}_"
+            f"dice_{metrics['dice']:.3f}_iou_{metrics['iou']:.3f}.png"
+        )
+
+        plt.tight_layout()
+        plt.savefig(save_path, dpi=300, bbox_inches="tight")
+        plt.close(fig)
+
+        self.visual_count_per_stain[stain] += 1
+
+
+
+
 
     def forward(self, target_in, context_in, context_out=None):
         sc = ShapeChecker()
@@ -328,31 +396,15 @@ class LightningModel(pl.LightningModule):
         axes[3].set_title("Prediction Overlay")
         for ax in axes: ax.axis("off")
 
-        # save
-        # save_path = os.path.join(self.save_dir, f"sample_{self.current_epoch}_{batch_idx}.png")
-
-
-        # save_path = os.path.join(
-        #     self.save_dir,
-        #     f"test_batch_{batch_idx}_dice_{metrics['dice']:.3f}_iou_{metrics['iou']:.3f}.png"
-        # )
-
-
-        # save_path = os.path.join(
-        #     self.save_dir,
-        #     f"{EXPERIMENT_NAME}_batch_{batch_idx}_stain_{stains[0]}_dice_{metrics['dice']:.3f}.png"
-        # )
-
-        save_path = os.path.join(
-            self.save_dir,
-            f"{EXPERIMENT_NAME}_batch_{batch_idx}_sample_{sample_ids[0]}_stain_{stains[0]}_dice_{metrics['dice']:.3f}.png"
+        self.save_error_overlay_visual(
+            target_images=target_images,
+            target_masks=target_masks,
+            pred_masks=pred_masks,
+            batch_idx=batch_idx,
+            stain=stains[0],
+            sample_id=sample_ids[0],
+            metrics=metrics
         )
-
-
-
-
-        plt.savefig(save_path, bbox_inches="tight")
-        plt.close(fig)
 
         return loss
 
@@ -1411,7 +1463,7 @@ if __name__ == "__main__":
     logging.info(f"Test samples: {len(data_module.test_dataset)}")
 
     # Train the model
-    trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
+    # trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
 
 
 
@@ -1449,21 +1501,21 @@ if __name__ == "__main__":
 
 
 
-    #######*****************************************************************************
-    # model = LightningModel.load_from_checkpoint(
-    #     "iclnoise/1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4/version_0/checkpoints/1juni_6eRUN_HEINVERTAUGMENT_TrainHEliz_TestALLSTAINSOOKmIFbin_ICL_NMB_ctx4-epoch=51-val_loss=0.5392.ckpt",
-    #     hparams=hparams
-    # )
-    #######*****************************************************************************
-
-
-    best_model_path = checkpoint_callback.best_model_path
-    print(f"Loading best checkpoint: {best_model_path}")
-
+    ######*****************************************************************************
     model = LightningModel.load_from_checkpoint(
-        best_model_path,
+        "iclnoise/4juni_15_eRUN_ICL_NMB_ctx4_general_VIS_mIForiginal/version_0/checkpoints/4juni_15_eRUN_ICL_NMB_ctx4_general_VIS_mIForiginal-epoch=47-val_loss=0.5479.ckpt",
         hparams=hparams
     )
+    ######*****************************************************************************
+
+
+    # best_model_path = checkpoint_callback.best_model_path
+    # print(f"Loading best checkpoint: {best_model_path}")
+
+    # model = LightningModel.load_from_checkpoint(
+    #     best_model_path,
+    #     hparams=hparams
+    # )
 
     test_results = trainer.test(model, test_loader)
 
