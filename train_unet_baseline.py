@@ -28,7 +28,7 @@ from dataloaders import preprocess_histology_grayscale
 # ============================================================
 # Experiment settings
 # ============================================================
-EXPERIMENT_NAME = "3juni_14.2_eRUN_UNET_general_VIS2"
+EXPERIMENT_NAME = "4juni_15_eRUN_UNET_general_VIS_mIForiginal"
 
 # This should point to the folder that contains both CellBinDB/ and Lizard/
 # In your Slurm job: export DATA_DIR=$TMPDIR
@@ -181,27 +181,29 @@ def load_sample_from_json_item(item, image_size=192):
 
 
 
-    if img.std() < 0.01:
-        print(
-            f"WARNING LOW CONTRAST | "
-            f"stain={stain} | sample={sample_id}",
-            flush=True
-        )
+    # if img.std() < 0.01:
+    #     print(
+    #         f"WARNING LOW CONTRAST | "
+    #         f"stain={stain} | sample={sample_id}",
+    #         flush=True
+    #     )
 
-    if img.max() - img.min() < 0.05:
-        print(
-            f"WARNING FLAT IMAGE | "
-            f"stain={stain} | sample={sample_id}",
-            flush=True
-        )
+    # if img.max() - img.min() < 0.05:
+    #     print(
+    #         f"WARNING FLAT IMAGE | "
+    #         f"stain={stain} | sample={sample_id}",
+    #         flush=True
+    #     )
 
 
     mask_raw = np.array(mask, dtype=np.float32)
 
-    if stain == "mIF":
-        mask = (mask_raw < 128).astype(np.float32)
-    else:
-        mask = (mask_raw > 0).astype(np.float32)
+    # if stain == "mIF":
+    #     mask = (mask_raw < 128).astype(np.float32)
+    # else:
+    #     mask = (mask_raw > 0).astype(np.float32)
+
+    mask = (mask_raw > 0).astype(np.float32)
 
     return img, mask, stain, sample_id
 

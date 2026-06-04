@@ -58,7 +58,7 @@ import matplotlib.pyplot as plt
 
 
 
-EXPERIMENT_NAME = "3juni_14.2_eRUN_ICL_NMB_ctx4_general_VIS2"
+EXPERIMENT_NAME = "4juni_15_eRUN_ICL_NMB_ctx4_general_VIS_mIForiginal"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -605,10 +605,12 @@ def load_sample_from_json_item(item, image_size=192):
 
     mask_raw = np.array(mask, dtype=np.float32)
 
-    if stain == "mIF":
-        mask = (mask_raw < 128).astype(np.float32)
-    else:
-        mask = (mask_raw > 0).astype(np.float32)
+    # if stain == "mIF":
+    #     mask = (mask_raw < 128).astype(np.float32)
+    # else:
+    #     mask = (mask_raw > 0).astype(np.float32)
+
+    mask = (mask_raw > 0).astype(np.float32)
 
     return img, mask, stain, sample_id
 
