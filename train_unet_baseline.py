@@ -28,7 +28,7 @@ from dataloaders import preprocess_histology_grayscale
 # ============================================================
 # Experiment settings
 # ============================================================
-EXPERIMENT_NAME = "4juni_15_eRUN_UNET_general_VIS_mIForiginal"
+EXPERIMENT_NAME = "4juni_15.1_eRUN_UNET_general_VIS_mIForiginal"
 
 # This should point to the folder that contains both CellBinDB/ and Lizard/
 # In your Slurm job: export DATA_DIR=$TMPDIR
