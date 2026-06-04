@@ -59,7 +59,7 @@ from collections import defaultdict
 
 
 
-EXPERIMENT_NAME = "4juni_ICL_NMB_ctx4_general_VISUALISATIONSOVERLAY"
+EXPERIMENT_NAME = "4juni_ICL_NMB_ctx4_general_VISUALISATIONSOVERLAY2"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -135,7 +135,7 @@ class LightningModel(pl.LightningModule):
 
         overlay[tp] = [0.0, 1.0, 0.0]       # groen
         overlay[fp] = [1.0, 0.0, 0.0]       # rood
-        overlay[fn] = [0.45, 0.0, 0.0]      # donkerrood
+        overlay[fn] = [0.65, 0.0, 0.0]      # donkerrood
 
         fig, axes = plt.subplots(1, 4, figsize=(18, 4))
 
