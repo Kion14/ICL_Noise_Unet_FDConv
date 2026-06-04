@@ -58,7 +58,7 @@ import matplotlib.pyplot as plt
 
 
 
-EXPERIMENT_NAME = "5juni_16_eRUN_ICL_NMB_ctx4_NOCONTEXT_SPECIFIC"
+EXPERIMENT_NAME = "5juni_17_ICL_NMB_ctx8"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -682,7 +682,7 @@ train_context = X.copy()
 # Belangrijk:
 # Voor HE-test kun je train_context gebruiken.
 # Voor cross-stain test is Y.copy() logisch als je same-stain context wil gebruiken.
-test_context = []
+test_context = separate_test_context
 
 
 
@@ -1258,19 +1258,19 @@ class UltrasoundDataModule(LightningDataModule):
         self.train_dataset = TrainDataset(
             self.X_train,
             self.train_context,
-            context_size=4
+            context_size=8
         )
 
         self.val_dataset = EvalDataset(
             self.X_val,
             self.train_context,
-            context_size=4
+            context_size=8
         )
 
         self.test_dataset = EvalDataset(
             self.X_test,
             self.test_context,
-            context_size=4
+            context_size=8
         )
         
     def train_dataloader(self):
@@ -1411,7 +1411,7 @@ if __name__ == "__main__":
     logging.info(f"Test samples: {len(data_module.test_dataset)}")
 
     # Train the model
-    # trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
+    trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
 
 
 
@@ -1461,19 +1461,19 @@ if __name__ == "__main__":
     #         hparams=hparams
     #     )
     
-    model = LightningModel.load_from_checkpoint(
-            "iclnoise/3juni_13.2_eRUN_ICL_NMB_ctx4_SPECIFIC/version_0/checkpoints/3juni_13.2_eRUN_ICL_NMB_ctx4_SPECIFIC-epoch=48-val_loss=0.5384.ckpt",
-            hparams=hparams
-        )
-
-
-    # best_model_path = checkpoint_callback.best_model_path
-    # print(f"Loading best checkpoint: {best_model_path}")
-
     # model = LightningModel.load_from_checkpoint(
-    #     best_model_path,
-    #     hparams=hparams
-    # )
+    #         "iclnoise/3juni_13.2_eRUN_ICL_NMB_ctx4_SPECIFIC/version_0/checkpoints/3juni_13.2_eRUN_ICL_NMB_ctx4_SPECIFIC-epoch=48-val_loss=0.5384.ckpt",
+    #         hparams=hparams
+    #     )
+
+
+    best_model_path = checkpoint_callback.best_model_path
+    print(f"Loading best checkpoint: {best_model_path}")
+
+    model = LightningModel.load_from_checkpoint(
+        best_model_path,
+        hparams=hparams
+    )
 
     test_results = trainer.test(model, test_loader)
 
