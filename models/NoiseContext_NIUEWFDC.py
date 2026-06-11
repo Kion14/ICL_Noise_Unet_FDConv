@@ -4,6 +4,35 @@ import torch.nn.functional as F
 from .nn.vmap import Vmap, vmap
 from einops import rearrange
 from .nn.noise_maps import residual_noise_map_2d, local_variance_map_2d,residual_noise_map_context, local_variance_map_context
+import os
+import importlib.util
+
+FDCONV_FILE = os.environ.get(
+    "FDCONV_FILE",
+    os.path.join(
+        os.environ["HOME"],
+        "FDConv/FDConv_detection/mmdet_custom/FDConv.py"
+    )
+)
+
+spec = importlib.util.spec_from_file_location("fdconv_module", FDCONV_FILE)
+fdconv_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(fdconv_module)
+
+FDConv = fdconv_module.FDConv
+print(f"Loaded FDConv from: {FDCONV_FILE}")
+
+
+def FDConv2d(in_channels, out_channels, kernel_size, stride=1, padding=0, bias=True, kernel_num=4):
+    return FDConv(
+        in_channels=in_channels,
+        out_channels=out_channels,
+        kernel_size=kernel_size,
+        stride=stride,
+        padding=padding,
+        bias=bias,
+        kernel_num=kernel_num,
+    )
 
 
 def apply_conv_context(conv, x):
@@ -60,21 +89,21 @@ class UNet_Context(nn.Module):
         conv_fn = getattr(nn, f'Conv{2}d')
         self.noise_maps=noise_maps
         #self.P = None
-        self.conv1_1 = nn.Conv2d(in_channels, 64, kernel_size=3, padding=1)
+        self.conv1_1 = FDConv2d(in_channels, 64, kernel_size=3, padding=1)
         self.bn1_1 = nn.BatchNorm2d(64)
         self.relu1_1 = nn.ReLU()
-        self.conv1_2 = nn.Conv2d(64, 64, kernel_size=3, padding=1)
+        self.conv1_2 = FDConv2d(64, 64, kernel_size=3, padding=1)
         self.bn1_2 = nn.BatchNorm2d(64)
         self.relu1_2 = nn.ReLU()
         self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.conv1_1_context = nn.Conv2d(in_channels, 64, kernel_size=3, padding=1)
+        self.conv1_1_context = FDConv2d(in_channels, 64, kernel_size=3, padding=1)
         self.bn1_1_context = nn.BatchNorm2d(64)
         
-        self.conv1_2_context = nn.Conv2d(64, 64, kernel_size=3, padding=1)
+        self.conv1_2_context = FDConv2d(64, 64, kernel_size=3, padding=1)
         self.bn1_2_context = nn.BatchNorm2d(64)
         self.noise_block1 = NoiseModulationBlock(64)
 
-        self.conv2_1 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
+        self.conv2_1 = FDConv2d(64, 128, kernel_size=3, padding=1)
         self.bn2_1 = nn.BatchNorm2d(128)
         self.relu2_1 = nn.ReLU()
         self.combine_conv_target_1 = Vmap(conv_fn(in_channels=128,
@@ -89,14 +118,14 @@ class UNet_Context(nn.Module):
                                          stride=1,
                                          padding=1)
                                          )
-        self.conv2_2 = nn.Conv2d(128, 128, kernel_size=3, padding=1)
+        self.conv2_2 = FDConv2d(128, 128, kernel_size=3, padding=1)
         self.bn2_2 = nn.BatchNorm2d(128)
         self.relu2_2 = nn.ReLU()
         self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.conv2_1_context = nn.Conv2d(64, 128, kernel_size=3, padding=1)
+        self.conv2_1_context = FDConv2d(64, 128, kernel_size=3, padding=1)
         self.bn2_1_context = nn.BatchNorm2d(128)
         
-        self.conv2_2_context = nn.Conv2d(128, 128, kernel_size=3, padding=1)
+        self.conv2_2_context = FDConv2d(128, 128, kernel_size=3, padding=1)
         self.bn2_2_context = nn.BatchNorm2d(128)
 
         self.combine_conv_target_2 = Vmap(conv_fn(in_channels=256,
@@ -113,17 +142,17 @@ class UNet_Context(nn.Module):
                                          )
         self.noise_block2 = NoiseModulationBlock(128)
 
-        self.conv3_1 = nn.Conv2d(128, 256, kernel_size=3, padding=1)
+        self.conv3_1 = FDConv2d(128, 256, kernel_size=3, padding=1)
         self.bn3_1 = nn.BatchNorm2d(256)
         self.relu3_1 = nn.ReLU()
-        self.conv3_2 = nn.Conv2d(256, 256, kernel_size=3, padding=1)
+        self.conv3_2 = FDConv2d(256, 256, kernel_size=3, padding=1)
         self.bn3_2 = nn.BatchNorm2d(256)
         self.relu3_2 = nn.ReLU()
         self.pool3 = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.conv3_1_context = nn.Conv2d(128, 256, kernel_size=3, padding=1)
+        self.conv3_1_context = FDConv2d(128, 256, kernel_size=3, padding=1)
         self.bn3_1_context = nn.BatchNorm2d(256)
         
-        self.conv3_2_context = nn.Conv2d(256, 256, kernel_size=3, padding=1)
+        self.conv3_2_context = FDConv2d(256, 256, kernel_size=3, padding=1)
         self.bn3_2_context = nn.BatchNorm2d(256)
 
         self.combine_conv_target_3 = Vmap(conv_fn(in_channels=512,
@@ -140,17 +169,17 @@ class UNet_Context(nn.Module):
                                          )
         self.noise_block3 = NoiseModulationBlock(256)
 
-        self.conv4_1 = nn.Conv2d(256, 512, kernel_size=3, padding=1)
+        self.conv4_1 = FDConv2d(256, 512, kernel_size=3, padding=1)
         self.bn4_1 = nn.BatchNorm2d(512)
         self.relu4_1 = nn.ReLU()
-        self.conv4_2 = nn.Conv2d(512, 512, kernel_size=3, padding=1)
+        self.conv4_2 = FDConv2d(512, 512, kernel_size=3, padding=1)
         self.bn4_2 = nn.BatchNorm2d(512)
         self.relu4_2 = nn.ReLU()
         self.pool4 = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.conv4_1_context = nn.Conv2d(256, 512, kernel_size=3, padding=1)
+        self.conv4_1_context = FDConv2d(256, 512, kernel_size=3, padding=1)
         self.bn4_1_context = nn.BatchNorm2d(512)
         
-        self.conv4_2_context = nn.Conv2d(512, 512, kernel_size=3, padding=1)
+        self.conv4_2_context = FDConv2d(512, 512, kernel_size=3, padding=1)
         self.bn4_2_context = nn.BatchNorm2d(512)
         self.combine_conv_target_4 = Vmap(conv_fn(in_channels=1024,
                                                 out_channels=512,
@@ -166,16 +195,16 @@ class UNet_Context(nn.Module):
                                          )
         self.noise_block4 = NoiseModulationBlock(512)
 
-        self.conv5_1 = nn.Conv2d(512, 1024, kernel_size=3, padding=1)
+        self.conv5_1 = FDConv2d(512, 1024, kernel_size=3, padding=1)
         self.bn5_1 = nn.BatchNorm2d(1024)
         self.relu5_1 = nn.ReLU()
-        self.conv5_2 = nn.Conv2d(1024, 1024, kernel_size=3, padding=1)
+        self.conv5_2 = FDConv2d(1024, 1024, kernel_size=3, padding=1)
         self.bn5_2 = nn.BatchNorm2d(1024)
         self.relu5_2 = nn.ReLU()
-        self.conv5_1_context = nn.Conv2d(512, 1024, kernel_size=3, padding=1)
+        self.conv5_1_context = FDConv2d(512, 1024, kernel_size=3, padding=1)
         self.bn5_1_context = nn.BatchNorm2d(1024)
         
-        self.conv5_2_context = nn.Conv2d(1024, 1024, kernel_size=3, padding=1)
+        self.conv5_2_context = FDConv2d(1024, 1024, kernel_size=3, padding=1)
         self.bn5_2_context = nn.BatchNorm2d(1024)
         self.combine_conv_target_5 = Vmap(conv_fn(in_channels=2048,
                                                 out_channels=1024,
@@ -194,16 +223,16 @@ class UNet_Context(nn.Module):
         self.up6 = nn.ConvTranspose2d(1024, 512, kernel_size=2, stride=2)
         self.up6_context = nn.ConvTranspose2d(512, 512, kernel_size=2, stride=2)
 
-        self.conv6_1 = nn.Conv2d(1024, 512, kernel_size=3, padding=1)
+        self.conv6_1 = FDConv2d(1024, 512, kernel_size=3, padding=1)
         self.bn6_1 = nn.BatchNorm2d(512)
         self.relu6_1 = nn.ReLU()
-        self.conv6_2 = nn.Conv2d(512, 512, kernel_size=3, padding=1)
+        self.conv6_2 = FDConv2d(512, 512, kernel_size=3, padding=1)
         self.bn6_2 = nn.BatchNorm2d(512)
         self.relu6_2 = nn.ReLU()
-        self.conv6_1_context = nn.Conv2d(1024, 512, kernel_size=3, padding=1)
+        self.conv6_1_context = FDConv2d(1024, 512, kernel_size=3, padding=1)
         self.bn6_1_context = nn.BatchNorm2d(512)
         
-        self.conv6_2_context = nn.Conv2d(512, 512, kernel_size=3, padding=1)
+        self.conv6_2_context = FDConv2d(512, 512, kernel_size=3, padding=1)
         self.bn6_2_context = nn.BatchNorm2d(512)
         self.combine_conv_target_6 = Vmap(conv_fn(in_channels=1024,
                                                 out_channels=512,
@@ -222,16 +251,16 @@ class UNet_Context(nn.Module):
         self.up7 = nn.ConvTranspose2d(512, 256, kernel_size=2, stride=2)
         self.up7_context = nn.ConvTranspose2d(256, 256, kernel_size=2, stride=2)
 
-        self.conv7_1 = nn.Conv2d(512, 256, kernel_size=3, padding=1)
+        self.conv7_1 = FDConv2d(512, 256, kernel_size=3, padding=1)
         self.bn7_1 = nn.BatchNorm2d(256)
         self.relu7_1 = nn.ReLU()
-        self.conv7_2 = nn.Conv2d(256, 256, kernel_size=3, padding=1)
+        self.conv7_2 = FDConv2d(256, 256, kernel_size=3, padding=1)
         self.bn7_2 = nn.BatchNorm2d(256)
         self.relu7_2 = nn.ReLU()
-        self.conv7_1_context = nn.Conv2d(512,256, kernel_size=3, padding=1)
+        self.conv7_1_context = FDConv2d(512,256, kernel_size=3, padding=1)
         self.bn7_1_context = nn.BatchNorm2d(256)
         
-        self.conv7_2_context = nn.Conv2d(256, 256, kernel_size=3, padding=1)
+        self.conv7_2_context = FDConv2d(256, 256, kernel_size=3, padding=1)
         self.bn7_2_context = nn.BatchNorm2d(256)
         self.combine_conv_target_7 = Vmap(conv_fn(in_channels=512,
                                                 out_channels=256,
@@ -262,16 +291,16 @@ class UNet_Context(nn.Module):
                                          padding=1)
                                          )
 
-        self.conv8_1 = nn.Conv2d(256, 128, kernel_size=3, padding=1)
+        self.conv8_1 = FDConv2d(256, 128, kernel_size=3, padding=1)
         self.bn8_1 = nn.BatchNorm2d(128)
         self.relu8_1 = nn.ReLU()
-        self.conv8_2 = nn.Conv2d(128, 128, kernel_size=3, padding=1)
+        self.conv8_2 = FDConv2d(128, 128, kernel_size=3, padding=1)
         self.bn8_2 = nn.BatchNorm2d(128)
         self.relu8_2 = nn.ReLU()
-        self.conv8_1_context = nn.Conv2d(256,128, kernel_size=3, padding=1)
+        self.conv8_1_context = FDConv2d(256,128, kernel_size=3, padding=1)
         self.bn8_1_context = nn.BatchNorm2d(128)
         
-        self.conv8_2_context = nn.Conv2d(128, 128, kernel_size=3, padding=1)
+        self.conv8_2_context = FDConv2d(128, 128, kernel_size=3, padding=1)
         self.bn8_2_context = nn.BatchNorm2d(128)
         self.noise_block8 = NoiseModulationBlock(128)
         
@@ -285,16 +314,16 @@ class UNet_Context(nn.Module):
                                                 padding=1)
                                         )
 
-        self.conv9_1 = nn.Conv2d(128, 64, kernel_size=3, padding=1)
+        self.conv9_1 = FDConv2d(128, 64, kernel_size=3, padding=1)
         self.bn9_1 = nn.BatchNorm2d(64)
         self.relu9_1 = nn.ReLU()
-        self.conv9_2 = nn.Conv2d(64, 64, kernel_size=3, padding=1)
+        self.conv9_2 = FDConv2d(64, 64, kernel_size=3, padding=1)
         self.bn9_2 = nn.BatchNorm2d(64)
         self.relu9_2 = nn.ReLU()
-        self.conv9_1_context = nn.Conv2d(128,64, kernel_size=3, padding=1)
+        self.conv9_1_context = FDConv2d(128,64, kernel_size=3, padding=1)
         self.bn9_1_context = nn.BatchNorm2d(64)
         
-        self.conv9_2_context = nn.Conv2d(64, 64, kernel_size=3, padding=1)
+        self.conv9_2_context = FDConv2d(64, 64, kernel_size=3, padding=1)
         self.bn9_2_context = nn.BatchNorm2d(64)
 
         self.noise_block9 = NoiseModulationBlock(64)
@@ -319,7 +348,7 @@ class UNet_Context(nn.Module):
         # Normal UNet forward, but modulate features with noise maps if provided
         x1 = self.relu1_1(self.bn1_1(self.conv1_1(x)))
         x1 = self.relu1_2(self.bn1_2(self.conv1_2(x1)))
-        #x1 = self.noise_block1(x1, speckle_map, var_map)
+        # x1 = self.noise_block1(x1, speckle_map, var_map)
 
         x1_pool = self.pool1(x1)
 
@@ -350,7 +379,7 @@ class UNet_Context(nn.Module):
             x1_pool = F.gelu(x1_pool + target_update)
             context1_pool = F.gelu(context1_pool + context_update)
 
-        # x1_pool = self.noise_block1(x1_pool, speckle_map, var_map)
+        x1_pool = self.noise_block1(x1_pool, speckle_map, var_map)
 
         x2 = self.relu2_1(self.bn2_1(self.conv2_1(x1_pool)))
         x2 = self.relu2_2(self.bn2_2(self.conv2_2(x2)))
@@ -378,7 +407,7 @@ class UNet_Context(nn.Module):
             x2_pool = F.gelu(x2_pool + target_update_2)
             context2_pool = F.gelu(context2_pool + context_update_2)
 
-        # x2_pool = self.noise_block2(x2_pool, speckle_map, var_map)
+        x2_pool = self.noise_block2(x2_pool, speckle_map, var_map)
 
 
         x3 = self.relu3_1(self.bn3_1(self.conv3_1(x2_pool)))
@@ -405,7 +434,7 @@ class UNet_Context(nn.Module):
             context3_pool = F.gelu(context3_pool + context_update_3)
 
 
-        # x3_pool = self.noise_block3(x3_pool, speckle_map, var_map)
+        x3_pool = self.noise_block3(x3_pool, speckle_map, var_map)
 
         x4 = self.relu4_1(self.bn4_1(self.conv4_1(x3_pool)))
         x4 = self.relu4_2(self.bn4_2(self.conv4_2(x4)))
@@ -430,7 +459,7 @@ class UNet_Context(nn.Module):
             x4_pool = F.gelu(x4_pool + target_update_4)
             context4_pool = F.gelu(context4_pool + context_update_4)
 
-        # x4_pool = self.noise_block4(x4_pool, speckle_map, var_map)
+        x4_pool = self.noise_block4(x4_pool, speckle_map, var_map)
 
         x5 = self.relu5_1(self.bn5_1(self.conv5_1(x4_pool)))
         x5 = self.relu5_2(self.bn5_2(self.conv5_2(x5)))
@@ -453,7 +482,7 @@ class UNet_Context(nn.Module):
             x5 = F.gelu(x5 + target_update_5)
             context5 = F.gelu(context5 + context_update_5)
 
-        # x5 = self.noise_block5(x5, speckle_map, var_map)
+        x5 = self.noise_block5(x5, speckle_map, var_map)
 
         # Upward path
         x6 = self.up6(x5)
