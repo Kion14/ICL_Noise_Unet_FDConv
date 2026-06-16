@@ -53,7 +53,7 @@ TEST_KEY = "he_only"
 # TEST_KEY = "all_stains_without_he_without_mif"
 # TEST_KEY = "mif_only"
 
-IMAGE_SIZE = 512
+IMAGE_SIZE = 1024
 BATCH_SIZE = 4
 NUM_WORKERS = 8
 MAX_EPOCHS = 150
