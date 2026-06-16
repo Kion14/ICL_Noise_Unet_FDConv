@@ -40,7 +40,7 @@ from dataloaders import preprocess_histology_grayscale
 # Configuration
 # =============================================================================
 
-EXPERIMENT_NAME = "16juni_4_segformer_specificECHT"
+EXPERIMENT_NAME = "16juni_5_segformer_specificECHT"
 
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 SPLIT_JSON = "datasplits_he_lizard_cellbindb_with_GOODGOOD2context_FIXED.json"
