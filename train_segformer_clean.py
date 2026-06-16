@@ -40,7 +40,7 @@ from dataloaders import preprocess_histology_grayscale
 # Configuration
 # =============================================================================
 
-EXPERIMENT_NAME = "16juni_5_segformer_specificECHT"
+EXPERIMENT_NAME = "16juni_5_segformer_specificECHTsize512"
 
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 SPLIT_JSON = "datasplits_he_lizard_cellbindb_with_GOODGOOD2context_FIXED.json"
@@ -53,7 +53,7 @@ TEST_KEY = "he_only"
 # TEST_KEY = "all_stains_without_he_without_mif"
 # TEST_KEY = "mif_only"
 
-IMAGE_SIZE = 192
+IMAGE_SIZE = 512
 BATCH_SIZE = 4
 NUM_WORKERS = 8
 MAX_EPOCHS = 150
