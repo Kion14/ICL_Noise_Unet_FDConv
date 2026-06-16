@@ -40,7 +40,7 @@ from dataloaders import preprocess_histology_grayscale
 # Configuration
 # =============================================================================
 
-EXPERIMENT_NAME = "14juni_4_segformer_general_clean"
+EXPERIMENT_NAME = "16juni_1_segformer_specific"
 
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 SPLIT_JSON = "datasplits_he_lizard_cellbindb_with_GOODGOOD2context_FIXED.json"
@@ -48,8 +48,8 @@ SPLIT_JSON = "datasplits_he_lizard_cellbindb_with_GOODGOOD2context_FIXED.json"
 TRAIN_KEY = "he_lizard_plus_half_cellbindb_he"
 
 # Kies hier je testmodus:
-# TEST_KEY = "he_only"
-TEST_KEY = "all_stains_without_he"
+TEST_KEY = "he_only"
+# TEST_KEY = "all_stains_without_he"
 # TEST_KEY = "all_stains_without_he_without_mif"
 # TEST_KEY = "mif_only"
 
