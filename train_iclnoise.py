@@ -1,6 +1,6 @@
 from models.NoiseContext import ContextNoiseUNet
 # from models.context_noise_unet_fdconv import ContextNoiseUNet
-from models.NoiseContext_NIUEWFDC import ContextNoiseUNet
+# from models.NoiseContext_NIUEWFDC import ContextNoiseUNet
 
 import torch
 from torch import nn, optim
@@ -60,7 +60,7 @@ import matplotlib.pyplot as plt
 
 
 
-EXPERIMENT_NAME = "11juni_26_ICL_general_FDConv_NONMB_OFF"
+EXPERIMENT_NAME = "13juli_CONTEXTTESTnr1_ICL_general"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
