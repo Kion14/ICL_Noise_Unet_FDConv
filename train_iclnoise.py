@@ -60,7 +60,7 @@ import matplotlib.pyplot as plt
 
 
 
-EXPERIMENT_NAME = "13juli_CONTEXTSIZE4.3_ICL_general"
+EXPERIMENT_NAME = "13juli_CONTEXTSIZE8.2_ICL_general"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -1260,19 +1260,19 @@ class UltrasoundDataModule(LightningDataModule):
         self.train_dataset = TrainDataset(
             self.X_train,
             self.train_context,
-            context_size=4
+            context_size=8
         )
 
         self.val_dataset = EvalDataset(
             self.X_val,
             self.train_context,
-            context_size=4
+            context_size=8
         )
 
         self.test_dataset = EvalDataset(
             self.X_test,
             self.test_context,
-            context_size=4
+            context_size=8
         )
         
     def train_dataloader(self):
