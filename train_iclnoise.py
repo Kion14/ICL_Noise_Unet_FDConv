@@ -684,7 +684,7 @@ train_context = X.copy()
 # Belangrijk:
 # Voor HE-test kun je train_context gebruiken.
 # Voor cross-stain test is Y.copy() logisch als je same-stain context wil gebruiken.
-test_context = X.copy()
+test_context = []
 
 
 
