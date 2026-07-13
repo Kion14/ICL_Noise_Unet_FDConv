@@ -60,7 +60,7 @@ import matplotlib.pyplot as plt
 
 
 
-EXPERIMENT_NAME = "13juli_CONTEXTSIZE16.3_ICL_general"
+EXPERIMENT_NAME = "13juli_CONTEXTTESTnr1_ICL_general_BADCONTEXT"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -684,7 +684,7 @@ train_context = X.copy()
 # Belangrijk:
 # Voor HE-test kun je train_context gebruiken.
 # Voor cross-stain test is Y.copy() logisch als je same-stain context wil gebruiken.
-test_context = separate_test_context  # ######################################################################### CONTEXTS
+test_context = X.copy()
 
 
 
@@ -1260,19 +1260,19 @@ class UltrasoundDataModule(LightningDataModule):
         self.train_dataset = TrainDataset(
             self.X_train,
             self.train_context,
-            context_size=16
+            context_size=4
         )
 
         self.val_dataset = EvalDataset(
             self.X_val,
             self.train_context,
-            context_size=16
+            context_size=4
         )
 
         self.test_dataset = EvalDataset(
             self.X_test,
             self.test_context,
-            context_size=16
+            context_size=4
         )
         
     def train_dataloader(self):
@@ -1413,7 +1413,7 @@ if __name__ == "__main__":
     logging.info(f"Test samples: {len(data_module.test_dataset)}")
 
     # Train the model
-    trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
+    # trainer.fit(model, data_module.train_dataloader(), data_module.val_dataloader()) ################################################# TRAIN UIT
 
 
 
@@ -1471,19 +1471,19 @@ if __name__ == "__main__":
 
 
 
-    # model = LightningModel.load_from_checkpoint(
-    #         "iclnoise/13juli_CONTEXTTESTnr2_ICL_general/version_0/checkpoints/13juli_CONTEXTTESTnr2_ICL_general-epoch=16-val_loss=0.6070.ckpt",
-    #         hparams=hparams
-    #     )
-
-
-    best_model_path = checkpoint_callback.best_model_path
-    print(f"Loading best checkpoint: {best_model_path}")
-
     model = LightningModel.load_from_checkpoint(
-        best_model_path,
-        hparams=hparams
-    )
+            "iclnoise/13juli_CONTEXTTESTnr1_ICL_general/version_0/checkpoints/13juli_CONTEXTTESTnr1_ICL_general-epoch=60-val_loss=0.5332.ckpt",
+            hparams=hparams
+        )
+
+
+    # best_model_path = checkpoint_callback.best_model_path
+    # print(f"Loading best checkpoint: {best_model_path}")
+
+    # model = LightningModel.load_from_checkpoint(
+    #     best_model_path,
+    #     hparams=hparams
+    # )
 
     test_results = trainer.test(model, test_loader)
 
