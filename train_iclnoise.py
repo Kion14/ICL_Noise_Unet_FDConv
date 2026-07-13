@@ -60,7 +60,7 @@ import matplotlib.pyplot as plt
 
 
 
-EXPERIMENT_NAME = "13juli_CONTEXTTESTnr1_ICL_general_NOCONTEXT"
+EXPERIMENT_NAME = "13juli_CONTEXTTESTnr2_ICL_general_NOCONTEXT"
 BASE_DATA_DIR = Path(os.environ["DATA_DIR"])
 
 class SoftDiceLoss(nn.Module):
@@ -1472,7 +1472,7 @@ if __name__ == "__main__":
 
 
     model = LightningModel.load_from_checkpoint(
-            "iclnoise/13juli_CONTEXTTESTnr1_ICL_general/version_0/checkpoints/13juli_CONTEXTTESTnr1_ICL_general-epoch=60-val_loss=0.5332.ckpt",
+            "iclnoise/13juli_CONTEXTTESTnr2_ICL_general/version_0/checkpoints/13juli_CONTEXTTESTnr2_ICL_general-epoch=16-val_loss=0.6070.ckpt",
             hparams=hparams
         )
 
